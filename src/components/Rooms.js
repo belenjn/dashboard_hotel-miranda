@@ -1,7 +1,10 @@
 import React from 'react'
+import { Title } from '../styles/styles'
 
 export const Rooms = () => {
   return (
-    <div>Rooms</div>
+    <>
+    <Title>Rooms</Title>
+    </>
   )
 }

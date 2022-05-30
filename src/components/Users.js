@@ -1,7 +1,10 @@
 import React from 'react'
+import { Title } from '../styles/styles'
 
 export const Users = () => {
   return (
-    <div>Users</div>
+    <>
+    <Title>Users</Title>
+    </>
   )
 }

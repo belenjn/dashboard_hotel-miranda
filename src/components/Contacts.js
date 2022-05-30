@@ -1,7 +1,10 @@
 import React from 'react'
+import { Title } from '../styles/styles'
 
 export const Contacts = () => {
   return (
-    <div>Contacts</div>
+    <>
+    <Title>Contacts</Title>
+    </>
   )
 }
