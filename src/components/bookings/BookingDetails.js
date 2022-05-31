@@ -1,7 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Box, ButtonHome, Title } from "../../styles/styles";
 
 export const BookingDetails = () => {
   return (
-    <div>BookingDetails</div>
-  )
-}
+    <Box>
+      <Title>Booking Details</Title>
+      <ButtonHome>
+        <Link to="/">Home</Link>
+      </ButtonHome>
+    </Box>
+  );
+};
