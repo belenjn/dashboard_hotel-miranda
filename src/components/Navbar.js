@@ -4,15 +4,11 @@ import { Nav } from "../styles/styles";
 
 export const Navbar = () => {
   return (
-    <>
-      <Nav>
-        <ul>
-            <Link to="/bookings"> Bookings </Link>
-            <Link to="/rooms"> Rooms </Link>
-            <Link to="/contacts"> Contacts </Link>
-            <Link to="/users"> Users </Link>
-        </ul>
-      </Nav>
-    </>
+    <Nav>
+      <Link to="/bookings"> Bookings </Link>
+      <Link to="/rooms"> Rooms </Link>
+      <Link to="/contacts"> Contacts </Link>
+      <Link to="/users"> Users </Link>
+    </Nav>
   );
 };
