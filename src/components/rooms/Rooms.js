@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title } from '../styles/styles'
+import { Title } from '../../styles/styles'
 
 export const Rooms = () => {
   return (

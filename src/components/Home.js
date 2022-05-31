@@ -1,10 +1,13 @@
 import React from 'react'
 import { Title } from '../styles/styles'
 
-export const Users = () => {
+export const Home = () => {
   return (
     <>
-    <Title>Users</Title>
+    <Title>
+        Home
+    </Title>
+    
     </>
   )
 }
