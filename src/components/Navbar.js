@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Nav, TitleNav } from "../styles/styles";
 
-export const Navbar = () => {
-  return (
+export const Navbar = ({authenticated}) => {
+ 
+   if(authenticated) {
+     return (
     <Nav>
       <TitleNav>Dashboard</TitleNav>
 
@@ -15,4 +17,8 @@ export const Navbar = () => {
       </div>
     </Nav>
   );
-};
+   }
+   
+ }
+  
+

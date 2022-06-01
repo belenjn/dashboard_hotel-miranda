@@ -29,7 +29,17 @@ export const Nav = styled.nav`
       cursor: pointer;
       border-radius: 3px;
       transition: 0.5s ease;
-      height: 20px;
+      height: 40px;
+    }
+
+    &:focus {
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+      height: 40px;
+      border-radius: 3px;
+
+
     }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import {
   BoxImages,
@@ -9,12 +9,13 @@ import {
 } from "./styles/styles";
 
 import { TitleLogin } from "./styles/styles";
-import {Home} from "../Home";
+import { Home } from "../Home";
 
 import logo from "./assets/llave-del-hotel.png";
 import bed from "./assets/hotel.png";
 
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export const LogoHotel = styled.div`
   background-image: url(${logo});
@@ -36,8 +37,9 @@ export const Error = styled.div`
   font-size: 12px;
 `;
 
-export const Login = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+export const Login = ({ authenticated, setAuthenticated }) => {
+
+  let navigate = useNavigate();
 
   const userValidate = [
     {
@@ -56,19 +58,30 @@ export const Login = () => {
 
     //Compara la info del user
     if (userData) {
+      localStorage.setItem("authenticated", true);
+      setAuthenticated(true);
+      navigate("/");
+
       if (userData.password !== pass.value) {
         //Contraseña inválida
+        localStorage.removeItem("authenticated");
+        navigate("/login");
+        setAuthenticated(false);
+
         Swal.fire({
           title: "Error!",
           text: "Invalid Password",
           icon: "error",
           confirmButtonText: "Try again",
         });
-      } else {
-        setIsSubmitted(true);
       }
     } else {
       //Usuario no encontrado
+      localStorage.removeItem("authenticated");
+      setAuthenticated(false);
+
+      navigate("/login");
+
       Swal.fire({
         title: "Error!",
         text: "Invalid User",
@@ -78,23 +91,11 @@ export const Login = () => {
     }
   };
 
-
-  //Login Form
-  const renderForm = (
-    <FormLogin onSubmit={handleSubmit}>
-      <label>User</label>
-      <input name="uname" placeholder="Insert your user" type="text" required />
-      <label>Password</label>
-      <input
-        name="pass"
-        type="password"
-        placeholder="Insert your password"
-        required
-      />
-
-      <ButtonSendForm type="submit">Enter</ButtonSendForm>
-    </FormLogin>
-  );
+  useEffect(() => {
+    if (authenticated) {
+      navigate("/");
+    }
+  }, [authenticated, navigate]);
 
   return (
     <BoxWithOtherBckg>
@@ -105,10 +106,24 @@ export const Login = () => {
 
         <LogoHotel />
       </BoxImages>
+      <FormLogin onSubmit={handleSubmit}>
+        <label>User</label>
+        <input
+          name="uname"
+          placeholder="Insert your user"
+          type="text"
+          required
+        />
+        <label>Password</label>
+        <input
+          name="pass"
+          type="password"
+          placeholder="Insert your password"
+          required
+        />
 
-      {isSubmitted
-        ? <Home/>
-        : renderForm}
+        <ButtonSendForm type="submit">Enter</ButtonSendForm>
+      </FormLogin>
     </BoxWithOtherBckg>
   );
 };
