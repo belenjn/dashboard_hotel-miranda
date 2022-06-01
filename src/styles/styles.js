@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 /* Nav Styles */
 export const Nav = styled.nav`
-  background-color: #00000005;
+  background-color: #FFFFFF;
   border: none;
   color: #333;
   display: flex;
   justify-content: space-between;
   height: 60px;
   width: 100%;
-  margin-bottom: 50px;
 
   div {
     margin-right: 30px;
@@ -62,10 +61,13 @@ export const Title = styled.h1`
 
 
 export const Box = styled.div`
+  background-color: #00000005;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  height:100%
+  height: 100%;
+  z-index: 1;
+
 `;
 
 export const ButtonDetails = styled.button`

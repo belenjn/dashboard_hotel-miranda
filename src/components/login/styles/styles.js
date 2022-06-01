@@ -23,6 +23,7 @@ export const SubTitleLogin = styled.h3`
 
 export const BoxImages = styled(Box)`
   display: flex;
+  background-color: transparent;
   justify-content: center;
   flex-direction: row;
   width: 80%;
@@ -63,19 +64,20 @@ export const FormLogin = styled.form`
 
 export const ButtonSendForm = styled(ButtonHome)`
   background-color: #135846;
+  border: none;
+  border-radius: 8px;
   color: white;
-  margin-top: 10px;
+  margin: auto;
+  width: 158px;
+  height: 47px;
 
   &:hover {
     background-color: #5ad07a;
     color: black;
-    border: 1px solid #135846;
     transition: 0.5s ease;
   }
 `;
 
 export const BoxWithOtherBckg = styled.div`
-background-color: #EBF1EF;
-
-
-`
+  background-color: #ebf1ef;
+`;

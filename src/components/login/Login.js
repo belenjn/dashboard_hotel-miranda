@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   BoxImages,
@@ -9,7 +9,6 @@ import {
 } from "./styles/styles";
 
 import { TitleLogin } from "./styles/styles";
-import { Home } from "../Home";
 
 import logo from "./assets/llave-del-hotel.png";
 import bed from "./assets/hotel.png";
