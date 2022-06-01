@@ -2,31 +2,31 @@ ROUTES:
 
      📁 Bookings: 
 
-        * Create new booking: POST/bookings/:id
+        * Create new booking: POST/bookings/id
         * Get bookings: GET/bookings
-        * Update booking: PUT/bookings/:id
-        * Delete booking: DELETE/bookings/:id
+        * Update booking: PUT/bookings/id
+        * Delete booking: DELETE/bookings/id
 
 
     🛏️ Rooms: 
 
-        * Create new room: POST/rooms/:id
+        * Create new room: POST/rooms/id
         * Get rooms: GET/rooms
-        * Update room: PUT/rooms/:id
-        * Delete room: DELETE/rooms/:id
+        * Update room: PUT/rooms/id
+        * Delete room: DELETE/rooms/id
 
 
     🧑‍🤝‍🧑 Users: 
 
-        * Create new user: POST/users/:id
+        * Create new user: POST/users/id
         * Get users: GET/users
-        * Update user: PUT/users/:id
-        * Delete user: DELETE/users/:id
+        * Update user: PUT/users/id
+        * Delete user: DELETE/users/id
 
 
     📞 Contact: 
 
-        * Create new contact: POST/contacts/:id
+        * Create new contact: POST/contacts/id
         * Get contacts: GET/contacts
-        * Update contacts: PUT/contacts/:id
-        * Delete contact: DELETE/contacts/:id
+        * Update contacts: PUT/contacts/id
+        * Delete contact: DELETE/contacts/id

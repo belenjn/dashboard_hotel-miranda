@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+/* Nav Styles */
 export const Nav = styled.nav`
   background-color: #00000005;
   border: none;
@@ -33,6 +34,13 @@ export const Nav = styled.nav`
   }
 `;
 
+export const TitleNav = styled.h1`
+  margin-left: 100px;
+  margin-top: 10px;
+`;
+
+/* Main Title Styles  */
+
 export const Title = styled.h1`
   font-family: "Roboto", sans-serif;
   font-size: 1.5em;
@@ -40,15 +48,14 @@ export const Title = styled.h1`
   color: black;
 `;
 
-export const TitleNav = styled.h1`
-  margin-left: 100px;
-  margin-top: 10px;
-`;
+/* Pages and buttons Styles   */
+
 
 export const Box = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  height:100%
 `;
 
 export const ButtonDetails = styled.button`
@@ -85,3 +92,4 @@ export const ButtonHome = styled(ButtonDetails)`
     background-color: #cdcbcb;
   }
 `;
+

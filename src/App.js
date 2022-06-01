@@ -14,14 +14,26 @@ import { Contacts } from "./components/contacts/Contacts";
 import { ContactDetails } from "./components/contacts/ContactDetails";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Login } from "./components/login/Login";
+// import { useState } from "react";
 
 function App() {
+  // const RequireAuth = ({ children }) => {
+  //   const [loggedIn, setLoggedIn] = useState(false);
+  //   let location = useLocation();
+
+  //   if(username === "belen" && password === "1234") {
+  //     setLoggedIn(true);
+  //   }
+  // };
+
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/login" exact element={<Login />} />
+          {/* <Route path="/" exact element={<Home />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/bookings/id" element={<BookingDetails />} />
           <Route path="/rooms" element={<Rooms />} />
@@ -29,7 +41,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/users/id" element={<UserDetails />} />
           <Route path="/contacts" element={<Contacts />} />
-          <Route path="/contacts/id" element={<ContactDetails />} />
+          <Route path="/contacts/id" element={<ContactDetails />} /> */}
         </Routes>
       </BrowserRouter>
     </>
