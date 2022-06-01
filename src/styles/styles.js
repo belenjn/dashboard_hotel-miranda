@@ -3,7 +3,7 @@ import styled from "styled-components";
 /* Nav Styles */
 export const Nav = styled.nav`
   background-color: #FFFFFF;
-  border: none;
+  border: 1px solid black;
   color: #333;
   display: flex;
   justify-content: space-between;
@@ -66,7 +66,6 @@ export const Box = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 100%;
-  z-index: 1;
 
 `;
 
