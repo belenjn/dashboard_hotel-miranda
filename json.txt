@@ -1,0 +1,40 @@
+
+#Bookings: 
+    - Name Guest
+    - ID 
+    - Order Date
+    - Check in
+    - Check out
+    - Special Request
+    - Room info(num of the room)
+
+#Rooms: 
+    - ID
+    - Room name
+    - Room number
+    - Floor of the room
+    - Bed Type(single bed, double bed, double superior, suite)
+    - Facilities
+    - Description
+    - Rate
+    - Status
+
+
+#Contacts: 
+    
+    - Name
+    - Email
+    - Phone
+    - Date & hour
+    - Subject
+    - Comment
+
+#Users: 
+    - Full Name
+    - ID (employee)
+    - Email
+    - Phone
+    - Start Date
+    - Description
+
+    

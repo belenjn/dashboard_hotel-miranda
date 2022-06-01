@@ -3,7 +3,7 @@ import styled from "styled-components";
 /* Nav Styles */
 export const Nav = styled.nav`
   background-color: #FFFFFF;
-  border: 1px solid black;
+  // border: 1px solid black;
   color: #333;
   display: flex;
   justify-content: space-between;
@@ -44,8 +44,8 @@ export const Nav = styled.nav`
 `;
 
 export const TitleNav = styled.h1`
-  margin-left: 100px;
-  margin-top: 10px;
+  margin: auto;
+  margin-left: 40px;
 `;
 
 /* Main Title Styles  */
@@ -61,7 +61,7 @@ export const Title = styled.h1`
 
 
 export const Box = styled.div`
-  background-color: #00000005;
+  background-color: #EBEBEB;
   display: flex;
   justify-content: center;
   flex-direction: column;

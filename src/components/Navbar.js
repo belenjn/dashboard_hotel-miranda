@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Nav, TitleNav } from "../styles/styles";
 
 import keys from "./login/assets/llave-del-hotel.png";
 import avatar from "./assets/avatar.png";
+
+import {TbArrowsLeftRight} from "react-icons/tb";
 
 export const AsideMenu = styled.aside`
   // display: none;
@@ -119,11 +121,28 @@ export const ButtonEdit = styled.button`
 `;
 
 export const Navbar = ({ authenticated }) => {
+
+  const [openAside, setOpenAside] = useState(false); // para que cuando haga click en las flechas se desplegue el menú
+
   if (authenticated) {
     return (
       <>
         <Nav>
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}>
+            <TbArrowsLeftRight
+          style={{
+            fontSize: "25px",
+            margin: "auto",
+            marginLeft: "60px",
+            cursor: "pointer"
+          }}
+          />
           <TitleNav>Dashboard</TitleNav>
+          </div>
+          
 
           <div>
             <Link to="/bookings"> Bookings </Link>
@@ -133,7 +152,7 @@ export const Navbar = ({ authenticated }) => {
           </div>
         </Nav>
 
-        <AsideMenu>
+        {/* <AsideMenu>
           <BoxLogoAside>
             <LogoAsideMenu />
             <BoxText>
@@ -156,7 +175,7 @@ export const Navbar = ({ authenticated }) => {
               <ButtonEdit>Edit</ButtonEdit>
             </BoxUser>
           </ListItemsMenu>
-        </AsideMenu>
+        </AsideMenu> */}
       </>
     );
   }
