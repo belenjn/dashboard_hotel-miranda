@@ -6,11 +6,10 @@ import { Nav, TitleNav } from "../styles/styles";
 import keys from "./login/assets/llave-del-hotel.png";
 import avatar from "./assets/avatar.png";
 
-import {TbArrowsLeftRight} from "react-icons/tb";
+import { TbArrowsLeftRight } from "react-icons/tb";
 
 export const AsideMenu = styled.aside`
   // display: none;
-  border: 1px solid black;
   top: 0px;
   left: 0px;
   width: 345px;
@@ -103,6 +102,7 @@ export const IconUser = styled.div`
   width: 70px;
   height: 70px;
 `;
+
 export const ButtonEdit = styled.button`
   background-color: #ebf1ef;
   border: none;
@@ -121,28 +121,34 @@ export const ButtonEdit = styled.button`
 `;
 
 export const Navbar = ({ authenticated }) => {
+  const [open, setOpen] = useState(false); // para que cuando haga click en las flechas se desplegue el menú
 
-  const [openAside, setOpenAside] = useState(false); // para que cuando haga click en las flechas se desplegue el menú
+  const handleClick = () => {
+    setOpen(!open);
+  };
 
   if (authenticated) {
     return (
       <>
         <Nav>
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <TbArrowsLeftRight
-          style={{
-            fontSize: "25px",
-            margin: "auto",
-            marginLeft: "60px",
-            cursor: "pointer"
-          }}
-          />
-          <TitleNav>Dashboard</TitleNav>
+              onClick={handleClick}
+              open={open}
+              style={{
+                fontSize: "25px",
+                margin: "auto",
+                marginLeft: "60px",
+                cursor: "pointer",
+              }}
+            />
+            <TitleNav>Dashboard</TitleNav>
           </div>
-          
 
           <div>
             <Link to="/bookings"> Bookings </Link>
@@ -152,30 +158,32 @@ export const Navbar = ({ authenticated }) => {
           </div>
         </Nav>
 
-        {/* <AsideMenu>
-          <BoxLogoAside>
-            <LogoAsideMenu />
-            <BoxText>
-              <h3>travl</h3>
-              <h6>Hotel Admin Dashboard</h6>
-            </BoxText>
-          </BoxLogoAside>
-          <ListItemsMenu>
-            <ul>
-              <li>Dashboard</li>
-              <li>Bookings</li>
-              <li>Rooms</li>
-              <li>Contact</li>
-              <li>Users</li>
-            </ul>
-            <BoxUser>
-              <IconUser />
-              <h2>Belén Jaraba</h2>
-              <h6>belen@miranda.com</h6>
-              <ButtonEdit>Edit</ButtonEdit>
-            </BoxUser>
-          </ListItemsMenu>
-        </AsideMenu> */}
+        {!open && (
+          <AsideMenu>
+            <BoxLogoAside>
+              <LogoAsideMenu />
+              <BoxText>
+                <h3>travl</h3>
+                <h6>Hotel Admin Dashboard</h6>
+              </BoxText>
+            </BoxLogoAside>
+            <ListItemsMenu>
+              <ul>
+                <li>Dashboard</li>
+                <li>Bookings</li>
+                <li>Rooms</li>
+                <li>Contact</li>
+                <li>Users</li>
+              </ul>
+              <BoxUser>
+                <IconUser />
+                <h2>Belén Jaraba</h2>
+                <h6>belen@miranda.com</h6>
+                <ButtonEdit>Edit</ButtonEdit>
+              </BoxUser>
+            </ListItemsMenu>
+          </AsideMenu>
+        )}
       </>
     );
   }
