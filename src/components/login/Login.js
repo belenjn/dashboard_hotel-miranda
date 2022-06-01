@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   BoxImages,
@@ -9,9 +9,12 @@ import {
 } from "./styles/styles";
 
 import { TitleLogin } from "./styles/styles";
+import {Home} from "../Home";
 
 import logo from "./assets/llave-del-hotel.png";
 import bed from "./assets/hotel.png";
+
+import Swal from "sweetalert2";
 
 export const LogoHotel = styled.div`
   background-image: url(${logo});
@@ -28,7 +31,71 @@ export const SecondLogoHotel = styled(LogoHotel)`
   background-image: url(${bed});
 `;
 
+export const Error = styled.div`
+  color: red;
+  font-size: 12px;
+`;
+
 export const Login = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const userValidate = [
+    {
+      username: "belen",
+      password: "1234",
+    },
+  ];
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    let { uname, pass } = document.forms[0];
+
+    //Busca info del user
+    const userData = userValidate.find((user) => user.username === uname.value);
+
+    //Compara la info del user
+    if (userData) {
+      if (userData.password !== pass.value) {
+        //Contraseña inválida
+        Swal.fire({
+          title: "Error!",
+          text: "Invalid Password",
+          icon: "error",
+          confirmButtonText: "Try again",
+        });
+      } else {
+        setIsSubmitted(true);
+      }
+    } else {
+      //Usuario no encontrado
+      Swal.fire({
+        title: "Error!",
+        text: "Invalid User",
+        icon: "error",
+        confirmButtonText: "Try again",
+      });
+    }
+  };
+
+
+  //Login Form
+  const renderForm = (
+    <FormLogin onSubmit={handleSubmit}>
+      <label>User</label>
+      <input name="uname" placeholder="Insert your user" type="text" required />
+      <label>Password</label>
+      <input
+        name="pass"
+        type="password"
+        placeholder="Insert your password"
+        required
+      />
+
+      <ButtonSendForm type="submit">Enter</ButtonSendForm>
+    </FormLogin>
+  );
+
   return (
     <BoxWithOtherBckg>
       <TitleLogin>travl</TitleLogin>
@@ -38,17 +105,10 @@ export const Login = () => {
 
         <LogoHotel />
       </BoxImages>
-      <FormLogin>
-        <label form="name_user">User</label>
-        <input name="user" placeholder="Insert your user" type="text" />
-        <label form="pass">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Insert your password"
-        />
-        <ButtonSendForm type="submit">Enter</ButtonSendForm>
-      </FormLogin>
+
+      {isSubmitted
+        ? <Home/>
+        : renderForm}
     </BoxWithOtherBckg>
   );
 };
