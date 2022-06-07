@@ -7,14 +7,24 @@ import keys from "./login/assets/llave-del-hotel.png";
 import avatar from "./assets/avatar.png";
 
 import { TbArrowsLeftRight } from "react-icons/tb";
+import { RiDashboardLine } from "react-icons/ri";
+import { BiKey } from "react-icons/bi";
+import { AiOutlineSchedule } from "react-icons/ai";
+import { RiUser3Line } from "react-icons/ri";
+import { TiContacts } from "react-icons/ti";
+// import {AiOutlineDown} from "react-icons/ai";
 
 export const AsideMenu = styled.aside`
-  // display: none;
-  top: 0px;
-  left: 0px;
-  width: 345px;
-  height: 1812px;
-  // position: absolute; //para cuando salga el menu hamburguesa
+  border: 1px solid red;
+  padding: 10px;
+
+  @media only screen and (min-width: 1000px) {
+    border: 1px solid green;
+    top: 0px;
+    left: 0px;
+    width: 345px;
+    height: 1812px;
+  }
 `;
 
 export const LogoAsideMenu = styled.div`
@@ -35,6 +45,8 @@ export const BoxLogoAside = styled.div`
 `;
 
 export const BoxText = styled.div`
+
+
   display: flex;
   justify-content: center;
   margin: auto;
@@ -57,11 +69,32 @@ export const BoxText = styled.div`
 `;
 
 export const ListItemsMenu = styled.div`
-  ul {
-    margin-left: 20px;
-    list-style: none;
-    li {
-      padding: 20px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    margin: auto;
+    margin-top: 20px;
+    width: 100%;
+    height: 67px;
+    background-color: transparent;
+    font-size: 18px;
+    text-align: left;
+    color: #799283;
+    border: none;
+
+    svg {
+      margin-right: 20px;
+      margin-left: 40px;
+    }
+
+    &:hover {
+      color: #E23428;
+      cursor: pointer;
+      font-weight: 500;
+      border-left: 5px solid #E23428;
+      border-radius: 3px;
     }
   }
 `;
@@ -104,24 +137,27 @@ export const IconUser = styled.div`
 `;
 
 export const ButtonEdit = styled.button`
-  background-color: #ebf1ef;
-  border: none;
-  border-radius: 8px;
-  color: #135846;
-  margin: auto;
-  width: 158px;
-  height: 47px;
+  background-color: #ebf1ef !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: #135846 !important;
+  margin: auto !important;
+  width: 158px !important;
+  height: 47px !important;
+  text-align: center !important;
 
   &:hover {
-    cursor: pointer;
-    background-color: #135846;
-    color: white;
-    transition: 0.5s ease;
+    cursor: pointer !important;
+    background-color: #135846 !important;
+    color: white !important;
+    transition: 0.5s ease !important;
   }
+
+  
 `;
 
 export const Navbar = ({ authenticated }) => {
-  const [open, setOpen] = useState(false); // para que cuando haga click en las flechas se desplegue el menú
+  const [open, setOpen] = useState(false);
 
   const handleClick = () => {
     setOpen(!open);
@@ -150,7 +186,7 @@ export const Navbar = ({ authenticated }) => {
             <TitleNav>Dashboard</TitleNav>
           </div>
 
-          <div>
+          <div className="nav__text">
             <Link to="/bookings"> Bookings </Link>
             <Link to="/rooms"> Rooms </Link>
             <Link to="/contacts"> Contacts </Link>
@@ -158,7 +194,7 @@ export const Navbar = ({ authenticated }) => {
           </div>
         </Nav>
 
-        {!open && (
+        {open && (
           <AsideMenu>
             <BoxLogoAside>
               <LogoAsideMenu />
@@ -168,13 +204,27 @@ export const Navbar = ({ authenticated }) => {
               </BoxText>
             </BoxLogoAside>
             <ListItemsMenu>
-              <ul>
-                <li>Dashboard</li>
-                <li>Bookings</li>
-                <li>Rooms</li>
-                <li>Contact</li>
-                <li>Users</li>
-              </ul>
+              <button>
+                <RiDashboardLine /> Dashboard
+              </button>
+              <button>
+                <BiKey />
+                Rooms
+                {/* <AiOutlineDown/> */}
+              </button>
+              <button>
+                <AiOutlineSchedule />
+                Bookings
+              </button>
+
+              <button>
+                <RiUser3Line />
+                Users
+              </button>
+              <button>
+                <TiContacts />
+                Contact
+              </button>
               <BoxUser>
                 <IconUser />
                 <h2>Belén Jaraba</h2>

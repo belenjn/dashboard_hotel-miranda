@@ -2,6 +2,12 @@ import styled from "styled-components";
 
 /* Nav Styles */
 export const Nav = styled.nav`
+
+a {
+  display: none;
+}
+
+@media only screen and (min-width: 1000px) {
   background-color: #FFFFFF;
   // border: 1px solid black;
   color: #333;
@@ -41,6 +47,9 @@ export const Nav = styled.nav`
 
     }
   }
+}
+  
+  
 `;
 
 export const TitleNav = styled.h1`
@@ -55,6 +64,7 @@ export const Title = styled.h1`
   font-size: 1.5em;
   text-align: center;
   color: black;
+  margin-top: 20px;
 `;
 
 /* Pages and buttons Styles   */
