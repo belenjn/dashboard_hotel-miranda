@@ -12,19 +12,30 @@ import { BiKey } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { RiUser3Line } from "react-icons/ri";
 import { TiContacts } from "react-icons/ti";
+import { HiOutlineMail } from "react-icons/hi";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { FiLogOut } from "react-icons/fi";
+import {AiFillCloseCircle} from "react-icons/ai";
 // import {AiOutlineDown} from "react-icons/ai";
 
 export const AsideMenu = styled.aside`
-  border: 1px solid red;
   padding: 10px;
+
+  a {
+    text-decoration: none;
+    color: #799283;
+  }
 
   @media only screen and (min-width: 1000px) {
     border: 1px solid green;
+    background: #ffffff;
+    position: fixed;
     top: 0px;
     left: 0px;
     width: 345px;
     height: 1812px;
   }
+
 `;
 
 export const LogoAsideMenu = styled.div`
@@ -45,8 +56,6 @@ export const BoxLogoAside = styled.div`
 `;
 
 export const BoxText = styled.div`
-
-
   display: flex;
   justify-content: center;
   margin: auto;
@@ -90,10 +99,10 @@ export const ListItemsMenu = styled.div`
     }
 
     &:hover {
-      color: #E23428;
+      color: #e23428;
       cursor: pointer;
       font-weight: 500;
-      border-left: 5px solid #E23428;
+      border-left: 5px solid #e23428;
       border-radius: 3px;
     }
   }
@@ -152,47 +161,83 @@ export const ButtonEdit = styled.button`
     color: white !important;
     transition: 0.5s ease !important;
   }
-
-  
 `;
+
+export const menuOnMobile = styled.div`
+
+
+`
 
 export const Navbar = ({ authenticated }) => {
   const [open, setOpen] = useState(false);
+  const [navbarSmaller, setNavbarSmaller] = useState(false);
 
   const handleClick = () => {
     setOpen(!open);
+    setNavbarSmaller(!navbarSmaller);
   };
 
   if (authenticated) {
     return (
       <>
-        <Nav>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <TbArrowsLeftRight
-              onClick={handleClick}
-              open={open}
+        {!navbarSmaller ? (
+          <Nav>
+            <div
               style={{
-                fontSize: "25px",
-                margin: "auto",
-                marginLeft: "60px",
-                cursor: "pointer",
+                display: "flex",
+                justifyContent: "space-between",
               }}
-            />
-            <TitleNav>Dashboard</TitleNav>
-          </div>
+            >
+              <TbArrowsLeftRight
+                onClick={handleClick}
+                open={open}
+                style={{
+                  fontSize: "25px",
+                  margin: "auto",
+                  marginLeft: "60px",
+                  cursor: "pointer",
+                }}
+              />
+              <TitleNav>Dashboard</TitleNav>
+            </div>
 
-          <div className="nav__text">
-            <Link to="/bookings"> Bookings </Link>
-            <Link to="/rooms"> Rooms </Link>
-            <Link to="/contacts"> Contacts </Link>
-            <Link to="/users"> Users </Link>
-          </div>
-        </Nav>
+            <div className="nav__icons">
+              <HiOutlineMail />
+              <IoMdNotificationsOutline />
+              <FiLogOut />
+            </div>
+          </Nav>
+        ) : (
+          <Nav>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginLeft: "300px",
+
+                /* Hay que arreglar la vista en mobile porque el margen sigue saliendo y no se ve el icono ni el titulo*/
+              }}
+            >
+              <TbArrowsLeftRight
+                onClick={handleClick}
+                open={open}
+                style={{
+                  fontSize: "25px",
+                  margin: "auto",
+                  marginLeft: "60px",
+                  cursor: "pointer",
+                }}
+              />
+              <TitleNav>Dashboard</TitleNav>
+            </div>
+
+            <div className="nav__icons">
+              <HiOutlineMail />
+              <IoMdNotificationsOutline />
+              <FiLogOut />
+            </div>
+          </Nav>
+        )}
 
         {open && (
           <AsideMenu>
@@ -205,25 +250,26 @@ export const Navbar = ({ authenticated }) => {
             </BoxLogoAside>
             <ListItemsMenu>
               <button>
-                <RiDashboardLine /> Dashboard
+                <RiDashboardLine />
+                <Link to="/"> Dashboard </Link>
               </button>
               <button>
                 <BiKey />
-                Rooms
+                <Link to="/rooms"> Rooms </Link>
                 {/* <AiOutlineDown/> */}
               </button>
               <button>
                 <AiOutlineSchedule />
-                Bookings
+                <Link to="/bookings"> Bookings </Link>
               </button>
 
               <button>
                 <RiUser3Line />
-                Users
+                <Link to="/users"> Users </Link>
               </button>
               <button>
                 <TiContacts />
-                Contact
+                <Link to="/contacts"> Contacts </Link>
               </button>
               <BoxUser>
                 <IconUser />

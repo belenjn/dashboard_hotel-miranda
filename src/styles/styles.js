@@ -2,54 +2,46 @@ import styled from "styled-components";
 
 /* Nav Styles */
 export const Nav = styled.nav`
-
-a {
-  display: none;
-}
-
-@media only screen and (min-width: 1000px) {
-  background-color: #FFFFFF;
-  // border: 1px solid black;
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-  width: 100%;
-
-  div {
-    margin-right: 30px;
+  .nav__icons {
+    display: none;
   }
-  a {
-    display: inline-block;
-    text-decoration: none;
+
+  @media only screen and (min-width: 1000px) {
+    background-color: #ffffff;
+    // border: 1px solid black;
     color: #333;
-    margin-right: 40px;
-    margin-top: 8px;
-    height: 20px;
-    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
 
-    &:hover {
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-      border-radius: 3px;
-      transition: 0.5s ease;
-      height: 40px;
+    div {
+      margin-right: 30px;
     }
+    .nav__icons {
+      display: flex;
+      font-size: 25px;
+      justify-content: space-between;
+      text-decoration: none;
+      color: #135846;
+      margin: auto;
+      margin-right: 40px;
+      height: 30px;
+      width: 15%;
 
-    &:focus {
-      background-color: #333;
-      color: white;
-      cursor: pointer;
-      height: 40px;
-      border-radius: 3px;
+      &:hover {
+        cursor: pointer;
+      }
 
-
+      &:focus {
+        background-color: #333;
+        color: white;
+        cursor: pointer;
+        height: 40px;
+        border-radius: 3px;
+      }
     }
   }
-}
-  
-  
 `;
 
 export const TitleNav = styled.h1`
@@ -67,20 +59,18 @@ export const Title = styled.h1`
   margin-top: 20px;
 `;
 
-/* Pages and buttons Styles   */
-
+/* Box and buttons Styles   */
 
 export const Box = styled.div`
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
   display: flex;
   justify-content: center;
   flex-direction: column;
   height: 100%;
-
 `;
 
 export const ButtonDetails = styled.button`
-  background-color: #333;
+  background-color: #135846;
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -95,8 +85,9 @@ export const ButtonDetails = styled.button`
   }
 
   &:hover {
-    background-color: grey;
-    color: black;
+    cursor: pointer;
+    background-color: #5ad07a;
+    color: white;
     transition: 0.5s ease;
   }
 `;
@@ -109,8 +100,12 @@ export const ButtonHome = styled(ButtonDetails)`
     color: #333;
   }
 
+  a:hover {
+    color: white;
+
+  }
+
   &:hover {
-    background-color: #cdcbcb;
+    background-color: #135846;
   }
 `;
-
