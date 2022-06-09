@@ -69,7 +69,7 @@ export const Box = styled.div`
   height: 100%;
 `;
 
-export const ButtonDetails = styled.button`
+export const Button = styled.button`
   background-color: #135846;
   border: none;
   border-radius: 3px;
@@ -92,7 +92,7 @@ export const ButtonDetails = styled.button`
   }
 `;
 
-export const ButtonHome = styled(ButtonDetails)`
+export const ButtonHome = styled(Button)`
   background-color: white;
   border: 1px solid #333;
 
