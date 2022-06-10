@@ -4,17 +4,15 @@ import { render, screen } from "@testing-library/react";
 import { Button } from "../styles/styles";
 
 describe("Button", () => {
-  test("Return the background color of the button: #000000", () => {
+  test("Return the background color of the button: #135846", () => {
     render(
-      <Button style={{
-          backgroundColor: "#000000"
-      }}>
+      <Button>
         Example of a button
       </Button>
     );
 
     expect(screen.getByText("Example of a button")).toHaveStyle(
-      "backgroundColor: #000000"
+      "backgroundColor: #135846"
     );
   });
 });
