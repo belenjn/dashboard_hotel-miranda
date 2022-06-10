@@ -14,7 +14,7 @@ describe("Button", () => {
     );
 
     expect(screen.getByText("Example of a button")).toHaveStyle(
-      "backgroundColor: #FFFFF"
+      "backgroundColor: #000000"
     );
   });
 });
