@@ -3,7 +3,7 @@ describe("/login", () => {
     cy.visit("http://localhost:3000/login");
   });
 
-  it("Trying to navigate to rooms (private route) and returns to login because user is not authenticated", () => {
+  it("trying to navigate to rooms (private route) and returns to login because user is not authenticated", () => {
     cy.visit("http://localhost:3000/rooms");
     cy.location().should((loc) => expect(loc.pathname).to.eq("/login"));
   });
