@@ -42,7 +42,7 @@ export const Login = ({ authenticated, setAuthenticated }) => {
 
   const userValidate = [
     {
-      username: "belen",
+      username: "belen@hotel.com",
       password: "1234",
     },
   ];
@@ -83,7 +83,7 @@ export const Login = ({ authenticated, setAuthenticated }) => {
 
       Swal.fire({
         title: "Error!",
-        text: "Invalid User",
+        text: "Invalid Email",
         icon: "error",
         confirmButtonText: "Try again",
       });
@@ -109,8 +109,9 @@ export const Login = ({ authenticated, setAuthenticated }) => {
         <label>User</label>
         <input
           name="uname"
-          placeholder="Insert your user"
+          placeholder="Insert your email"
           type="text"
+          data-cy="user-input" 
           required
         />
         <label>Password</label>
@@ -118,10 +119,11 @@ export const Login = ({ authenticated, setAuthenticated }) => {
           name="pass"
           type="password"
           placeholder="Insert your password"
+          data-cy="password-input"
           required
         />
 
-        <ButtonSendForm type="submit">Enter</ButtonSendForm>
+        <ButtonSendForm  data-cy="submit"  type="submit">Sign in</ButtonSendForm>
       </FormLogin>
     </BoxWithOtherBckg>
   );

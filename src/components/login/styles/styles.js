@@ -17,6 +17,7 @@ export const SubTitleLogin = styled.h3`
   color: #5d5449;
   font-weight: 300;
   margin: auto;
+  margin-top: -20px;
   margin-bottom: 30px;
   text-align: center;
 `;
