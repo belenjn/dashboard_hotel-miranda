@@ -27,7 +27,6 @@ export const AsideMenu = styled.aside`
   }
 
   @media only screen and (min-width: 1000px) {
-    border: 1px solid green;
     background: #ffffff;
     position: fixed;
     top: 0px;
