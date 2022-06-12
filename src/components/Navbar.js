@@ -15,7 +15,7 @@ import { TiContacts } from "react-icons/ti";
 import { HiOutlineMail } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import {AiFillCloseCircle} from "react-icons/ai";
+import { AiFillCloseCircle } from "react-icons/ai";
 // import {AiOutlineDown} from "react-icons/ai";
 
 export const AsideMenu = styled.aside`
@@ -33,9 +33,8 @@ export const AsideMenu = styled.aside`
     top: 0px;
     left: 0px;
     width: 345px;
-    height: 1812px;
+    height: 1900px;
   }
-
 `;
 
 export const LogoAsideMenu = styled.div`
@@ -104,6 +103,10 @@ export const ListItemsMenu = styled.div`
       font-weight: 500;
       border-left: 5px solid #e23428;
       border-radius: 3px;
+
+      a {
+        color: #e23428;
+      }
     }
   }
 `;
@@ -163,10 +166,20 @@ export const ButtonEdit = styled.button`
   }
 `;
 
-export const menuOnMobile = styled.div`
+export const FooterAside = styled.div`
+  text-align: center;
+  margin-top: 35px;
 
+  h2 {
+    font-size: 16px;
+  }
 
-`
+  h6 {
+    color: #799283;
+    font-size: 12px;
+    font-weight: 300;
+  }
+`;
 
 export const Navbar = ({ authenticated }) => {
   const [open, setOpen] = useState(false);
@@ -278,6 +291,10 @@ export const Navbar = ({ authenticated }) => {
                 <ButtonEdit>Edit</ButtonEdit>
               </BoxUser>
             </ListItemsMenu>
+            <FooterAside>
+              <h2>Travl Hotel Admin Dashboard</h2>
+              <h6>© 2020 All rights Reserved</h6>
+            </FooterAside>
           </AsideMenu>
         )}
       </>

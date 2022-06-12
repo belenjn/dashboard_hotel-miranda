@@ -7,6 +7,12 @@ export const Rooms = () => {
     <Box>
     <Title>Rooms</Title>
     <Button><Link to="/rooms/id">Details</Link></Button>
+   
     </Box>
   )
 }
+
+ /*
+ TODO: 
+ Hacer el mapeo de las rooms y estilos
+     */
