@@ -19,7 +19,7 @@ describe("/login", () => {
   it("navigates to home on successful login", () => {
     cy.get("[data-cy=user-input]").type("belen@hotel.com");
     cy.get("[data-cy=password-input]").type("1234");
-    cy.get("[data-cy=submit]").click()
+    cy.get("[data-cy=submit]").click();
     cy.hash().should("eq", "");
   });
 });
