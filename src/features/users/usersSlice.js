@@ -27,7 +27,7 @@ export const usersSlice = createSlice({
 /*
 export const {
 
-} = roomsSlice.actions;
+} = usersSlice.actions;
  */
 
 export default usersSlice.reducer;
