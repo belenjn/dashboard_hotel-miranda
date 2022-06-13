@@ -12,18 +12,23 @@ describe("/login", () => {
     cy.get("[data-cy=user-input]").type("hola");
     cy.get("[data-cy=password-input]").type("invalid{enter}");
     cy.get("div");
+    cy.location().should((loc) => expect(loc.pathname).to.eq("/login"));
+
   });
 
   it("invalid password", () => {
     cy.get("[data-cy=user-input]").type("belen");
     cy.get("[data-cy=password-input]").type("invalid{enter}");
     cy.get("div");
+    cy.location().should((loc) => expect(loc.pathname).to.eq("/login"));
+
   });
 
   it("navigates to home on successful login", () => {
     cy.get("[data-cy=user-input]").type("belen");
     cy.get("[data-cy=password-input]").type("1234");
     cy.get("[data-cy=submit]").click();
-    cy.hash().should("eq", ""); //Obtiene el hash de la URL de la página que está actualmente activa.
+    cy.location().should((loc) => expect(loc.pathname).to.eq("/"));
+    
   });
 });
