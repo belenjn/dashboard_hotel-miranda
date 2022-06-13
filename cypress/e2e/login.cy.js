@@ -21,10 +21,6 @@ describe("/login", () => {
 
   });
 
-  it("requires valid username and password", () => {
-    cy.get("[data-cy=user-input]").type("belen");
-    cy.get("[data-cy=password-input]").type("invalid{enter}");
-  });
 
   it("navigates to home on successful login", () => {
     cy.get("[data-cy=user-input]").type("belen");
