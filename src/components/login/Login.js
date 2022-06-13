@@ -42,7 +42,7 @@ export const Login = ({ authenticated, setAuthenticated }) => {
 
   const userValidate = [
     {
-      username: "belen@hotel.com",
+      username: "belen",
       password: "1234",
     },
   ];
@@ -109,7 +109,7 @@ export const Login = ({ authenticated, setAuthenticated }) => {
         <label>User</label>
         <input
           name="uname"
-          placeholder="Insert your email"
+          placeholder="Insert your username"
           type="text"
           data-cy="user-input" 
           required
