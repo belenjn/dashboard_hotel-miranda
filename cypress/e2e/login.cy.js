@@ -8,12 +8,12 @@ describe("/login", () => {
     cy.location().should((loc) => expect(loc.pathname).to.eq("/login"));
   });
 
-  it("requires email", () => {
-    cy.get("form").contains("Sign in").click();
+  it("requires username", () => {
+    cy.get("[data-cy=user-input]").type("belen{enter}");
   });
 
   it("requires password", () => {
-    cy.get("[data-cy=user-input]").type("belen{enter}");
+    cy.get("[data-cy=user-input]").type("1234{enter}");
   });
 
   it("requires valid username and password", () => {
