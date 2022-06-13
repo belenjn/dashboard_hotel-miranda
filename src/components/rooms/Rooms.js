@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Title } from "../../styles/styles";
 
@@ -20,7 +20,7 @@ export const RoomsListContainer = styled.div`
   margin: auto;
   margin-top: 50px;
   grid-template-columns: repeat(6, 1fr);
-  width: 95%;
+  width: 100%;
   height: 2000px;
 `;
 
@@ -39,7 +39,6 @@ export const RoomsNamesList = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
   padding: 20px;
   height: 2000px;
 
@@ -133,6 +132,7 @@ export const StatusBooked = styled(StatusAvailable)`
 `;
 
 export const Rooms = () => {
+  
   return (
     <Box>
       <Title>Rooms</Title>
