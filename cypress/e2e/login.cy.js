@@ -9,18 +9,16 @@ describe("/login", () => {
   });
 
   it("invalid username", () => {
-    cy.get("[data-cy=user-input]").type("hola")
+    cy.get("[data-cy=user-input]").type("hola");
     cy.get("[data-cy=password-input]").type("invalid{enter}");
-    cy.get('div')
+    cy.get("div");
   });
 
   it("invalid password", () => {
-    cy.get("[data-cy=user-input]").type("belen")
-    cy.get('[data-cy=password-input]').type("invalid{enter}")
-    cy.get('div')
-
+    cy.get("[data-cy=user-input]").type("belen");
+    cy.get("[data-cy=password-input]").type("invalid{enter}");
+    cy.get("div");
   });
-
 
   it("navigates to home on successful login", () => {
     cy.get("[data-cy=user-input]").type("belen");
