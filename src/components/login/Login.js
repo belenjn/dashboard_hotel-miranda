@@ -72,6 +72,8 @@ export const Login = ({ authenticated, setAuthenticated }) => {
           text: "Invalid Password",
           icon: "error",
           confirmButtonText: "Try again",
+          
+
         });
       }
     } else {
@@ -83,9 +85,11 @@ export const Login = ({ authenticated, setAuthenticated }) => {
 
       Swal.fire({
         title: "Error!",
-        text: "Invalid Email",
+        text: "Invalid User",
         icon: "error",
         confirmButtonText: "Try again",
+        name: "error_user"
+
       });
     }
   };
