@@ -3,14 +3,12 @@ import styled from "styled-components";
 import { Box, ButtonHome, Title } from "../../../styles/styles";
 
 export const TitleLogin = styled(Title)`
-  margin-top: 120px;
-  font-size: 50px;
-  font-weight: 600;
-  padding: 25px;
 
-  @media only screen and (min-width: 1000px) {
+    margin-top: 120px;
+    font-size: 50px;
+    font-weight: 600;
     padding: 30px;
-  }
+  
 `;
 
 export const SubTitleLogin = styled.h3`
@@ -27,12 +25,10 @@ export const BoxImages = styled(Box)`
   background-color: transparent;
   justify-content: center;
   flex-direction: row;
-  width: 80%;
+  width: 25%;
   margin: auto;
 
-  @media only screen and (min-width: 1000px) {
-    width: 25%;
-  }
+ 
 `;
 
 export const FormLogin = styled.form`
@@ -41,11 +37,7 @@ export const FormLogin = styled.form`
   align-items: center;
   width: 100%;
   margin-bottom: 30px;
-  padding: 25px;
-
-  @media only screen and (min-width: 1000px) {
-    padding: 30px;
-  }
+  padding: 30px;
 
   label {
     font-weight: 600;

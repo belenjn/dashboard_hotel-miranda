@@ -15,25 +15,20 @@ import { TiContacts } from "react-icons/ti";
 import { HiOutlineMail } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import { AiFillCloseCircle } from "react-icons/ai";
-// import {AiOutlineDown} from "react-icons/ai";
 
 export const AsideMenu = styled.aside`
-  padding: 10px;
-
   a {
     text-decoration: none;
     color: #799283;
   }
 
-  @media only screen and (min-width: 1000px) {
-    background: #ffffff;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 345px;
-    height: 1900px;
-  }
+  background: #ffffff;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 10px;
+  width: 345px;
+  height: 1900px;
 `;
 
 export const LogoAsideMenu = styled.div`

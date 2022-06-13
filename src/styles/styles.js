@@ -6,9 +6,7 @@ export const Nav = styled.nav`
     display: none;
   }
 
-  @media only screen and (min-width: 1000px) {
     background-color: #ffffff;
-    // border: 1px solid black;
     color: #333;
     display: flex;
     justify-content: space-between;
@@ -41,7 +39,7 @@ export const Nav = styled.nav`
         border-radius: 3px;
       }
     }
-  }
+  
 `;
 
 export const TitleNav = styled.h1`
