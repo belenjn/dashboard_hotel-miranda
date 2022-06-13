@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import contactsJSON from "../../database/contacts.json";
 
-export const fetchContacts = createAsyncThunk("bookings/fetchBookings", async () => {
+export const fetchContacts = createAsyncThunk("contacts/fetchContacts", async () => {
     setTimeout(() => {
         return contactsJSON
     }, 0);
 })
 
 const initialState = {
-    contacts: contactsJSON
+    contacts: contactsJSON,
+    status: ""
 }
 
 export const contactsSlice = createSlice({

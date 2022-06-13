@@ -8,7 +8,9 @@ export const fetchBookings = createAsyncThunk("bookings/fetchBookings", async ()
 })
 
 const initialState = {
-    bookings: bookingsJSON
+    bookings: bookingsJSON,
+    status: ""
+
 }
 
 export const bookingsSlice = createSlice({
