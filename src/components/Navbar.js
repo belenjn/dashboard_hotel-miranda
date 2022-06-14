@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Nav, TitleNav } from "../styles/styles";
@@ -15,6 +15,7 @@ import { TiContacts } from "react-icons/ti";
 import { HiOutlineMail } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
+import { authContext } from "../App";
 
 export const AsideMenu = styled.aside`
   a {
@@ -175,7 +176,9 @@ export const FooterAside = styled.div`
   }
 `;
 
-export const Navbar = ({ authenticated }) => {
+export const Navbar = () => {
+  const {authenticated, dispatchAuthenticated} = useContext(authContext);
+
   const [open, setOpen] = useState(false);
   const [navbarSmaller, setNavbarSmaller] = useState(false);
 
@@ -184,7 +187,7 @@ export const Navbar = ({ authenticated }) => {
     setNavbarSmaller(!navbarSmaller);
   };
 
-  if (authenticated) {
+  if (authenticated.authenticated) {
     return (
       <>
         {!navbarSmaller ? (
@@ -211,7 +214,11 @@ export const Navbar = ({ authenticated }) => {
             <div className="nav__icons">
               <HiOutlineMail />
               <IoMdNotificationsOutline />
-              <FiLogOut />
+              <FiLogOut
+              onClick={(e) => {
+                dispatchAuthenticated({type: "logout"})
+              }}
+               />
             </div>
           </Nav>
         ) : (
@@ -222,7 +229,6 @@ export const Navbar = ({ authenticated }) => {
                 justifyContent: "space-between",
                 marginLeft: "300px",
 
-                /* Hay que arreglar la vista en mobile porque el margen sigue saliendo y no se ve el icono ni el titulo*/
               }}
             >
               <TbArrowsLeftRight
@@ -263,7 +269,6 @@ export const Navbar = ({ authenticated }) => {
               <button>
                 <BiKey />
                 <Link to="/rooms"> Rooms </Link>
-                {/* <AiOutlineDown/> */}
               </button>
               <button>
                 <AiOutlineSchedule />
@@ -293,5 +298,5 @@ export const Navbar = ({ authenticated }) => {
         )}
       </>
     );
-  }
+  } 
 };
