@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import {
   BoxImages,
@@ -15,6 +15,7 @@ import bed from "./assets/hotel.png";
 
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { authContext } from "../../App";
 
 export const LogoHotel = styled.div`
   background-image: url(${logo});
@@ -36,69 +37,41 @@ export const Error = styled.div`
   font-size: 12px;
 `;
 
-export const Login = ({ authenticated, setAuthenticated }) => {
-
+export const Login = () => {
   let navigate = useNavigate();
 
-  const userValidate = [
-    {
-      username: "belen",
-      password: "1234",
-    },
-  ];
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const userData = {
+    username: user,
+    password: password,
+    userEmail: "belen@hotelmiranda.com",
+  };
 
-    let { uname, pass } = document.forms[0];
+  const { dispatchAuthenticated } = useContext(authContext);
 
-    //Busca info del user
-    const userData = userValidate.find((user) => user.username === uname.value);
-
-    //Compara la info del user
-    if (userData) {
-      localStorage.setItem("authenticated", true);
-      setAuthenticated(true);
-      navigate("/");
-
-      if (userData.password !== pass.value) {
-        //Contraseña inválida
-        localStorage.removeItem("authenticated");
-        navigate("/login");
-        setAuthenticated(false);
-
-        Swal.fire({
-          title: "Error!",
-          text: "Invalid Password",
-          icon: "error",
-          confirmButtonText: "Try again",
-          
-
-        });
-      }
-    } else {
-      //Usuario no encontrado
-      localStorage.removeItem("authenticated");
-      setAuthenticated(false);
-
-      navigate("/login");
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (user === "belen" && password === "1234") {
+      dispatchAuthenticated({ type: "login", user: userData });
+      navigate("/", { replace: true });
+    } else if (password !== "1234") {
       Swal.fire({
-        title: "Error!",
-        text: "Invalid User",
+        title: "Invalid Password",
         icon: "error",
         confirmButtonText: "Try again",
-        name: "error_user"
-
+        confirmButtonColor: "#135846",
+      });
+    } else if (user !== "belen") {
+      Swal.fire({
+        title: "Invalid User",
+        icon: "error",
+        confirmButtonText: "Try again",
+        confirmButtonColor: "#135846",
       });
     }
   };
-
-  useEffect(() => {
-    if (authenticated) {
-      navigate("/");
-    }
-  }, [authenticated, navigate]);
 
   return (
     <BoxWithOtherBckg>
@@ -115,8 +88,9 @@ export const Login = ({ authenticated, setAuthenticated }) => {
           name="uname"
           placeholder="Insert your username"
           type="text"
-          data-cy="user-input" 
+          data-cy="user-input"
           required
+          onChange={(e) => setUser(e.target.value)}
         />
         <label>Password</label>
         <input
@@ -125,9 +99,12 @@ export const Login = ({ authenticated, setAuthenticated }) => {
           placeholder="Insert your password"
           data-cy="password-input"
           required
+          onChange={(e) => setPassword(e.target.value)}
         />
 
-        <ButtonSendForm  data-cy="submit"  type="submit">Sign in</ButtonSendForm>
+        <ButtonSendForm data-cy="submit" type="submit">
+          Sign in
+        </ButtonSendForm>
       </FormLogin>
     </BoxWithOtherBckg>
   );
