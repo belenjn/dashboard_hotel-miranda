@@ -13,17 +13,16 @@ import { UserDetails } from "./components/users/UserDetails";
 import { Contacts } from "./components/contacts/Contacts";
 import { ContactDetails } from "./components/contacts/ContactDetails";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { createContext, useEffect, useReducer } from "react";
 
 import { RequireAuth } from "./utils/RequireAuth";
 import { Login } from "./components/login/Login";
 
-const initialUser = {
-  authenticated: false,
-  username: null,
-  email: null,
-};
+const initialUser = localStorage.getItem('authenticated') 
+  ? JSON.parse(localStorage.getItem('authenticated')) 
+  : {authenticated: false, username: null, email:null} ;
+
 
 export const authReducer = (state, action) => {
   switch (action.type) {
@@ -44,21 +43,29 @@ export const authReducer = (state, action) => {
   }
 };
 
+
 export const authContext = createContext();
 
 function App() {
+  let navigate = useNavigate();
   const [authenticated, dispatchAuthenticated] = useReducer(
     authReducer,
     initialUser
   );
 
   useEffect(() => {
-    localStorage.setItem("authenticated", JSON.stringify(authenticated));
-  }, [authenticated]);
+    if(authenticated.authenticated){
+      localStorage.setItem('authenticated', JSON.stringify(authenticated));
+      navigate('/', { replace: true });  
+    }else{
+      navigate('/login', { replace: true });
+    }
+  }, [authenticated, navigate]);
+
 
   return (
-    <authContext.Provider value={{ authenticated, dispatchAuthenticated }}>
-      <BrowserRouter>
+    
+   <authContext.Provider value={{ authenticated, dispatchAuthenticated }}>
         <Navbar />
         <Routes>
           <Route path="/login" exact element={<Login />} />
@@ -136,8 +143,9 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
     </authContext.Provider>
+    
+   
   );
 }
 

@@ -14,7 +14,6 @@ import logo from "./assets/llave-del-hotel.png";
 import bed from "./assets/hotel.png";
 
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import { authContext } from "../../App";
 
 export const LogoHotel = styled.div`
@@ -38,7 +37,6 @@ export const Error = styled.div`
 `;
 
 export const Login = () => {
-  let navigate = useNavigate();
 
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +53,6 @@ export const Login = () => {
     e.preventDefault();
     if (user === "belen" && password === "1234") {
       dispatchAuthenticated({ type: "login", user: userData });
-      navigate("/", { replace: true });
     } else if (password !== "1234") {
       Swal.fire({
         title: "Invalid Password",
@@ -72,6 +69,7 @@ export const Login = () => {
       });
     }
   };
+
 
   return (
     <BoxWithOtherBckg>
