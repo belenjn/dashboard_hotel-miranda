@@ -1,19 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import contactsJSON from "../../database/contacts.json";
 
+const initialState = contactsJSON;
+
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchContacts",
   async () => {
-    setTimeout(() => {
-      return contactsJSON;
-    }, 0);
+    return new Promise((resolve) => setTimeout(resolve(initialState), 0));
   }
 );
-
-const initialState = {
-  contacts: contactsJSON,
-  status: "",
-};
 
 export const contactsSlice = createSlice({
   name: "contacts",
@@ -21,16 +16,11 @@ export const contactsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
-      state.status = "success";
-      state.contacts = action.payload;
+      return action.payload;
     });
   },
 });
 
-/*
-export const {
-
-} = contactsSlice.actions;
- */
+export const contactsList = (state) => state.contacts;
 
 export default contactsSlice.reducer;

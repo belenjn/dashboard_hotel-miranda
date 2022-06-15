@@ -61,7 +61,7 @@ function App() {
     } else {
       navigate("/login", { replace: true });
     }
-  }, [authenticated, navigate]);
+  }, [authenticated]);
 
   return (
     <authContext.Provider value={{ authenticated, dispatchAuthenticated }}>

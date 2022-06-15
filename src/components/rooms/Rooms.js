@@ -132,11 +132,13 @@ export const StatusBooked = styled(StatusAvailable)`
 `;
 
 export const Rooms = () => {
+
+
   
   return (
     <Box>
       <Title>Rooms</Title>
-      <RoomsListContainer>
+      {/* <RoomsListContainer>
         <RoomsNamesList>
           <RoomsTitleSpan>Room Name</RoomsTitleSpan>
 
@@ -190,7 +192,7 @@ export const Rooms = () => {
             )
           )}
         </RoomsStatusContainer>
-      </RoomsListContainer>
+      </RoomsListContainer> */}
 
       <Button>
         <Link to="/rooms/id">Details</Link>

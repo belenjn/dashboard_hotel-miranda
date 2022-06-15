@@ -16,6 +16,8 @@ import { HiOutlineMail } from "react-icons/hi";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import { authContext } from "../App";
+import { Box, Modal } from "@mui/material";
+import { ButtonSendForm, FormLogin } from "./login/styles/styles";
 
 export const AsideMenu = styled.aside`
   a {
@@ -176,15 +178,37 @@ export const FooterAside = styled.div`
   }
 `;
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  borderRadius: "10px",
+  boxShadow: 24,
+  p: 4,
+};
+
 export const Navbar = () => {
-  const {authenticated, dispatchAuthenticated} = useContext(authContext);
+  const { authenticated, dispatchAuthenticated } = useContext(authContext);
 
   const [open, setOpen] = useState(false);
   const [navbarSmaller, setNavbarSmaller] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
 
   const handleClick = () => {
     setOpen(!open);
     setNavbarSmaller(!navbarSmaller);
+  };
+
+  const handleOpen = () => {
+    setOpenEdit(true);
+  };
+
+  const handleClose = () => {
+    setOpenEdit(false);
   };
 
   if (authenticated.authenticated) {
@@ -215,10 +239,10 @@ export const Navbar = () => {
               <HiOutlineMail />
               <IoMdNotificationsOutline />
               <FiLogOut
-              onClick={(e) => {
-                dispatchAuthenticated({type: "logout"})
-              }}
-               />
+                onClick={(e) => {
+                  dispatchAuthenticated({ type: "logout" });
+                }}
+              />
             </div>
           </Nav>
         ) : (
@@ -228,7 +252,6 @@ export const Navbar = () => {
                 display: "flex",
                 justifyContent: "space-between",
                 marginLeft: "300px",
-
               }}
             >
               <TbArrowsLeftRight
@@ -287,7 +310,8 @@ export const Navbar = () => {
                 <IconUser />
                 <h2>Belén Jaraba</h2>
                 <h6>belen@miranda.com</h6>
-                <ButtonEdit>Edit</ButtonEdit>
+
+                <ButtonEdit onClick={handleOpen}>Edit</ButtonEdit>
               </BoxUser>
             </ListItemsMenu>
             <FooterAside>
@@ -296,7 +320,42 @@ export const Navbar = () => {
             </FooterAside>
           </AsideMenu>
         )}
+
+        {openEdit && (
+          <div>
+            <Modal
+              open={openEdit}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <FormLogin>
+                  <label>New User</label>
+                  <input
+                    name="uname"
+                    placeholder="Insert your username"
+                    type="text"
+                    value={authenticated.username}
+                    onChange={(e)=>dispatchAuthenticated({ type: "changeUsername", username: e.target.value })}
+
+                  />
+                  <label>New Email</label>
+                  <input
+                    name="email"
+                    type="text"
+                    placeholder="Insert your email"
+                    value={authenticated.email}
+                    onChange={(e)=>dispatchAuthenticated({ type: "changeEmail", email: e.target.value })}
+                  />
+
+                  <ButtonSendForm type="submit">Save</ButtonSendForm>
+                </FormLogin>
+              </Box>
+            </Modal>
+          </div>
+        )}
       </>
     );
-  } 
+  }
 };
