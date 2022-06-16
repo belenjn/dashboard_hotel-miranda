@@ -92,6 +92,10 @@ export const ListItemsMenu = styled.div`
     svg {
       margin-right: 20px;
       margin-left: 40px;
+
+      &:focus {
+        color: #e23428;
+      }
     }
 
     &:hover {
@@ -105,6 +109,18 @@ export const ListItemsMenu = styled.div`
         color: #e23428;
       }
     }
+  }
+
+  button:focus {
+    a {
+      color: #e23428;
+    }
+
+    svg {
+      color: #e23428;
+    }
+
+    border-left: 5px solid #e23428;
   }
 `;
 
@@ -196,7 +212,6 @@ export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [navbarSmaller, setNavbarSmaller] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-
 
   const handleClick = () => {
     setOpen(!open);
@@ -337,8 +352,12 @@ export const Navbar = () => {
                     placeholder="Insert your username"
                     type="text"
                     value={authenticated.username}
-                    onChange={(e)=>dispatchAuthenticated({ type: "changeUsername", username: e.target.value })}
-
+                    onChange={(e) =>
+                      dispatchAuthenticated({
+                        type: "changeUsername",
+                        username: e.target.value,
+                      })
+                    }
                   />
                   <label>New Email</label>
                   <input
@@ -346,7 +365,12 @@ export const Navbar = () => {
                     type="text"
                     placeholder="Insert your email"
                     value={authenticated.email}
-                    onChange={(e)=>dispatchAuthenticated({ type: "changeEmail", email: e.target.value })}
+                    onChange={(e) =>
+                      dispatchAuthenticated({
+                        type: "changeEmail",
+                        email: e.target.value,
+                      })
+                    }
                   />
 
                   <ButtonSendForm type="submit">Save</ButtonSendForm>

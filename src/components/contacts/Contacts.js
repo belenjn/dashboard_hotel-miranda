@@ -107,7 +107,6 @@ export const Contacts = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-    /*Hay que ordenar los contactos por fechas */
   }, []);
 
   return (

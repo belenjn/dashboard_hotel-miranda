@@ -1,122 +1,126 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Title } from "../../styles/styles";
 
-import rooms from "../../database/rooms.json";
+import image from "./assets/no-img.jpg";
+import { BoxArchivedContacts } from "../contacts/Contacts";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteRoom,
+  fetchRooms,
+  getRoom,
+  newRoom,
+  roomsList,
+  updateRoom,
+} from "../../features/rooms/roomsSlice";
 import styled from "styled-components";
 
-import image from "./assets/no-img.jpg";
+export const BoxSortRooms = styled(BoxArchivedContacts)`
+  width: 600px;
+  margin-left: 40px;
 
-export const RoomsTitleSpan = styled.span`
-  font-weight: 500;
-  font-size: 18px;
-  text-align: center;
 `;
 
-export const RoomsListContainer = styled.div`
-  border-radius: 20px;
-  background-color: #ffffff;
-  display: grid;
-  margin: auto;
-  margin-top: 50px;
-  grid-template-columns: repeat(6, 1fr);
-  width: 100%;
-  height: 2000px;
-`;
-
-export const NoImage = styled.div`
-  background-image: url(${image});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px;
-  height: 77px;
-  width: 150px;
-`;
-
-export const RoomsNamesList = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+export const TableDivRooms = styled.table`
+  background-color: white;
+  border-radius: 10px;
   padding: 20px;
-  height: 2000px;
+  font-size: 14px;
+  margin: auto;
+  width: 95%;
 
-  h6 {
+  thead {
+    width: 1300px;
+  }
+
+  thead tr {
+    display: grid;
+    grid-template-column: repeat(6, 1fr);
+    font-size: 20px;
     text-align: center;
+  }
+
+  tr {
+    display: flex;
+    justify-content: space-betweeen;
+    width: 100%;
+  }
+
+  .text {
+    justify-content: center;
+
+    td {
+      margin: auto;
+    }
+  }
+
+  .title__name {
+    display: grid;
+    grid-column: 1;
+  }
+
+  .title__bedType {
+    display: grid;
+    grid-column: 2;
+  }
+
+  .title__facilities {
+    display: grid;
+    grid-column: 3;
+  }
+
+  .title__rate {
+    display: grid;
+    grid-column: 4;
+  }
+
+  .title__offer {
+    display: grid;
+    grid-column: 5;
+  }
+
+  .title__status {
+    display: grid;
+    grid-column: 6;
+  }
+
+  th {
+    padding: 5px;
+    margin-bottom: 20px;
+    width: 85%;
+  }
+
+  tbody {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .room__info {
+    text-align: center;
+
+    #id {
+      color: #799283;
+    }
+
+    span {
+      margin: auto;
+      font-size: 14px;
+    }
+  }
+
+  .facilities__info {
+    text-align: right;
   }
 `;
 
-export const ImagesAndText = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-`;
-
-export const Text = styled.div`
+export const Image = styled.div`
+  background-image: url(${image});
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  height: 77px;
   width: 150px;
-
-  h6 {
-    font-size: 12px;
-    color: #799283;
-    font-weight: 300;
-    margin-top: 10px;
-  }
-
-  h4 {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 300;
-  }
-`;
-export const RoomsTypeList = styled(RoomsNamesList)`
-  flex-direction: column;
-  justify-content: space-between;
-  margin: auto;
-  font-size: 14px;
+  height: 77px;
 `;
 
-export const RoomsAmenitiesList = styled(RoomsNamesList)`
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 14px;
-`;
-
-export const Amenities = styled.p`
-  font-weight: 300;
-  font-size: 14px;
-`;
-
-export const RoomTypes = styled(Text)`
-  text-align: center;
-  font-weight: 300;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const RoomsPriceContainer = styled(RoomsNamesList)`
-  flex-direction: column;
-  justify-content: space-between;
-  margin: auto;
-  font-size: 14px;
-`;
-
-export const Prices = styled(Text)`
-  text-align: center;
-  font-weight: 300;
-  font-size: 14px;
-`;
-
-export const RoomsStatusContainer = styled(RoomsNamesList)`
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 14px;
-`;
 export const StatusAvailable = styled.button`
   background-color: #5ad07a;
   border-radius: 12px;
@@ -131,69 +135,114 @@ export const StatusBooked = styled(StatusAvailable)`
   background-color: #e23428;
 `;
 
-export const Rooms = () => {
 
+export const Rooms = () => {
+  const dispatch = useDispatch();
+  const rooms = useSelector(roomsList);
+
+  useEffect(() => {
+    dispatch(fetchRooms());
+  }, []);
 
   
+
   return (
     <Box>
       <Title>Rooms</Title>
-      {/* <RoomsListContainer>
-        <RoomsNamesList>
-          <RoomsTitleSpan>Room Name</RoomsTitleSpan>
+      {/* Falta la misma vista rápida que debe haber en el dashboard
+       */}
+      <BoxSortRooms>
+        <button>All rooms</button>
+        <button>State</button>
+        <button>Price</button>
+      </BoxSortRooms>
 
-          {rooms.map((room) => (
-            <ImagesAndText>
-              <NoImage />
-              <Text>
-                <h6># {room.id}</h6>
-                <h4>{room.room_name}</h4>
-              </Text>
-            </ImagesAndText>
-          ))}
-        </RoomsNamesList>
-        <RoomsTypeList>
-          <RoomsTitleSpan>Room Type</RoomsTitleSpan>
+      <TableDivRooms>
+        <thead>
+          <tr className="categories">
+            <th className="title__name">Room Name</th>{" "}
+            {/*Contiene la foto, el id y el nombre*/}
+            <th className="title__bedType">Bed Type</th>
+            <th className="title__facilities">Facilities</th>
+            <th className="title__rate">Rate</th>
+            <th className="title__offer">Offer Price</th>
+            <th className="title__status">Status</th>
+          </tr>
+          <button onClick={() => dispatch(newRoom({
+             id: 342,
+        room_name: "Otra nueva Room",
+        room_number: 1000,
+        floor_room: 17,
+        bed_type: "Single Bed",
+        facilities: "Nueva room añadida",
+        description: "un poco más de texto",
+        date_room: "2022-07-19 03:13:41",
+        rate: 1000,
+        status: "true"}))}>New Room</button>
+        </thead>
 
-          {rooms.map((room) => (
-            <RoomTypes>{room.bed_type}</RoomTypes>
-          ))}
-        </RoomsTypeList>
-        <RoomsAmenitiesList>
-          <RoomsTitleSpan>Amenities</RoomsTitleSpan>
+        {rooms.map((room) => (
+          <>
+            <tbody key={room.id} className="column__id">
+              <tr className="text">
+                <Image />
+                <td className="room__info">
+                  <span id="id">#{room.id} </span>
+                  <br />
+                  <span>
+                    {new Date(room.date_room).toLocaleString("en-GB")}
+                  </span>
+                </td>
+              </tr>
 
-          {rooms.map((room) => (
-            <Amenities>{room.facilities}</Amenities>
-          ))}
-        </RoomsAmenitiesList>
-        <RoomsPriceContainer>
-          <RoomsTitleSpan>Price</RoomsTitleSpan>
+              <tr className="text">
+                <td>{room.bed_type}</td>
+                 
+              </tr>
 
-          {rooms.map((room) => (
-            <Prices>{room.rate}</Prices>
-          ))}
-        </RoomsPriceContainer>
-        <RoomsPriceContainer>
-          <RoomsTitleSpan>Offer Price</RoomsTitleSpan>
+              <tr className="text">
+                <td className="facilities__info">{room.facilities}</td>
+              </tr>
 
-          {rooms.map((room) => (
-            <Prices>{room.rate}</Prices>
-            // Aquí irían los precios con descuento
-          ))}
-        </RoomsPriceContainer>
-        <RoomsStatusContainer>
-          <RoomsTitleSpan>Status</RoomsTitleSpan>
+              <tr className="text">
+                <td>{room.rate}</td>
+              </tr>
 
-          {rooms.map((room) =>
-            room.status === "true" ? (
-              <StatusAvailable>Available</StatusAvailable>
-            ) : (
-              <StatusBooked>Booked</StatusBooked>
-            )
-          )}
-        </RoomsStatusContainer>
-      </RoomsListContainer> */}
+              <tr className="text">
+                <td>{room.rate}</td>
+              </tr>
 
+              <tr className="text">
+                <td>{room.status === "false" ? <StatusBooked>Booked</StatusBooked> : <StatusAvailable>Available</StatusAvailable>}</td>
+              </tr>
+
+              <tr>
+              <button onClick={() => dispatch(deleteRoom(room))}>
+                  Delete room
+                </button>
+                <button
+                  onClick={() =>
+                    dispatch(getRoom(room), console.log(room))
+                  }
+                >
+                  Get Room
+                </button>
+                <button
+                  onClick={() =>
+                    dispatch(
+                      updateRoom({ ...room, status: "false" }),
+                    )
+                  }
+                >
+                  Update Room
+                </button>
+              </tr>
+            </tbody>
+          </>
+         
+        ))}
+      </TableDivRooms>
+      {/* Falta poner el botón archive */}
       <Button>
         <Link to="/rooms/id">Details</Link>
       </Button>
