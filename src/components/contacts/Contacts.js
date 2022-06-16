@@ -5,8 +5,13 @@ import styled from "styled-components";
 import {
   contactsList,
   fetchContacts,
+  getContact,
+  newContact,
+  updateContact,
 } from "../../features/contact/contactSlice";
 import { Box, Button, Title } from "../../styles/styles";
+
+import { deleteContacts } from "../../features/contact/contactSlice";
 
 export const TableDiv = styled.table`
   background-color: white;
@@ -102,7 +107,6 @@ export const Contacts = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-
     /*Hay que ordenar los contactos por fechas */
   }, []);
 
@@ -122,25 +126,66 @@ export const Contacts = () => {
             <th className="title__customer">Customer</th>
             <th className="title__comment">Comment</th>
           </tr>
+          <button
+            onClick={() =>
+              dispatch(
+                newContact({
+                  id: 20,
+                  name_guest: "Bea García",
+                  email_guest: "Bea@yahoo.com",
+                  phone_guest: "929-154-7228",
+                  date_subject: "2022-07-19 03:13:41",
+                  subject:
+                    "cupidatat dolore culpa minim cupidatat do velit esse",
+                  comment:
+                    "ut reprehenderit velit amet occaecat consectetur irure nisi in cillum excepteur ipsum reprehenderit proident sint deserunt ea veniam consectetur sint dolor eiusmod ut culpa veniam amet minim laborum dolore consectetur minim laboris qui",
+                })
+              )
+            }
+          >
+            New Contact
+          </button>
         </thead>
 
         {contacts.map((contact) => (
-          <tbody key={contact.id} className="column__id">
-            <tr className="text">
-              <td className="info"># {contact.id}</td>
-              <td className="info">
-                {new Date(contact.date_subject).toLocaleString("en-GB")}
-              </td>
-            </tr>
-            <tr className="text">
-              <td className="info">{contact.name_guest}</td>
-              <td className="info">{contact.email_guest}</td>
-              <td className="info">{contact.phone_guest}</td>
-            </tr>
-            <tr className="text">
-              <td className="info">{contact.comment}</td>
-            </tr>
-          </tbody>
+          <>
+            <tbody key={contact.id} className="column__id">
+              <tr className="text">
+                <td className="info"># {contact.id}</td>
+                <td className="info">
+                  {new Date(contact.date_subject).toLocaleString("en-GB")}
+                </td>
+              </tr>
+              <tr className="text">
+                <td className="info">{contact.name_guest}</td>
+                <td className="info">{contact.email_guest}</td>
+                <td className="info">{contact.phone_guest}</td>
+              </tr>
+              <tr className="text">
+                <td className="info">{contact.comment}</td>
+                <button onClick={() => dispatch(deleteContacts(contact))}>
+                  Delete Contact
+                </button>
+                <button
+                  onClick={() =>
+                    dispatch(getContact(contact), console.log(contact))
+                  }
+                >
+                  Get Contact
+                </button>
+                <button
+                  onClick={() =>
+                    dispatch(
+                      updateContact({ ...contact, name_guest: "Lola Pérez" }),
+                      console.log(contact)
+                    )
+                  }
+                >
+                  Update Contact
+                </button>
+              </tr>
+            </tbody>
+          </>
         ))}
       </TableDiv>
       {/* Falta poner el botón archive */}

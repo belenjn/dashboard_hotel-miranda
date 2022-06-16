@@ -1,4 +1,4 @@
-import { Home } from "./components/Home";
+import { Dashboard } from "./components/Dashboard";
 import { Navbar } from "./components/Navbar";
 
 import { Bookings } from "./components/bookings/Bookings";
@@ -73,7 +73,7 @@ function App() {
           exact
           element={
             <RequireAuth>
-              <Home />
+              < Dashboard/>
             </RequireAuth>
           }
         />

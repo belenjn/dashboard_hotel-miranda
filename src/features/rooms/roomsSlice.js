@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import roomsJSON from "../../database/rooms.json";
 
-const initialState = roomsJSON;
+const initialState = [];
 
 export const fetchRooms = createAsyncThunk("rooms/fetchRooms", async () => {
  return new Promise(resolve => setTimeout(resolve(initialState), 0))

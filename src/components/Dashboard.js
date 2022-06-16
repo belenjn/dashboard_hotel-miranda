@@ -2,11 +2,11 @@ import React from "react";
 import { Box, Title } from "../styles/styles";
 
 
-export const Home = () => {
+export const Dashboard = () => {
   return (
     <>
      <Box>
-      <Title>Home</Title>
+      <Title>Dashboard</Title>
 
     </Box>
     <div style={{
