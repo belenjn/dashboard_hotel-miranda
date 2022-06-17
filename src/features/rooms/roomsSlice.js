@@ -20,15 +20,15 @@ export const roomsSlice = createSlice({
       return state.find((room) => room.id === action.payload);
     },
     updateRoom: (state, action) => {
-      return state.map((booking) => {
-        if (booking.id === action.payload.id) {
+      return state.map((room) => {
+        if (room.id === action.payload.id) {
           return action.payload;
         }
-        return booking;
+        return room;
       });
     },
     newRoom: (state, action) => {
-      const room = {
+      const newRoom = {
         id: action.payload.id,
         room_name: action.payload.room_name,
         room_number: action.payload.room_number,
@@ -40,7 +40,7 @@ export const roomsSlice = createSlice({
         rate: action.payload.rate,
         status: action.payload.status,
       };
-      state = state.push(room);
+      state = state.push(newRoom);
     },
   },
   extraReducers: (builder) => {

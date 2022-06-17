@@ -92,10 +92,6 @@ export const ListItemsMenu = styled.div`
     svg {
       margin-right: 20px;
       margin-left: 40px;
-
-      &:focus {
-        color: #e23428;
-      }
     }
 
     &:hover {
@@ -112,6 +108,8 @@ export const ListItemsMenu = styled.div`
   }
 
   button:focus {
+    color: #e23428;
+
     a {
       color: #e23428;
     }
@@ -119,8 +117,6 @@ export const ListItemsMenu = styled.div`
     svg {
       color: #e23428;
     }
-
-    border-left: 5px solid #e23428;
   }
 `;
 

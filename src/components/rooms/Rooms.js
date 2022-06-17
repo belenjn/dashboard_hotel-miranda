@@ -18,7 +18,6 @@ import styled from "styled-components";
 export const BoxSortRooms = styled(BoxArchivedContacts)`
   width: 600px;
   margin-left: 40px;
-
 `;
 
 export const TableDivRooms = styled.table`
@@ -135,7 +134,6 @@ export const StatusBooked = styled(StatusAvailable)`
   background-color: #e23428;
 `;
 
-
 export const Rooms = () => {
   const dispatch = useDispatch();
   const rooms = useSelector(roomsList);
@@ -143,8 +141,6 @@ export const Rooms = () => {
   useEffect(() => {
     dispatch(fetchRooms());
   }, []);
-
-  
 
   return (
     <Box>
@@ -168,17 +164,26 @@ export const Rooms = () => {
             <th className="title__offer">Offer Price</th>
             <th className="title__status">Status</th>
           </tr>
-          <button onClick={() => dispatch(newRoom({
-             id: 342,
-        room_name: "Otra nueva Room",
-        room_number: 1000,
-        floor_room: 17,
-        bed_type: "Single Bed",
-        facilities: "Nueva room añadida",
-        description: "un poco más de texto",
-        date_room: "2022-07-19 03:13:41",
-        rate: 1000,
-        status: "true"}))}>New Room</button>
+          <button
+            onClick={() =>
+              dispatch(
+                newRoom({
+                  id: 342,
+                  room_name: "Otra nueva Room",
+                  room_number: 1000,
+                  floor_room: 17,
+                  bed_type: "Single Bed",
+                  facilities: "Nueva room añadida",
+                  description: "un poco más de texto",
+                  date_room: "2022-07-19 03:13:41",
+                  rate: 1000,
+                  status: "true",
+                })
+              )
+            }
+          >
+            New Room
+          </button>
         </thead>
 
         {rooms.map((room) => (
@@ -197,7 +202,6 @@ export const Rooms = () => {
 
               <tr className="text">
                 <td>{room.bed_type}</td>
-                 
               </tr>
 
               <tr className="text">
@@ -213,25 +217,27 @@ export const Rooms = () => {
               </tr>
 
               <tr className="text">
-                <td>{room.status === "false" ? <StatusBooked>Booked</StatusBooked> : <StatusAvailable>Available</StatusAvailable>}</td>
+                <td>
+                  {room.status === "false" ? (
+                    <StatusBooked>Booked</StatusBooked>
+                  ) : (
+                    <StatusAvailable>Available</StatusAvailable>
+                  )}
+                </td>
               </tr>
 
               <tr>
-              <button onClick={() => dispatch(deleteRoom(room))}>
+                <button onClick={() => dispatch(deleteRoom(room))}>
                   Delete room
                 </button>
                 <button
-                  onClick={() =>
-                    dispatch(getRoom(room), console.log(room))
-                  }
+                  onClick={() => dispatch(getRoom(room), console.log(room))}
                 >
                   Get Room
                 </button>
                 <button
                   onClick={() =>
-                    dispatch(
-                      updateRoom({ ...room, status: "false" }),
-                    )
+                    dispatch(updateRoom({ ...room, status: "false" }))
                   }
                 >
                   Update Room
@@ -239,7 +245,6 @@ export const Rooms = () => {
               </tr>
             </tbody>
           </>
-         
         ))}
       </TableDivRooms>
       {/* Falta poner el botón archive */}
