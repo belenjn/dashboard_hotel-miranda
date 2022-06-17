@@ -164,7 +164,7 @@ export const Rooms = () => {
             <th className="title__offer">Offer Price</th>
             <th className="title__status">Status</th>
           </tr>
-          <button
+          {/* <button
             onClick={() =>
               dispatch(
                 newRoom({
@@ -183,7 +183,7 @@ export const Rooms = () => {
             }
           >
             New Room
-          </button>
+          </button> */}
         </thead>
 
         {rooms.map((room) => (
@@ -226,7 +226,7 @@ export const Rooms = () => {
                 </td>
               </tr>
 
-              <tr>
+              {/* <tr>
                 <button onClick={() => dispatch(deleteRoom(room))}>
                   Delete room
                 </button>
@@ -242,7 +242,7 @@ export const Rooms = () => {
                 >
                   Update Room
                 </button>
-              </tr>
+              </tr> */}
             </tbody>
           </>
         ))}

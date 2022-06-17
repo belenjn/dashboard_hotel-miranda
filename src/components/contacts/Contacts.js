@@ -45,6 +45,7 @@ export const TableDiv = styled.table`
     width: 100%;
     margin: auto;
     padding: 10px;
+
   }
 
   .title__id {
@@ -125,7 +126,7 @@ export const Contacts = () => {
             <th className="title__customer">Customer</th>
             <th className="title__comment">Comment</th>
           </tr>
-          <button
+          {/* <button
             onClick={() =>
               dispatch(
                 newContact({
@@ -143,7 +144,7 @@ export const Contacts = () => {
             }
           >
             New Contact
-          </button>
+          </button> */}
         </thead>
 
         {contacts.map((contact) => (
@@ -162,7 +163,7 @@ export const Contacts = () => {
               </tr>
               <tr className="text">
                 <td className="info">{contact.comment}</td>
-                <button onClick={() => dispatch(deleteContacts(contact))}>
+                {/* <button onClick={() => dispatch(deleteContacts(contact))}>
                   Delete Contact
                 </button>
                 <button
@@ -181,7 +182,7 @@ export const Contacts = () => {
                   }
                 >
                   Update Contact
-                </button>
+                </button> */}
               </tr>
             </tbody>
           </>

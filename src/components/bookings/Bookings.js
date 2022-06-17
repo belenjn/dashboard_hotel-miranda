@@ -11,15 +11,20 @@ import {
   updateBooking,
 } from "../../features/bookings/bookingsSlice";
 import { Box, Button, Title } from "../../styles/styles";
-import { BoxSortRooms, StatusAvailable, StatusBooked, TableDivRooms } from "../rooms/Rooms";
+import {
+  BoxSortRooms,
+  StatusAvailable,
+  StatusBooked,
+  TableDivRooms,
+} from "../rooms/Rooms";
 
 export const BoxSortBookings = styled(BoxSortRooms)`
   width: 850px;
 `;
 
 export const ButtonProgress = styled(StatusAvailable)`
-background-color: #FF9C3A;
-`
+  background-color: #ff9c3a;
+`;
 
 export const TableDivBookings = styled(TableDivRooms)`
   thead tr {
@@ -29,11 +34,16 @@ export const TableDivBookings = styled(TableDivRooms)`
     text-align: center;
   }
 
-  .categories, .text{
+  .categories,
+  .text {
     display: flex;
-    font-size: 15px;
     margin: auto;
     width: 100%;
+  }
+
+  .text {
+  font-size: 14px;
+
   }
 
   td {
@@ -48,47 +58,58 @@ export const TableDivBookings = styled(TableDivRooms)`
   .title__guest {
     display: grid;
     grid-column: 1;
-    
+    font-size: 20px;
+
   }
 
   .title__orderDate {
     display: grid;
     grid-column: 2;
+    font-size: 20px;
+
   }
 
   .title__checkIn {
     display: grid;
     grid-column: 3;
+    font-size: 20px;
+
   }
 
   .title__checkOut {
     display: grid;
     grid-column: 4;
+    font-size: 20px;
+
   }
 
   .title__special {
     display: grid;
     grid-column: 5;
+    font-size: 20px;
+
   }
 
   .title__roomType {
     display: grid;
     grid-column: 6;
+    font-size: 20px;
+
   }
 
   .title__status {
     display: grid;
     grid-column: 7;
+    font-size: 20px;
 
   }
-
 
   tbody {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
   }
- 
+
   th {
     padding: 5px;
     margin: auto;
@@ -106,9 +127,8 @@ export const Bookings = () => {
 
   return (
     <Box>
-      <Title>Rooms</Title>
-      {/* Falta la misma vista rápida que debe haber en el dashboard
-       */}
+      <Title>Bookings</Title>
+   
       <BoxSortBookings>
         <button>All bookings</button>
         <button>Checking In</button>
@@ -128,7 +148,7 @@ export const Bookings = () => {
             <th className="title__status">Status</th>
             {/* El status puede ser en check out, check in o in progress */}
           </tr>
-          <button
+          {/* <button
             onClick={() =>
               dispatch(
                 newBooking({
@@ -146,7 +166,7 @@ export const Bookings = () => {
             }
           >
             New Room
-          </button>
+          </button> */}
         </thead>
 
         {bookings.map((booking) => (
@@ -155,7 +175,7 @@ export const Bookings = () => {
               <tr className="text">
                 <td className="booking__info">
                   <span>{booking.name_guest}</span>
-                  <br/>
+                  <br />
                   <span>{booking.id}</span>
                 </td>
               </tr>
@@ -176,7 +196,6 @@ export const Bookings = () => {
                 </td>
               </tr>
 
-
               <tr className="text">
                 <td className="booking__info">
                   <span>
@@ -187,38 +206,41 @@ export const Bookings = () => {
 
               <tr className="text">
                 <td className="booking__info">
-                  <span>
-                    {booking.special_request}
-                  </span>
+                  <span>{booking.special_request}</span>
                 </td>
               </tr>
 
               <tr className="text">
                 <td className="booking__info">
-                  <span>
-                    {booking.bed_type}
-                  </span>
-                  <br/>
-                  <span>
-                    Num: {booking.room_number}
-                  </span>
+                  <span>{booking.bed_type}</span>
+                  <br />
+                  <span>Num: {booking.room_number}</span>
                 </td>
               </tr>
 
               <tr className="text">
                 <td>
-                  {booking.status === "false" &&  <StatusBooked>Check Out</StatusBooked> }
-                  {booking.status === "true" &&  <StatusAvailable>Check In</StatusAvailable> }
-                  {booking.status === "progress" && <ButtonProgress>In Progress</ButtonProgress> }
+                  {booking.status === "false" && (
+                    <StatusBooked>Check Out</StatusBooked>
+                  )}
+                  {booking.status === "true" && (
+                    <StatusAvailable>Check In</StatusAvailable>
+                  )}
+                  {booking.status === "progress" && (
+                    <ButtonProgress>In Progress</ButtonProgress>
+                  )}
                 </td>
               </tr>
 
+              {/* Botones para ver las funcionalidades en la web
               <tr>
                 <button onClick={() => dispatch(deleteBooking(booking))}>
                   Delete room
                 </button>
                 <button
-                  onClick={() => dispatch(getBooking(booking), console.log(booking))}
+                  onClick={() =>
+                    dispatch(getBooking(booking), console.log(booking))
+                  }
                 >
                   Get Room
                 </button>
@@ -229,7 +251,7 @@ export const Bookings = () => {
                 >
                   Update Room
                 </button>
-              </tr>
+              </tr> */}
             </tbody>
           </>
         ))}
