@@ -11,6 +11,9 @@ import {
 } from "../../features/contact/contactSlice";
 import { Box, Button, Title } from "../../styles/styles";
 
+import { VscError } from "react-icons/vsc";
+import {AiOutlineCheckCircle} from "react-icons/ai";
+
 import { deleteContacts } from "../../features/contact/contactSlice";
 
 export const TableDiv = styled.table`
@@ -41,11 +44,15 @@ export const TableDiv = styled.table`
   .text {
     display: flex;
     justify-content: center;
-    text-align: justify;
+    flex-direction: column;
+    text-align: left;
     width: 100%;
-    margin: auto;
-    padding: 10px;
+    padding: 15px;
+  }
 
+  .text__customer,
+  .text__id {
+    text-align: center;
   }
 
   .title__id {
@@ -102,6 +109,79 @@ export const BoxArchivedContacts = styled.div`
   }
 `;
 
+export const BoxForMessages = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+  width: 70%;
+`;
+
+export const BoxContactsMessages = styled.div`
+  background-color: white;
+  box-shadow: 0px 4px 4px #00000005;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 431px;
+  height: 275px;
+
+  div > p {
+    padding: 25px;
+    color: #4e4e4e;
+    text-align: left;
+    font-size: 16px;
+  }
+
+  div > h5 {
+    color: #262626;
+    text-align: left;
+    font-size: 16px;
+  }
+
+  div > h6 {
+    color: #799283;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  .image__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+`;
+
+export const ImageContacts = styled.div`
+  background-color: #c5c5c5;
+  border-radius: 8px;
+  width: 56px;
+  height: 56px;
+`;
+
+export const IconsDiv = styled.div`
+  display: flex;
+  justify-content: right;
+  margin: auto;
+  width: 120px;
+
+  .error__icon {
+    color: red;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+
+  .check__icon {
+    color: #5AD07A;
+    width: 28px;
+    height: 24px;
+  }
+`;
+
 export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsList);
@@ -113,7 +193,37 @@ export const Contacts = () => {
   return (
     <Box>
       <Title>Contacts</Title>
-      {/* Falta la misma vista rápida que debe haber en el dashboard */}
+      <BoxForMessages>
+        <BoxContactsMessages>
+          <div>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam
+            </p>
+
+            <div className="image__container">
+              <ImageContacts />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "20px"
+                }}
+              >
+                <h5>Probando contacto</h5>
+                <h6>4m ago</h6>
+              </div>
+              <IconsDiv>
+                <VscError className="error__icon" />
+                <AiOutlineCheckCircle className="check__icon"/>
+              </IconsDiv>
+            </div>
+          </div>
+        </BoxContactsMessages>
+      </BoxForMessages>
+
+
       <BoxArchivedContacts>
         <button>All contacts</button>
         <button>Archived</button>
@@ -150,13 +260,13 @@ export const Contacts = () => {
         {contacts.map((contact) => (
           <>
             <tbody key={contact.id} className="column__id">
-              <tr className="text">
+              <tr className="text text__id">
                 <td className="info"># {contact.id}</td>
                 <td className="info">
                   {new Date(contact.date_subject).toLocaleString("en-GB")}
                 </td>
               </tr>
-              <tr className="text">
+              <tr className="text text__customer">
                 <td className="info">{contact.name_guest}</td>
                 <td className="info">{contact.email_guest}</td>
                 <td className="info">{contact.phone_guest}</td>
