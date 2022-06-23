@@ -1,0 +1,44 @@
+[
+    {
+        "sunday": {
+            "check_in": 68,
+            "check_out": 19
+        }
+    },
+    {
+        "monday": {
+            "check_in": 19,
+            "check_out": 40
+        }
+    },
+    {
+        "tuesday": {
+            "check_in": 35,
+            "check_out": 11
+        }
+    },
+    {
+        "wednesday": {
+            "check_in": 78,
+            "check_out": 52
+        }
+    },
+    {
+        "thursday": {
+            "check_in": 13,
+            "check_out": 61
+        }
+    },
+    {
+        "friday": {
+            "check_in": 46,
+            "check_out": 32
+        }
+    },
+    {
+        "saturday": {
+            "check_in": 71,
+            "check_out": 68
+        }
+    }
+]
