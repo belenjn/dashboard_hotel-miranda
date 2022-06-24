@@ -2,22 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Box, Title } from "../styles/styles";
 
-import datachart from "../database/barchart.json";
-
 import { BiBed } from "react-icons/bi";
 import * as d3 from "d3";
 
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+
 export const KpisContainer = styled.div`
-  border: 1px solid red;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
   height: 130px;
+  padding: 20px;
 
   div {
     border-radius: 12px;
     background-color: #ffffff;
-    width: 340px;
+    width: 300px;
     height: 125px;
 
     &:hover {
@@ -36,9 +37,13 @@ export const KpisContainer = styled.div`
 `;
 
 export const ChartsContainer = styled.div`
-  border: 1px solid red;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: none;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: auto;
   margin-top: 50px;
   height: 460px;
   width: 100%;
@@ -46,119 +51,206 @@ export const ChartsContainer = styled.div`
   svg {
     display: grid;
     grid-column: 2;
-
+    margin: auto;
   }
 `;
 
-// export const Chart = styled.div`
-//   border: 1px solid green;
-//   display: grid;
-//   grid-column: 2;
-//   height: 100%;
-//   width: 100%;
-// `;
+export const CalendarContainer = styled.div`
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+
+  .fc-toolbar-title {
+    color: #393939;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .fc-button-group {
+    width: 200px;
+  }
+  .fc-button-primary {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    color: #393939;
+    width: 30px;
+
+    .fc-icon-chevron-right {
+      margin-left: 55px;
+    }
+  }
+
+  .fc-button-primary:hover {
+    background-color: #135846;
+    color: white;
+    cursor: pointer;
+  }
+
+  .fc-today-button {
+    display: none;
+  }
+
+  .fc-col-header-cell-cushion {
+    color: #799283;
+    font-size: 16px;
+    font-weight: 300;
+  }
+`;
+
+export const LegendContainer = styled.div`
+  display: flex;
+  jusitfy-content: left;
+  padding: 25px;
+  width: 80%;
+`;
+
+export const GreenSquadContainer = styled.div`
+  display: flex;
+  jusitfy-content: left;
+  height: 20px;
+  width: 50%;
+
+  h4 {
+    font-size: 14px;
+    color: #393939;
+    margin: auto;
+    margin-left: -50px;
+  }
+`;
+
+export const RedSquadContainer = styled(GreenSquadContainer)`
+  h4 {
+    margin-left: -30px;
+  }
+`;
+
+export const GreenSquad = styled.div`
+  background-color: #135846;
+  width: 15px;
+  height: 15px;
+  margin: auto;
+`;
+
+export const RedSquad = styled(GreenSquad)`
+  background-color: #e23428;
+`;
 
 export const Dashboard = () => {
   const [data] = useState([
     {
       day: "sunday",
-      check_in: 68,
-      check_out: 19,
+      sales: 68,
+      occupancy: 19,
     },
     {
       day: "monday",
-      check_in: 19,
-      check_out: 40,
+      sales: 19,
+      occupancy: 40,
     },
     {
       day: "tuesday",
-      check_in: 35,
-      check_out: 11,
+      sales: 35,
+      occupancy: 11,
     },
     {
       day: "wednesday",
-      check_in: 78,
-      check_out: 52,
+      sales: 78,
+      occupancy: 52,
     },
     {
       day: "thursday",
-      check_in: 13,
-      check_out: 61,
+      sales: 13,
+      occupancy: 61,
     },
     {
       day: "friday",
-      check_in: 46,
-      check_out: 32,
+      sales: 46,
+      occupancy: 32,
     },
     {
       day: "saturday",
-      check_in: 71,
-      check_out: 68,
+      sales: 71,
+      occupancy: 68,
     },
   ]);
   const svgRef = useRef();
 
   useEffect(() => {
+    const subgroups = ["sales", "occupancy"];
+
     // setting up the svg container
 
     const w = 600;
-    const h = 500;
+    const h = 470;
 
-    const margin = {top: 30, bottom: 10, left: 20, right: 20}
+    const margin = { top: 10, bottom: 10, left: 20, right: 20 };
 
     const svg = d3
       .select(svgRef.current)
       .attr("width", w - margin.left - margin.right)
       .attr("height", h - margin.top - margin.bottom)
-      .attr("viewBox", [0, -20, 550, 575])
+      .attr("viewBox", [0, -40, 550, 550]);
 
     // setting up the scaling
+
     const xScale = d3
       .scaleBand()
       .domain(d3.range(data.length))
       .range([margin.left, w - margin.right])
-      .padding(0.6);
+      .padding(0.2);
 
-    const yScale = d3.scaleLinear().domain([0, 100]).range([h - margin.bottom, margin.top]);
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, 100])
+      .range([h - margin.bottom, margin.top]);
 
+    const xSubgroup = d3
+      .scaleBand()
+      .domain(subgroups)
+      .range([0, xScale.bandwidth()])
+      .padding([0.05]);
+
+    let color = d3
+      .scaleOrdinal()
+      .domain(subgroups)
+      .range(["#135846", "#E23428"]);
     svg
       .append("g")
-      .attr("fill", "#135846")
+      .selectAll("g")
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("transform", (d) => `translate(${xScale(d.day)}, 0)`)
       .selectAll("rect")
-      .data(data.sort((a, b) => d3.descending(a.check_in, b.check_in)))
-      .join("rect")
-      .attr("x", (d, i) => xScale(i))
-      .attr("y", (d) => yScale(d.check_in))
-      .attr("height", (d) => yScale(0) - yScale(d.check_in))
-      .attr("width", xScale.bandwidth());
-
+      .data((d) => subgroups.map((key) => ({ key, value: d[key] })))
+      .enter()
+      .append("rect")
+      .attr("x", (d) => xSubgroup(d.key))
+      .attr("y", (d) => yScale(d.value))
+      .attr("width", xSubgroup.bandwidth())
+      .attr("height", (d) => h - yScale(d.value))
+      .attr("fill", (d) => color(d.key));
 
     // setting the axes
 
-    const xAxis = d3.axisBottom(xScale).tickFormat(i => data[i].day);
+    const xAxis = d3.axisBottom(xScale).tickFormat((i) => data[i].day);
 
     const yAxis = d3.axisLeft(yScale).ticks(5);
     svg.node();
 
-
     svg.append("g").call(xAxis).attr("transform", `translate(0, ${h})`);
 
     svg.append("g").call(yAxis);
-
-    // setting the svg data
   }, [data]);
 
   return (
     <>
       <Box>
         <Title>Dashboard</Title>
-        <ChartsContainer>
-          <svg ref={svgRef} />
-        </ChartsContainer>
-        {/*         
         <KpisContainer>
           <div>
-            <div
+            {/* <div
               style={{
                 backgroundColor: "#FFEDEC",
                 display: "flex",
@@ -167,13 +259,40 @@ export const Dashboard = () => {
                 width: "65px",
               }}
             >
-              <BiBed className="bed__icon" />
-            </div>
+               <BiBed className="bed__icon" /> 
+            </div> */}
           </div>
-          <div>probando</div>
-          <div>probando</div>
-          <div>probando</div>
-        </KpisContainer> */}
+          <div></div>
+          <div></div>
+        </KpisContainer>
+        <ChartsContainer>
+          <CalendarContainer>
+            <FullCalendar
+              plugins={[dayGridPlugin]}
+              initialView="dayGridMonth"
+            />
+          </CalendarContainer>
+
+          <div
+            style={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: "12px",
+            }}
+          >
+            <LegendContainer>
+              <GreenSquadContainer>
+                <GreenSquad />
+                <h4>Sales</h4>
+              </GreenSquadContainer>
+
+              <RedSquadContainer>
+                <RedSquad />
+                <h4>Occupancy</h4>
+              </RedSquadContainer>
+            </LegendContainer>
+            <svg ref={svgRef} />
+          </div>
+        </ChartsContainer>
       </Box>
       <div
         style={{

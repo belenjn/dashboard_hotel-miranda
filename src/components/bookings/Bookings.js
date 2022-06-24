@@ -155,8 +155,8 @@ export const Bookings = () => {
                   id: 200,
                   name_guest: "María Pérez",
                   order_date: "2022-07-19 03:13:41",
-                  check_in: "2022-07-19 23:00:00",
-                  check_out: "2022-07-29 07:13:21",
+                  sales: "2022-07-19 23:00:00",
+                  occupancy: "2022-07-29 07:13:21",
                   special_request: "Probando una nueva reserva",
                   room_number: 300,
                   rate: 1205,
@@ -191,7 +191,7 @@ export const Bookings = () => {
               <tr className="text">
                 <td className="booking__info">
                   <span>
-                    {new Date(booking.check_in).toLocaleString("en-GB")}
+                    {new Date(booking.sales).toLocaleString("en-GB")}
                   </span>
                 </td>
               </tr>
@@ -199,7 +199,7 @@ export const Bookings = () => {
               <tr className="text">
                 <td className="booking__info">
                   <span>
-                    {new Date(booking.check_out).toLocaleString("en-GB")}
+                    {new Date(booking.occupancy).toLocaleString("en-GB")}
                   </span>
                 </td>
               </tr>
