@@ -32,6 +32,7 @@ export const AsideMenu = styled.aside`
   padding: 10px;
   width: 345px;
   height: 1900px;
+  z-index: 2;
 `;
 
 export const LogoAsideMenu = styled.div`
