@@ -96,6 +96,48 @@ export const CalendarContainer = styled.div`
     font-size: 16px;
     font-weight: 300;
   }
+
+  .fc .fc-toolbar-chunk:first-child:before {
+    content: "Recent Booking Schedule";
+    color: #393939;
+  }
+
+  .fc-daygrid-day-frame:before,
+  .fc-daygrid-day-events:before,
+  .fc-daygrid-event-harness:before,
+  .fc-daygrid-day-frame:after,
+  .fc-daygrid-day-events:after,
+  .fc-daygrid-event-harness:after {
+    display: none;
+  }
+  .fc-theme-standard .fc-scrollgrid,
+  .fc-theme-standard th,
+  .fc-scrollgrid td {
+    border: 0;
+  }
+  h2.fc-toolbar-title,
+  .fc .fc-toolbar-chunk:first-child:before {
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: #393939;
+  }
+
+  .fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    display: none;
+  }
+  .fc .fc-scroller-liquid-absolute {
+    overflow: hidden !important;
+  }
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: inherit;
+    font-weight: bold;
+  }
+
+  .fc-theme-standard .fc-scrollgrid,
+  .fc-theme-standard th,
+  .fc-scrollgrid td {
+    border: 0;
+  }
 `;
 
 export const LegendContainer = styled.div`
@@ -194,16 +236,13 @@ export const Dashboard = () => {
 
     // setting up the scaling
 
-    const xScale = d3
-      .scaleBand()
-      .domain(d3.range(data.length))
-      .range([margin.left, w - margin.right])
-      .padding(0.2);
+    const xScale = d3.scaleBand()
+            .domain(data.map((el) => el.day))
+            .range([0, w])
+            .padding([0.2]);
 
-    const yScale = d3
-      .scaleLinear()
-      .domain([0, 100])
-      .range([h - margin.bottom, margin.top]);
+            const yScale = d3.scaleLinear().domain([0, 70]).range([h, 0]);
+            svg.append("g").call(d3.axisLeft(yScale));
 
     const xSubgroup = d3
       .scaleBand()
@@ -215,33 +254,25 @@ export const Dashboard = () => {
       .scaleOrdinal()
       .domain(subgroups)
       .range(["#135846", "#E23428"]);
-    svg
-      .append("g")
-      .selectAll("g")
-      .data(data)
-      .enter()
-      .append("g")
-      .attr("transform", (d) => `translate(${xScale(d.day)}, 0)`)
-      .selectAll("rect")
-      .data((d) => subgroups.map((key) => ({ key, value: d[key] })))
-      .enter()
-      .append("rect")
-      .attr("x", (d) => xSubgroup(d.key))
-      .attr("y", (d) => yScale(d.value))
-      .attr("width", xSubgroup.bandwidth())
-      .attr("height", (d) => h - yScale(d.value))
-      .attr("fill", (d) => color(d.key));
+      
+      svg
+            .append("g")
+            .selectAll("g")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("transform", (d) => `translate(${xScale(d.day)}, 0)`)
+            .selectAll("rect")
+            .data((d) => subgroups.map((key) => ({ key, value: d[key] })))
+            .enter()
+            .append("rect")
+            .attr("x", (d) => xSubgroup(d.key))
+            .attr("y", (d) => yScale(d.value))
+            .attr("width", xSubgroup.bandwidth())
+            .attr("height", (d) => h - yScale(d.value))
+            .attr("fill", (d) => color(d.key))
 
-    // setting the axes
-
-    const xAxis = d3.axisBottom(xScale).tickFormat((i) => data[i].day);
-
-    const yAxis = d3.axisLeft(yScale).ticks(5);
-    svg.node();
-
-    svg.append("g").call(xAxis).attr("transform", `translate(0, ${h})`);
-
-    svg.append("g").call(yAxis);
+  
   }, [data]);
 
   return (
