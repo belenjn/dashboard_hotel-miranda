@@ -300,7 +300,7 @@ export const Dashboard = () => {
 
       // Mouse events
       .on("mouseenter", mouseEnter)
-      .on("mouseleave", mouseLeave)
+      .on("mouseleave", mouseLeave);
     //   .on("mousemove", mouseMove);
 
     // function mouseMove() {
