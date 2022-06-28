@@ -47,11 +47,15 @@ export const ChartsContainer = styled.div`
   margin-top: 50px;
   height: 460px;
   width: 100%;
+  // overflow-x: scroll;
+  //   overflow-y: hidden;
 
   svg {
     display: grid;
     grid-column: 2;
     margin: auto;
+    height: 400px;
+    width: 520px;
   }
 `;
 
@@ -102,6 +106,9 @@ export const CalendarContainer = styled.div`
     color: #393939;
   }
 
+  .fc-toolbar-title {
+    display: none;
+  }
   .fc-daygrid-day-frame:before,
   .fc-daygrid-day-events:before,
   .fc-daygrid-event-harness:before,
@@ -179,7 +186,7 @@ export const RedSquad = styled(GreenSquad)`
 `;
 
 export const Dashboard = () => {
-  const [data] = useState([
+  const data = [
     {
       day: "sunday",
       sales: 68,
@@ -215,35 +222,48 @@ export const Dashboard = () => {
       sales: 71,
       occupancy: 68,
     },
-  ]);
+  ];
+
   const svgRef = useRef();
 
   useEffect(() => {
+    const margin = { top: 10, right: 30, bottom: 20, left: 50 };
+    const width = 500 - margin.left - margin.right;
+    const height = 300 - margin.top - margin.bottom;
     const subgroups = ["sales", "occupancy"];
+    const divData = d3.select(".data");
 
-    // setting up the svg container
-
-    const w = 600;
-    const h = 470;
-
-    const margin = { top: 10, bottom: 10, left: 20, right: 20 };
-
+    // New SVG
     const svg = d3
       .select(svgRef.current)
-      .attr("width", w - margin.left - margin.right)
-      .attr("height", h - margin.top - margin.bottom)
-      .attr("viewBox", [0, -40, 550, 550]);
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // setting up the scaling
+    // Axis X
+    const xScale = d3
+      .scaleBand()
+      .domain(data.map((el) => el.day))
+      .range([0, width])
+      .padding([0.2]);
+    svg
+      .append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(xScale).tickSize(0))
+      .attr("font-size", 10);
+    // Axis Y
+    const yScaleLeft = d3.scaleLinear().domain([0, 500]).range([height, 0]);
+    svg.append("g").call(d3.axisLeft(yScaleLeft));
 
-    const xScale = d3.scaleBand()
-            .domain(data.map((el) => el.day))
-            .range([0, w])
-            .padding([0.2]);
+    const yScaleRight = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+    svg
+      .append("g")
+      .call(d3.axisRight(yScaleRight))
+      .attr("transform", `translate(${width}, 0)`);
 
-            const yScale = d3.scaleLinear().domain([0, 70]).range([h, 0]);
-            svg.append("g").call(d3.axisLeft(yScale));
-
+    // Bar charts
     const xSubgroup = d3
       .scaleBand()
       .domain(subgroups)
@@ -254,26 +274,58 @@ export const Dashboard = () => {
       .scaleOrdinal()
       .domain(subgroups)
       .range(["#135846", "#E23428"]);
-      
-      svg
-            .append("g")
-            .selectAll("g")
-            .data(data)
-            .enter()
-            .append("g")
-            .attr("transform", (d) => `translate(${xScale(d.day)}, 0)`)
-            .selectAll("rect")
-            .data((d) => subgroups.map((key) => ({ key, value: d[key] })))
-            .enter()
-            .append("rect")
-            .attr("x", (d) => xSubgroup(d.key))
-            .attr("y", (d) => yScale(d.value))
-            .attr("width", xSubgroup.bandwidth())
-            .attr("height", (d) => h - yScale(d.value))
-            .attr("fill", (d) => color(d.key))
 
-  
-  }, [data]);
+    svg
+      .append("g")
+      .selectAll("g")
+      .data(data)
+      .enter()
+      .append("g")
+      .attr("transform", (d) => `translate(${xScale(d.day)}, 0)`)
+      .selectAll("rect")
+      .data((d) => subgroups.map((key) => ({ key, value: d[key] })))
+      .enter()
+      .append("rect")
+      .attr("x", (d) => xSubgroup(d.key))
+      .attr("y", (d) =>
+        d.key === "sales" ? yScaleLeft(d.value) : yScaleRight(d.value)
+      )
+      .attr("width", xSubgroup.bandwidth())
+      .attr("height", (d) =>
+        d.key === "sales"
+          ? height - yScaleLeft(d.value)
+          : height - yScaleRight(d.value)
+      )
+      .attr("fill", (d) => color(d.key))
+
+      // Mouse events
+      .on("mouseenter", mouseEnter)
+      .on("mouseleave", mouseLeave)
+    //   .on("mousemove", mouseMove);
+
+    // function mouseMove() {
+    //   divData
+    //     .style("top", parseInt(window.event.pageY - 110) + "px")
+    //     .style("left", parseInt(window.event.pageX) + "px");
+    // }
+    // Funcion para los divs con los datos de las barras
+
+    function mouseEnter(event, data) {
+      data.key === "sales"
+        ? divData
+            .text("Sales: $" + data.value)
+            .style("color", "#135846")
+            .style("visibility", "visible")
+        : divData
+            .text("Ocuppancy: " + data.value + "%")
+            .style("color", "#E23428")
+            .style("visibility", "visible");
+    }
+
+    function mouseLeave(event, data) {
+      divData.style("visibility", "hidden");
+    }
+  }, []);
 
   return (
     <>
@@ -321,6 +373,15 @@ export const Dashboard = () => {
                 <h4>Occupancy</h4>
               </RedSquadContainer>
             </LegendContainer>
+            {/* <div className="data"
+            style={{
+              border: "1px solid red",
+              height: "100px"
+            }}>
+
+            </div> 
+            Div para mostrar los datos de las barras
+            */}
             <svg ref={svgRef} />
           </div>
         </ChartsContainer>
