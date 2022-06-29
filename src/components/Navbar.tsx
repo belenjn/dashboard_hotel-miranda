@@ -204,24 +204,23 @@ const style = {
 };
 
 
-
 export const Navbar = () => {
   const { authenticated, dispatchAuthenticated } = useContext(authContext);
 
-  const [open, setOpen] = useState<boolean>(false);
-  const [navbarSmaller, setNavbarSmaller] = useState<boolean>(false);
-  const [openEdit, setOpenEdit] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
+  const [navbarSmaller, setNavbarSmaller] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (): any => {
     setOpen(!open);
     setNavbarSmaller(!navbarSmaller);
   };
 
-  const handleOpen = () => {
+  const handleOpen = (): any => {
     setOpenEdit(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (): any => {
     setOpenEdit(false);
   };
 
@@ -248,7 +247,7 @@ export const Navbar = () => {
               <HiOutlineMail />
               <IoMdNotificationsOutline />
               <FiLogOut
-                onClick={(e) => {
+                onClick={(e): any => {
                   dispatchAuthenticated({ type: "logout" });
                 }}
               />
@@ -345,7 +344,7 @@ export const Navbar = () => {
                     placeholder="Insert your username"
                     type="text"
                     value={authenticated.username}
-                    onChange={(e) =>
+                    onChange={(e): any =>
                       dispatchAuthenticated({
                         type: "changeUsername",
                         username: e.target.value,
@@ -358,7 +357,7 @@ export const Navbar = () => {
                     type="text"
                     placeholder="Insert your email"
                     value={authenticated.email}
-                    onChange={(e) =>
+                    onChange={(e): any =>
                       dispatchAuthenticated({
                         type: "changeEmail",
                         email: e.target.value,
