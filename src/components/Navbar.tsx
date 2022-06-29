@@ -239,7 +239,6 @@ export const Navbar = () => {
             >
               <TbArrowsLeftRight
                 onClick={handleClick}
-                // TODO: arreglar => open={open} 
                 
               />
               <TitleNav>Dashboard</TitleNav>
@@ -266,7 +265,6 @@ export const Navbar = () => {
             >
               <TbArrowsLeftRight
                 onClick={handleClick}
-                open={open}
                 style={{
                   fontSize: "25px",
                   margin: "auto",
