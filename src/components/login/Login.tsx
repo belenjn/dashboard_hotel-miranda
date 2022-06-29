@@ -88,7 +88,7 @@ export const Login = () => {
           type="text"
           data-cy="user-input"
           required
-          onChange={(e) => setUser(e.target.value)}
+          onChange={(e): any => setUser(e.target.value)}
         />
         <label>Password</label>
         <input
@@ -97,7 +97,7 @@ export const Login = () => {
           placeholder="Insert your password"
           data-cy="password-input"
           required
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e): any => setPassword(e.target.value)}
         />
 
         <ButtonSendForm data-cy="submit" type="submit">
