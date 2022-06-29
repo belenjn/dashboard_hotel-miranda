@@ -266,7 +266,7 @@ export const Navbar = () => {
             >
               <TbArrowsLeftRight
                 onClick={handleClick}
-                // open={open}
+                open={open}
                 style={{
                   fontSize: "25px",
                   margin: "auto",
