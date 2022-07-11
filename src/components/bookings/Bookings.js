@@ -131,8 +131,8 @@ export const Bookings = () => {
    
       <BoxSortBookings>
         <button>All bookings</button>
-        <button>Checking In</button>
-        <button>Checking Out</button>
+        <button>Check In</button>
+        <button>Check Out</button>
         <button>In progress</button>
       </BoxSortBookings>
 
