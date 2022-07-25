@@ -7,7 +7,6 @@ export const Nav = styled.nav`
     display: none;
   }
     background-color: #ffffff;
-    border: 1px solid red;
     color: #333;
     display: flex;
     justify-content: space-between;
@@ -20,7 +19,7 @@ export const Nav = styled.nav`
     .nav__icons {
       display: flex;
       font-size: 25px;
-      justify-content: space-between;
+      justify-content: right;
       text-decoration: none;
       color: #135846;
       margin: auto;

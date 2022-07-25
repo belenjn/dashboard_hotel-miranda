@@ -294,8 +294,6 @@ export const Navbar = () => {
             </div>
 
             <div className="nav__icons">
-              <HiOutlineMail />
-              <IoMdNotificationsOutline />
               <FiLogOut />
             </div>
           </Nav>
