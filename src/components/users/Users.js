@@ -2,11 +2,13 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
-import { fetchUsers, newUser, usersList } from '../../features/users/usersSlice';
-import { Box, Button, Title } from '../../styles/styles'
-import { BoxSortBookings, ButtonProgress, TableDivBookings } from '../bookings/Bookings';
+import { fetchUsers, usersList } from '../../features/users/usersSlice';
+import { Box, Button } from '../../styles/styles'
+import { ButtonProgress, TableDivBookings } from '../bookings/Bookings';
 
 export const TableDivUsers = styled(TableDivBookings)`
+margin-top: 30px;
+
 thead tr {
   display: grid;
   grid-template-column: repeat(5, 1fr);
@@ -102,14 +104,13 @@ export const Users = () => {
 
   return (
     <Box>
-    <Title>Users</Title>
  
-    <BoxSortBookings>
+    {/* <BoxSortBookings>
       <button>All Employee</button>
       <button>Active Employee</button>
       <button>Inactive Employee</button>
-      {/* Hay que añadir un buscador para buscar a los usuarios por el nombre */}
-    </BoxSortBookings>
+
+    </BoxSortBookings> */}
 
     <TableDivUsers>
       <thead>
