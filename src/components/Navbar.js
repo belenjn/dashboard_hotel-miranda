@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Nav, TitleNav } from "../styles/styles";
+import { useLocation } from "react-router-dom";
 
 import keys from "./login/assets/llave-del-hotel.png";
 import avatar from "./assets/avatar.png";
@@ -12,8 +13,8 @@ import { BiKey } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { RiUser3Line } from "react-icons/ri";
 import { TiContacts } from "react-icons/ti";
-import { HiOutlineMail } from "react-icons/hi";
-import { IoMdNotificationsOutline } from "react-icons/io";
+// import { HiOutlineMail } from "react-icons/hi";
+// import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import { authContext } from "../App";
 import { Box, Modal } from "@mui/material";
@@ -210,6 +211,17 @@ export const Navbar = () => {
   const [navbarSmaller, setNavbarSmaller] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
 
+  function camelize(str) {
+    return (" " + str)
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]+(.)/g, function (match, chr) {
+        return chr.toUpperCase();
+      });
+  }
+
+  const location = useLocation();
+  let currentLocation = camelize(location.pathname);
+
   const handleClick = () => {
     setOpen(!open);
     setNavbarSmaller(!navbarSmaller);
@@ -236,7 +248,7 @@ export const Navbar = () => {
             >
               <TbArrowsLeftRight
                 onClick={handleClick}
-                // open={open}
+                open={open}
                 style={{
                   fontSize: "25px",
                   margin: "auto",
@@ -244,12 +256,16 @@ export const Navbar = () => {
                   cursor: "pointer",
                 }}
               />
-              <TitleNav>Dashboard</TitleNav>
+              <TitleNav>
+                {currentLocation === "/"
+                  ? (currentLocation = "Dashboard")
+                  : currentLocation}
+              </TitleNav>
             </div>
 
             <div className="nav__icons">
-              <HiOutlineMail />
-              <IoMdNotificationsOutline />
+              {/* <HiOutlineMail />
+              <IoMdNotificationsOutline /> */}
               <FiLogOut
                 onClick={(e) => {
                   dispatchAuthenticated({ type: "logout" });
@@ -268,7 +284,7 @@ export const Navbar = () => {
             >
               <TbArrowsLeftRight
                 onClick={handleClick}
-                // open={open}
+                open={open}
                 style={{
                   fontSize: "25px",
                   margin: "auto",
@@ -276,12 +292,14 @@ export const Navbar = () => {
                   cursor: "pointer",
                 }}
               />
-              <TitleNav>Dashboard</TitleNav>
+              <TitleNav>
+                {currentLocation === "/"
+                  ? (currentLocation = "Dashboard")
+                  : currentLocation}
+              </TitleNav>
             </div>
 
             <div className="nav__icons">
-              <HiOutlineMail />
-              <IoMdNotificationsOutline />
               <FiLogOut />
             </div>
           </Nav>
@@ -320,8 +338,8 @@ export const Navbar = () => {
               </button>
               <BoxUser>
                 <IconUser />
-                <h2>Belén Jaraba</h2>
-                <h6>belen@miranda.com</h6>
+                <h2>{authenticated.username}</h2>
+                <h6>{authenticated.email}</h6>
 
                 <ButtonEdit onClick={handleOpen}>Edit</ButtonEdit>
               </BoxUser>
