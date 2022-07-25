@@ -300,7 +300,7 @@ export const Dashboard = () => {
 
       // Mouse events
       .on("mouseenter", mouseEnter)
-      .on("mouseleave", mouseLeave)
+      .on("mouseleave", mouseLeave);
     //   .on("mousemove", mouseMove);
 
     // function mouseMove() {
@@ -330,24 +330,6 @@ export const Dashboard = () => {
   return (
     <>
       <Box>
-        <Title>Dashboard</Title>
-        <KpisContainer>
-          <div>
-            {/* <div
-              style={{
-                backgroundColor: "#FFEDEC",
-                display: "flex",
-                justifyContent: "center",
-                height: "65px",
-                width: "65px",
-              }}
-            >
-               <BiBed className="bed__icon" /> 
-            </div> */}
-          </div>
-          <div></div>
-          <div></div>
-        </KpisContainer>
         <ChartsContainer>
           <CalendarContainer>
             <FullCalendar
