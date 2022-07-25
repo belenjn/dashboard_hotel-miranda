@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Nav, TitleNav } from "../styles/styles";
@@ -13,8 +13,8 @@ import { BiKey } from "react-icons/bi";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { RiUser3Line } from "react-icons/ri";
 import { TiContacts } from "react-icons/ti";
-import { HiOutlineMail } from "react-icons/hi";
-import { IoMdNotificationsOutline } from "react-icons/io";
+// import { HiOutlineMail } from "react-icons/hi";
+// import { IoMdNotificationsOutline } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import { authContext } from "../App";
 import { Box, Modal } from "@mui/material";
