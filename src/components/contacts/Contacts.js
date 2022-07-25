@@ -5,16 +5,16 @@ import styled from "styled-components";
 import {
   contactsList,
   fetchContacts,
-  getContact,
-  newContact,
-  updateContact,
+  // getContact,
+  // newContact,
+  // updateContact,
 } from "../../features/contact/contactSlice";
-import { Box, Button, Title } from "../../styles/styles";
+import { Box, Button } from "../../styles/styles";
 
-import { VscError } from "react-icons/vsc";
-import {AiOutlineCheckCircle} from "react-icons/ai";
+// import { VscError } from "react-icons/vsc";
+// import {AiOutlineCheckCircle} from "react-icons/ai";
 
-import { deleteContacts } from "../../features/contact/contactSlice";
+// import { deleteContacts } from "../../features/contact/contactSlice";
 
 export const TableDiv = styled.table`
   background-color: white;
@@ -22,6 +22,7 @@ export const TableDiv = styled.table`
   padding: 20px;
   font-size: 14px;
   margin: auto;
+margin-top: 30px;
   width: 95%;
 
   thead {
@@ -192,8 +193,7 @@ export const Contacts = () => {
 
   return (
     <Box>
-      <Title>Contacts</Title>
-      <BoxForMessages>
+      {/* <BoxForMessages>
         <BoxContactsMessages>
           <div>
             <p>
@@ -227,7 +227,7 @@ export const Contacts = () => {
       <BoxArchivedContacts>
         <button>All contacts</button>
         <button>Archived</button>
-      </BoxArchivedContacts>
+      </BoxArchivedContacts> */}
 
       <TableDiv>
         <thead>
