@@ -210,6 +210,7 @@ export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [navbarSmaller, setNavbarSmaller] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [title, setTitle] = useState("Dashboard");
 
   const handleClick = (): any => {
     setOpen(!open);
@@ -240,7 +241,7 @@ export const Navbar = () => {
                 onClick={handleClick}
                 
               />
-              <TitleNav>Dashboard</TitleNav>
+              <TitleNav>{title}</TitleNav>
             </div>
 
             <div className="nav__icons">

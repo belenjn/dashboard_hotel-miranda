@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Nav, TitleNav } from "../styles/styles";
+import { useLocation } from "react-router-dom";
 
 import keys from "./login/assets/llave-del-hotel.png";
 import avatar from "./assets/avatar.png";
@@ -210,6 +211,19 @@ export const Navbar = () => {
   const [navbarSmaller, setNavbarSmaller] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
 
+  function camelize(str) {
+    return (" " + str)
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9]+(.)/g, function (match, chr) {
+        return chr.toUpperCase();
+      });
+  }
+
+  const location = useLocation();
+  let currentLocation = camelize(location.pathname.substring(1));
+
+  useEffect(() => {}, [currentLocation]);
+
   const handleClick = () => {
     setOpen(!open);
     setNavbarSmaller(!navbarSmaller);
@@ -231,7 +245,7 @@ export const Navbar = () => {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "space-between"
               }}
             >
               <TbArrowsLeftRight
@@ -244,12 +258,12 @@ export const Navbar = () => {
                   cursor: "pointer",
                 }}
               />
-              <TitleNav>Dashboard</TitleNav>
+              <TitleNav>{currentLocation}</TitleNav>
             </div>
 
             <div className="nav__icons">
-              <HiOutlineMail />
-              <IoMdNotificationsOutline />
+              {/* <HiOutlineMail />
+              <IoMdNotificationsOutline /> */}
               <FiLogOut
                 onClick={(e) => {
                   dispatchAuthenticated({ type: "logout" });
@@ -276,7 +290,7 @@ export const Navbar = () => {
                   cursor: "pointer",
                 }}
               />
-              <TitleNav>Dashboard</TitleNav>
+              <TitleNav>{currentLocation}</TitleNav>
             </div>
 
             <div className="nav__icons">

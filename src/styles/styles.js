@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 /* Nav Styles */
 export const Nav = styled.nav`
+
   .nav__icons {
     display: none;
   }
-
     background-color: #ffffff;
+    border: 1px solid red;
     color: #333;
     display: flex;
     justify-content: space-between;
