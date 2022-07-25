@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   bookingsList,
-  deleteBooking,
+  // deleteBooking,
   fetchBookings,
-  getBooking,
-  newBooking,
-  updateBooking,
+  // getBooking,
+  // newBooking,
+  // updateBooking,
 } from "../../features/bookings/bookingsSlice";
-import { Box, Button, Title } from "../../styles/styles";
+import { Box, Button } from "../../styles/styles";
 import {
   BoxSortRooms,
   StatusAvailable,
@@ -27,6 +27,8 @@ export const ButtonProgress = styled(StatusAvailable)`
 `;
 
 export const TableDivBookings = styled(TableDivRooms)`
+margin-top: 30px;
+
   thead tr {
     display: grid;
     grid-template-column: repeat(7, 1fr);
@@ -127,14 +129,13 @@ export const Bookings = () => {
 
   return (
     <Box>
-      <Title>Bookings</Title>
    
-      <BoxSortBookings>
+      {/* <BoxSortBookings>
         <button>All bookings</button>
-        <button>Checking In</button>
-        <button>Checking Out</button>
+        <button>Check In</button>
+        <button>Check Out</button>
         <button>In progress</button>
-      </BoxSortBookings>
+      </BoxSortBookings> */}
 
       <TableDivBookings>
         <thead>
