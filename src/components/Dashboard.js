@@ -330,8 +330,6 @@ export const Dashboard = () => {
   return (
     <>
       <Box>
-        <Title>Dashboard</Title>
-       
         <ChartsContainer>
           <CalendarContainer>
             <FullCalendar

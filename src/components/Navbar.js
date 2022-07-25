@@ -220,7 +220,7 @@ export const Navbar = () => {
   }
 
   const location = useLocation();
-  let currentLocation = camelize(location.pathname.substring(1));
+  let currentLocation = camelize(location.pathname);
 
   const handleClick = () => {
     setOpen(!open);
@@ -256,7 +256,11 @@ export const Navbar = () => {
                   cursor: "pointer",
                 }}
               />
-              <TitleNav>{currentLocation}</TitleNav>
+              <TitleNav>
+                {currentLocation === "/"
+                  ? (currentLocation = "Dashboard")
+                  : currentLocation}
+              </TitleNav>
             </div>
 
             <div className="nav__icons">
@@ -288,7 +292,11 @@ export const Navbar = () => {
                   cursor: "pointer",
                 }}
               />
-              <TitleNav>{currentLocation}</TitleNav>
+              <TitleNav>
+                {currentLocation === "/"
+                  ? (currentLocation = "Dashboard")
+                  : currentLocation}
+              </TitleNav>
             </div>
 
             <div className="nav__icons">
