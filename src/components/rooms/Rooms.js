@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Box, Button, Title } from "../../styles/styles";
+import { Box, Button } from "../../styles/styles";
 
 import image from "./assets/no-img.jpg";
 import { BoxArchivedContacts } from "../contacts/Contacts";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteRoom,
+  // deleteRoom,
   fetchRooms,
-  getRoom,
-  newRoom,
+  // getRoom,
+  // newRoom,
   roomsList,
-  updateRoom,
+  // updateRoom,
 } from "../../features/rooms/roomsSlice";
 import styled from "styled-components";
 
@@ -26,6 +26,7 @@ export const TableDivRooms = styled.table`
   padding: 20px;
   font-size: 14px;
   margin: auto;
+margin-top: 30px;
   width: 95%;
 
   thead {
@@ -144,14 +145,13 @@ export const Rooms = () => {
 
   return (
     <Box>
-      <Title>Rooms</Title>
       {/* Falta la misma vista rápida que debe haber en el dashboard
        */}
-      <BoxSortRooms>
+      {/* <BoxSortRooms>
         <button>All rooms</button>
         <button>State</button>
         <button>Price</button>
-      </BoxSortRooms>
+      </BoxSortRooms> */}
 
       <TableDivRooms>
         <thead>
