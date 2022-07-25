@@ -222,8 +222,6 @@ export const Navbar = () => {
   const location = useLocation();
   let currentLocation = camelize(location.pathname.substring(1));
 
-  useEffect(() => {}, [currentLocation]);
-
   const handleClick = () => {
     setOpen(!open);
     setNavbarSmaller(!navbarSmaller);
@@ -245,7 +243,7 @@ export const Navbar = () => {
             <div
               style={{
                 display: "flex",
-                justifyContent: "space-between"
+                justifyContent: "space-between",
               }}
             >
               <TbArrowsLeftRight
@@ -332,8 +330,8 @@ export const Navbar = () => {
               </button>
               <BoxUser>
                 <IconUser />
-                <h2>Belén Jaraba</h2>
-                <h6>belen@miranda.com</h6>
+                <h2>{authenticated.username}</h2>
+                <h6>{authenticated.email}</h6>
 
                 <ButtonEdit onClick={handleOpen}>Edit</ButtonEdit>
               </BoxUser>
