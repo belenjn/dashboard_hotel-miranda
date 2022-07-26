@@ -1,8 +1,26 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import usersJSON from "../../database/users.json";
+import fetch from "cross-fetch";
+import { token, url } from "../../env";
+// import usersJSON from "../../database/users.json";
 
+
+// devuelve el json
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  return new Promise((resolve) => setTimeout(resolve(usersJSON), 0));
+  fetch(`${url}users`, {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `BEARER ${token}`,
+    },
+    mode: "no-cors"
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 });
 
 const initialState = [];
