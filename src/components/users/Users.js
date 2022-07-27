@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { fetchUsers, usersList } from "../../features/users/usersSlice";
+import {
+  activeEmployees,
+  fetchUsers,
+  inactiveEmployees,
+  usersList,
+} from "../../features/users/usersSlice";
 import { Box } from "../../styles/styles";
-import { ButtonProgress, TableDivBookings } from "../bookings/Bookings";
+import {
+  BoxSortBookings,
+  ButtonProgress,
+  TableDivBookings,
+} from "../bookings/Bookings";
 
 export const TableDivUsers = styled(TableDivBookings)`
   margin-top: 30px;
@@ -22,11 +31,11 @@ export const TableDivUsers = styled(TableDivBookings)`
     margin: 0 !important;
     width: 100%;
 
-   .booking__info {
-     span {
-       text-algin: center;
-     }
-   }
+    .booking__info {
+      span {
+        text-algin: center;
+      }
+    }
   }
 
   .categories {
@@ -100,20 +109,37 @@ export const InactiveUser = styled(ButtonProgress)`
 
 export const Users = () => {
   const dispatch = useDispatch();
+
   const users = useSelector(usersList);
 
+  const [usersState, setUsersState] = useState(users);
+
+  const activeUsers = users.filter((user) => user.status === true);
+  const inactiveUsers = users.filter((user) => user.status === false);
+
+  const handleClickAllUsers = () => {
+    setUsersState(users);
+  };
+
+  const handleClickActiveUsers = () => {
+    setUsersState(activeUsers);
+  };
+
+  const handleClickInactiveUsers = () => {
+    setUsersState(inactiveUsers);
+  };
+
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
+    dispatch(fetchUsers(usersState));
+  }, [usersState]);
 
   return (
     <Box>
-      {/* <BoxSortBookings>
-      <button>All Employee</button>
-      <button>Active Employee</button>
-      <button>Inactive Employee</button>
-
-    </BoxSortBookings> */}
+      <BoxSortBookings>
+        <button onClick={handleClickAllUsers}>All Employee</button>
+        <button onClick={handleClickActiveUsers}>Active Employee</button>
+        <button onClick={handleClickInactiveUsers}>Inactive Employee</button>
+      </BoxSortBookings>
 
       <TableDivUsers>
         <thead>
@@ -126,7 +152,7 @@ export const Users = () => {
           </tr>
         </thead>
 
-        {users.map((user) => (
+        {usersState.map((user) => (
           <>
             <tbody className="column__id">
               <tr className="text">
