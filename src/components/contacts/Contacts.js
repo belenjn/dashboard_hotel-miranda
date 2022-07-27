@@ -22,7 +22,7 @@ export const TableDiv = styled.table`
   padding: 20px;
   font-size: 14px;
   margin: auto;
-margin-top: 30px;
+  margin-top: 30px;
   width: 95%;
 
   thead {
@@ -34,6 +34,7 @@ margin-top: 30px;
     grid-template-column: repeat(3, 1fr);
     font-size: 20px;
     text-align: center;
+    
   }
 
   tr {
@@ -177,7 +178,7 @@ export const IconsDiv = styled.div`
   }
 
   .check__icon {
-    color: #5AD07A;
+    color: #5ad07a;
     width: 28px;
     height: 24px;
   }
@@ -259,17 +260,17 @@ export const Contacts = () => {
 
         {contacts.map((contact) => (
           <>
-            <tbody key={contact.id} className="column__id">
+            <tbody key={contact._id} className="column__id">
               <tr className="text text__id">
-                <td className="info"># {contact.id}</td>
-                <td className="info">
+                <td className="info"># {contact._id}</td>
+                {/* <td className="info">
                   {new Date(contact.date_subject).toLocaleString("en-GB")}
-                </td>
+                </td> */}
               </tr>
               <tr className="text text__customer">
-                <td className="info">{contact.name_guest}</td>
-                <td className="info">{contact.email_guest}</td>
-                <td className="info">{contact.phone_guest}</td>
+                <td className="info">{contact.contact_name}</td>
+                <td className="info">{contact.contact_email}</td>
+                <td className="info">{contact.contact_phone}</td>
               </tr>
               <tr className="text">
                 <td className="info">{contact.comment}</td>

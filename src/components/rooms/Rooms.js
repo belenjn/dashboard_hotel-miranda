@@ -119,7 +119,6 @@ export const TableDivRooms = styled.table`
     margin: auto;
   }
   #price {
-    color: red;
     text-align: right;
 
   }

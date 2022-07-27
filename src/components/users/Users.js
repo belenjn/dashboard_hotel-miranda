@@ -16,12 +16,23 @@ export const TableDivUsers = styled(TableDivBookings)`
     text-align: center;
   }
 
-  .categories,
   .text {
     display: flex;
     font-size: 15px;
-    margin: auto;
+    margin: 0 !important;
     width: 100%;
+
+   .booking__info {
+     span {
+       text-algin: center;
+     }
+   }
+  }
+
+  .categories {
+    width: 97%;
+    margin: auto;
+    margin-bottom: 10px;
   }
 
   td {
@@ -107,7 +118,7 @@ export const Users = () => {
       <TableDivUsers>
         <thead>
           <tr className="categories">
-            <th className="title__name">Name</th>
+            <th className="title__name">User</th>
             <th className="title__startDate">Start Date</th>
             <th className="title__description">Description</th>
             <th className="title__contact">Contact</th>
@@ -120,11 +131,43 @@ export const Users = () => {
             <tbody className="column__id">
               <tr className="text">
                 <td className="booking__info">
-                  <span>{user.user_name}</span>
-                  <br />
-                  <span>{user._id}</span>
-                  <br />
-                  <span>{user.user_email}</span>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        width: 100,
+                        height: 100,
+                        backgroundImage: `url(${user.user_image})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        borderRadius: 8,
+                        margin: "auto",
+                        marginLeft: 20,
+                      }}
+                    ></div>
+                    <div
+                      style={{
+                        textAlign: "left",
+                        display: "flex",
+                        fontSize: "11px",
+                        marginLeft: 10,
+                      }}
+                    >
+                      <span>
+                        {user.user_name}
+                        <br />
+                        {user._id}
+                        <br />
+                        {user.user_email}
+                      </span>
+                    </div>
+                  </div>
                 </td>
               </tr>
 
@@ -138,7 +181,16 @@ export const Users = () => {
 
               <tr className="text">
                 <td className="booking__info">
-                  <span>{user.occupation}</span>
+                  <span>
+                    {" "}
+                    {user.occupation === "reception"
+                      ? "Reception"
+                      : user.occupation === "room_service"
+                      ? "Room Service"
+                      : user.occupation === "manager"
+                      ? "Manager"
+                      : ""}
+                  </span>
                 </td>
               </tr>
 

@@ -263,7 +263,10 @@ export const Navbar = () => {
               </TitleNav>
             </div>
 
-            <div className="nav__icons">
+            <div className="nav__icons" style={{
+              display: "flex",
+              justifyContent: "right"
+            }}>
               {/* <HiOutlineMail />
               <IoMdNotificationsOutline /> */}
               <FiLogOut
@@ -299,7 +302,11 @@ export const Navbar = () => {
               </TitleNav>
             </div>
 
-            <div className="nav__icons">
+        
+            <div className="nav__icons" style={{
+              display: "flex",
+              justifyContent: "right"
+            }}>
               <FiLogOut />
             </div>
           </Nav>

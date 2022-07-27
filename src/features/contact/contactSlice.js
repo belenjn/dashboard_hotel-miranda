@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import contactsJSON from "../../database/contacts.json";
+import { fetchData } from "../../fetchData";
 
-export const fetchContacts = createAsyncThunk(
-  "contacts/fetchContacts",
-  async () => {
-    return new Promise((resolve) => setTimeout(resolve(contactsJSON), 0));
-  }
-);
+const initialState = {
+  allContacts: [],
+};
 
-const initialState = [];
+export const fetchContacts = createAsyncThunk("contacts/getContacts", async () => {
+  const response = await fetchData("contacts", "GET");
+  return response;
+});
 
 export const contactsSlice = createSlice({
   name: "contacts",
@@ -43,22 +43,24 @@ export const contactsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
-      return action.payload;
+      return void (state.allContacts = action.payload);
     });
   },
 });
 
-export const contactsList = (state) =>
-  [...state.contacts].sort((a, b) => {
-    return (
-      new Date(b.date_subject).getTime() - new Date(a.date_subject).getTime()
-    );
-    /*  El método getTime() devuelve el valor numérico correspondiente 
-  a la hora para la fecha especificada según la hora universal.
-  En este caso se utiliza con sort para poder ordenar las fechas de más
-  recientes a menor
-  */
-  });
+// export const contactsList = (state) =>
+//   [...state.contacts].sort((a, b) => {
+//     return (
+//       new Date(b.date_subject).getTime() - new Date(a.date_subject).getTime()
+//     );
+//     /*  El método getTime() devuelve el valor numérico correspondiente 
+//   a la hora para la fecha especificada según la hora universal.
+//   En este caso se utiliza con sort para poder ordenar las fechas de más
+//   recientes a menor
+//   */
+//   });
+
+export const contactsList = (state) => state.contacts.allContacts;
 
 export const { deleteContacts, getContact, updateContact, newContact } =
   contactsSlice.actions;
