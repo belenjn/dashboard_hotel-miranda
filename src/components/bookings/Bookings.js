@@ -258,10 +258,10 @@ export const Bookings = () => {
           </>
         ))}
       </TableDivBookings>
-
+{/* 
       <Button>
         <Link to="/bookings/id">Details</Link>
-      </Button>
+      </Button> */}
     </Box>
   );
 };

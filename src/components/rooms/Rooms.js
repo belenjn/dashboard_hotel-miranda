@@ -274,9 +274,9 @@ export const Rooms = () => {
         ))}
       </TableDivRooms>
       {/* Falta poner el botón archive */}
-      <Button>
+      {/* <Button>
         <Link to="/rooms/id">Details</Link>
-      </Button>
+      </Button> */}
     </Box>
   );
 };
