@@ -187,6 +187,7 @@ export const IconsDiv = styled.div`
 export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsList);
+  
 
   useEffect(() => {
     dispatch(fetchContacts());

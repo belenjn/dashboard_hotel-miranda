@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import bookingsJSON from "../../database/bookings.json";
+import { fetchData } from "../../fetchData";
 
-export const fetchBookings = createAsyncThunk(
-  "bookings/fetchBookings",
-  async () => {
-    return new Promise((resolve) => setTimeout(resolve(bookingsJSON), 0));
-  }
-);
+const initialState = {
+  allBookings: [],
+};
 
-const initialState = [];
+export const fetchBookings = createAsyncThunk("bookings/getBookings", async () => {
+  const response = await fetchData("bookings", "GET");
+  return response;
+});
+
 
 export const bookingsSlice = createSlice({
   name: "bookings",
@@ -45,12 +46,13 @@ export const bookingsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBookings.fulfilled, (state, action) => {
-      return action.payload;
+      return void (state.allBookings = action.payload);
+
     });
   },
 });
 
-export const bookingsList = (state) => state.bookings;
+export const bookingsList = (state) => state.bookings.allBookings;
 
 export const { deleteBooking, getBooking, updateBooking, newBooking } =
   bookingsSlice.actions;

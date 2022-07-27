@@ -36,7 +36,10 @@ margin-top: 30px;
     text-align: center;
   }
 
-  .categories,
+  .categories {
+    width: 95%;
+    margin: auto;
+  }
   .text {
     display: flex;
     margin: auto;
@@ -101,7 +104,7 @@ margin-top: 30px;
 
   .title__status {
     display: grid;
-    grid-column: 7;
+    grid-column: 6;
     font-size: 20px;
 
   }
@@ -145,7 +148,7 @@ export const Bookings = () => {
             <th className="title__checkIn">Check in</th>
             <th className="title__checkOut">Check Out</th>
             <th className="title__special">Special Request</th>
-            <th className="title__roomType">Room Type</th>
+            {/* <th className="title__roomType">Room Type</th> */}
             <th className="title__status">Status</th>
             {/* El status puede ser en check out, check in o in progress */}
           </tr>
@@ -172,12 +175,12 @@ export const Bookings = () => {
 
         {bookings.map((booking) => (
           <>
-            <tbody key={booking.id} className="column__id">
+            <tbody key={booking._id} className="column__id">
               <tr className="text">
                 <td className="booking__info">
-                  <span>{booking.name_guest}</span>
+                  <span>{booking.guest_name}</span>
                   <br />
-                  <span>{booking.id}</span>
+                  <span>{booking._id}</span>
                 </td>
               </tr>
 
@@ -192,7 +195,7 @@ export const Bookings = () => {
               <tr className="text">
                 <td className="booking__info">
                   <span>
-                    {new Date(booking.sales).toLocaleString("en-GB")}
+                    {new Date(booking.checkin).toLocaleString("en-GB")}
                   </span>
                 </td>
               </tr>
@@ -200,7 +203,7 @@ export const Bookings = () => {
               <tr className="text">
                 <td className="booking__info">
                   <span>
-                    {new Date(booking.occupancy).toLocaleString("en-GB")}
+                    {new Date(booking.checkout).toLocaleString("en-GB")}
                   </span>
                 </td>
               </tr>
@@ -211,23 +214,21 @@ export const Bookings = () => {
                 </td>
               </tr>
 
-              <tr className="text">
+              {/* <tr className="text">
                 <td className="booking__info">
                   <span>{booking.bed_type}</span>
-                  <br />
-                  <span>Num: {booking.room_number}</span>
                 </td>
-              </tr>
+              </tr> */}
 
               <tr className="text">
                 <td>
-                  {booking.status === "false" && (
+                  {booking.status === "checkout" && (
                     <StatusBooked>Check Out</StatusBooked>
                   )}
-                  {booking.status === "true" && (
+                  {booking.status === "checkin" && (
                     <StatusAvailable>Check In</StatusAvailable>
                   )}
-                  {booking.status === "progress" && (
+                  {booking.status === "in_progress" && (
                     <ButtonProgress>In Progress</ButtonProgress>
                   )}
                 </td>
