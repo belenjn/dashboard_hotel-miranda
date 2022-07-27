@@ -1,29 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import fetch from "cross-fetch";
-import { token, url } from "../../env";
-// import usersJSON from "../../database/users.json";
+import { fetchData } from "../../fetchData";
 
+const initialState = {
+  allUsers: [],
+};
 
-// devuelve el json
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  fetch(`${url}users`, {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-      Authorization: `BEARER ${token}`,
-    },
-    mode: "no-cors"
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  const response = await fetchData("users", "GET");
+  return response;
 });
-
-const initialState = [];
 
 export const usersSlice = createSlice({
   name: "users",
@@ -58,12 +43,12 @@ export const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      return action.payload;
+      return void (state.allUsers = action.payload);
     });
   },
 });
 
-export const usersList = (state) => state.users;
+export const usersList = (state) => state.users.allUsers;
 
 export const { deleteUser, getUser, updateUser, newUser } = usersSlice.actions;
 
