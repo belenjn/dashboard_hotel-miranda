@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import roomsJSON from "../../database/rooms.json"
+import { fetchData } from "../../fetchData";
 
 
-export const fetchRooms = createAsyncThunk("rooms/fetchRooms", async () => {
- return new Promise(resolve => setTimeout(resolve(roomsJSON), 0))
+const initialState = {
+  allRooms: [],
+};
+
+export const fetchRooms = createAsyncThunk("rooms/getRooms", async () => {
+  const response = await fetchData("rooms", "GET");
+  return response;
 });
-
-const initialState = [];
-
 
 export const roomsSlice = createSlice({
   name: "rooms",
@@ -45,19 +47,21 @@ export const roomsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchRooms.fulfilled, (state, action) => {
-      return action.payload;
+      return void (state.allRooms = action.payload);
     });
   },
 });
 
 
-export const roomsList = (state) =>
-  [...state.rooms].sort((a, b) => {
-    return (
-      (a.room_number) - (b.room_number)
-    );
+// export const roomsList = (state) =>
+//   [...state.rooms].sort((a, b) => {
+//     return (
+//       (a.room_number) - (b.room_number)
+//     );
   
-  });
+//   });
+
+export const roomsList = (state) => state.rooms.allRooms;
 
   export const { deleteRoom, getRoom, updateRoom, newRoom } =
   roomsSlice.actions;

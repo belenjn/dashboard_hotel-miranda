@@ -26,8 +26,8 @@ export const TableDivRooms = styled.table`
   padding: 20px;
   font-size: 14px;
   margin: auto;
-margin-top: 30px;
-  width: 95%;
+  margin-top: 30px;
+  width: 100%;
 
   thead {
     width: 1300px;
@@ -38,11 +38,12 @@ margin-top: 30px;
     grid-template-column: repeat(6, 1fr);
     font-size: 20px;
     text-align: center;
+    gap: 60px;
   }
 
   tr {
     display: flex;
-    justify-content: space-betweeen;
+    justify-content: space-around;
     width: 100%;
   }
 
@@ -112,6 +113,16 @@ margin-top: 30px;
   .facilities__info {
     text-align: right;
   }
+
+  .categories {
+    width: 95%;
+    margin: auto;
+  }
+  #price {
+    color: red;
+    text-align: right;
+
+  }
 `;
 
 export const Image = styled.div`
@@ -156,8 +167,7 @@ export const Rooms = () => {
       <TableDivRooms>
         <thead>
           <tr className="categories">
-            <th className="title__name">Room Name</th>{" "}
-            {/*Contiene la foto, el id y el nombre*/}
+            <th className="title__name">Room</th>{" "}
             <th className="title__bedType">Bed Type</th>
             <th className="title__facilities">Facilities</th>
             <th className="title__rate">Rate</th>
@@ -188,32 +198,49 @@ export const Rooms = () => {
 
         {rooms.map((room) => (
           <>
-            <tbody key={room.id} className="column__id">
+            <tbody key={room._id} className="column__id">
               <tr className="text">
-                <Image />
-                <td className="room__info">
-                  <span id="id">#{room.id} </span>
-                  <br />
-                  <span>
-                    {new Date(room.date_room).toLocaleString("en-GB")}
-                  </span>
+                <div
+                  style={{
+                    backgroundImage: `url(${room.images[0]})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    borderRadius: 8,
+                    width: 150,
+                    height: 65,
+                  }}
+                ></div>
+                {/* <h6 style={{
+                  textAlign: "right",
+                  color: "black",
+                  backgroundColor: "#FFFFFF78",
+                  width: "90px"
+                }}>Room number: {room.room_number}</h6> */}
+              </tr>
+
+              <tr className="text">
+                <td>
+                  {room.bed_type === "single_bed"
+                    ? "Single Bed"
+                    : room.bed_type === "double_superior"
+                    ? "Double Superior"
+                    : room.bed_type === "double_bed"
+                    ? "Double Bed"
+                    : "Suite"}
                 </td>
               </tr>
 
               <tr className="text">
-                <td>{room.bed_type}</td>
+                <td className="facilities__info">{room.amenities}</td>
               </tr>
 
               <tr className="text">
-                <td className="facilities__info">{room.facilities}</td>
+                <td id="price">{room.price}</td>
               </tr>
 
-              <tr className="text">
-                <td>{room.rate}</td>
-              </tr>
-
-              <tr className="text">
-                <td>{room.rate}</td>
+              <tr className="text" id="price">
+                <td id="price">{room.price}</td>
               </tr>
 
               <tr className="text">
