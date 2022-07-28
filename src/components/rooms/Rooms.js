@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { Box } from "../../styles/styles";
 
 import image from "./assets/no-img.jpg";
 import { BoxArchivedContacts } from "../contacts/Contacts";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchRooms,
- 
-  roomsList,
-} from "../../features/rooms/roomsSlice";
+import { fetchRooms, roomsList } from "../../features/rooms/roomsSlice";
 import styled from "styled-components";
 
 export const BoxSortRooms = styled(BoxArchivedContacts)`
@@ -117,7 +113,6 @@ export const TableDivRooms = styled.table`
   }
   #price {
     text-align: right;
-
   }
 `;
 
@@ -146,18 +141,37 @@ export const Rooms = () => {
   const dispatch = useDispatch();
   const rooms = useSelector(roomsList);
 
+  const [roomsState, setRoomsState] = useState(rooms);
+
+  const price = rooms.filter((room) => room.price
+  );
+
+  const handleClickAllRooms = () => {
+    setRoomsState(rooms)
+  }
+
+  const handleClickRoomPrices = () => {
+    price.sort((a, b) => {
+      return a.price < b.price;
+    })
+    setRoomsState(price)
+  }
+
   useEffect(() => {
     dispatch(fetchRooms());
   }, []);
 
+
+  useEffect(() => {
+    setRoomsState(rooms)
+  }, [rooms]);
+
   return (
     <Box>
-      
-      {/* <BoxSortRooms>
-        <button>All rooms</button>
-        <button>State</button>
-        <button>Price</button>
-      </BoxSortRooms> */}
+       <BoxSortRooms>
+        <button onClick={handleClickAllRooms}>All rooms</button>
+        <button onClick={handleClickRoomPrices}>Price</button>
+      </BoxSortRooms> 
 
       <TableDivRooms>
         <thead>
@@ -169,11 +183,10 @@ export const Rooms = () => {
             <th className="title__offer">Offer Price</th>
             <th className="title__status">Status</th>
           </tr>
-         
         </thead>
 
-        {rooms.map((room) => (
-          < div key={room._id} >
+        {roomsState.map((room) => (
+          <div key={room._id}>
             <tbody className="column__id">
               <tr className="text">
                 <div
@@ -187,7 +200,6 @@ export const Rooms = () => {
                     height: 65,
                   }}
                 ></div>
-            
               </tr>
 
               <tr className="text">
@@ -223,7 +235,6 @@ export const Rooms = () => {
                   )}
                 </td>
               </tr>
-
             </tbody>
           </div>
         ))}
