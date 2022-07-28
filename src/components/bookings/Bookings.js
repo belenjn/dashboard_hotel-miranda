@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bookingsList,
-  // deleteBooking,
   fetchBookings,
-  // getBooking,
-  // newBooking,
-  // updateBooking,
+
 } from "../../features/bookings/bookingsSlice";
-import { Box, ButtonProgress, TableDivBookings } from "../../styles/styles";
+import { Box, BoxSortBookings, ButtonProgress, TableDivBookings } from "../../styles/styles";
 import {
 
   StatusAvailable,
@@ -22,19 +19,51 @@ export const Bookings = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(bookingsList);
 
+
+  const [bookingsState, setBookingsState] = useState(bookings);
+
+  const checkIn = bookings.filter((booking) => booking.status === "checkin");
+  const checkOut = bookings.filter((booking) => booking.status === "checkout");
+  const inProgress = bookings.filter((booking) => booking.status === "in_progress");
+
+  const handleClickAllBookings = () => {
+    setBookingsState(bookings);
+  };
+
+  const handleClickCheckIn = () => {
+    setBookingsState(checkIn);
+
+  };
+
+  const handleClickCheckOut = () => {
+    setBookingsState(checkOut);
+
+  };
+
+
+  const handleClickInProgress = () => {
+    setBookingsState(inProgress);
+
+  };
   useEffect(() => {
     dispatch(fetchBookings());
   }, []);
 
+
+  useEffect(() => {
+    setBookingsState(bookings);
+  }, [bookings]);
+
+
   return (
     <Box>
    
-      {/* <BoxSortBookings>
-        <button>All bookings</button>
-        <button>Check In</button>
-        <button>Check Out</button>
-        <button>In progress</button>
-      </BoxSortBookings> */}
+      <BoxSortBookings>
+        <button onClick={handleClickAllBookings}>All bookings</button>
+        <button onClick={handleClickCheckIn}>Check In</button>
+        <button onClick={handleClickCheckOut}>Check Out</button>
+        <button onClick={handleClickInProgress}>In progress</button>
+      </BoxSortBookings> 
 
       <TableDivBookings>
         <thead>
@@ -49,7 +78,7 @@ export const Bookings = () => {
     
         </thead>
 
-        {bookings.map((booking) => (
+        {bookingsState.map((booking) => (
           <>
             <tbody key={booking._id} className="column__id">
               <tr className="text">

@@ -6,12 +6,9 @@ import image from "./assets/no-img.jpg";
 import { BoxArchivedContacts } from "../contacts/Contacts";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // deleteRoom,
   fetchRooms,
-  // getRoom,
-  // newRoom,
+ 
   roomsList,
-  // updateRoom,
 } from "../../features/rooms/roomsSlice";
 import styled from "styled-components";
 
@@ -172,31 +169,12 @@ export const Rooms = () => {
             <th className="title__offer">Offer Price</th>
             <th className="title__status">Status</th>
           </tr>
-          {/* <button
-            onClick={() =>
-              dispatch(
-                newRoom({
-                  id: 342,
-                  room_name: "Otra nueva Room",
-                  room_number: 1000,
-                  floor_room: 17,
-                  bed_type: "Single Bed",
-                  facilities: "Nueva room añadida",
-                  description: "un poco más de texto",
-                  date_room: "2022-07-19 03:13:41",
-                  rate: 1000,
-                  status: "true",
-                })
-              )
-            }
-          >
-            New Room
-          </button> */}
+         
         </thead>
 
         {rooms.map((room) => (
-          <>
-            <tbody key={room._id} className="column__id">
+          < div key={room._id} >
+            <tbody className="column__id">
               <tr className="text">
                 <div
                   style={{
@@ -209,12 +187,7 @@ export const Rooms = () => {
                     height: 65,
                   }}
                 ></div>
-                {/* <h6 style={{
-                  textAlign: "right",
-                  color: "black",
-                  backgroundColor: "#FFFFFF78",
-                  width: "90px"
-                }}>Room number: {room.room_number}</h6> */}
+            
               </tr>
 
               <tr className="text">
@@ -243,7 +216,7 @@ export const Rooms = () => {
 
               <tr className="text">
                 <td>
-                  {room.status === "false" ? (
+                  {room.offer === false ? (
                     <StatusBooked>Booked</StatusBooked>
                   ) : (
                     <StatusAvailable>Available</StatusAvailable>
@@ -251,28 +224,10 @@ export const Rooms = () => {
                 </td>
               </tr>
 
-              {/* <tr>
-                <button onClick={() => dispatch(deleteRoom(room))}>
-                  Delete room
-                </button>
-                <button
-                  onClick={() => dispatch(getRoom(room), console.log(room))}
-                >
-                  Get Room
-                </button>
-                <button
-                  onClick={() =>
-                    dispatch(updateRoom({ ...room, status: "false" }))
-                  }
-                >
-                  Update Room
-                </button>
-              </tr> */}
             </tbody>
-          </>
+          </div>
         ))}
       </TableDivRooms>
-      {/* Falta poner el botón archive */}
       {/* <Button>
         <Link to="/rooms/id">Details</Link>
       </Button> */}

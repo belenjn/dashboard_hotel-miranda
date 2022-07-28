@@ -200,10 +200,13 @@ export const Contacts = () => {
     setContactsState(archivedContacts);
     console.log("hola");
   };
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, []);
 
   useEffect(() => {
-    dispatch(fetchContacts(contactsState));
-  }, [contactsState]);
+    setContactsState(contacts);
+  }, [contacts]);
 
   return (
     <Box>

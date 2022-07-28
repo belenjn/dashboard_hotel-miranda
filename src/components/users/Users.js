@@ -28,8 +28,15 @@ export const Users = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchUsers(usersState));
-  }, [dispatch, usersState]);
+    dispatch(fetchUsers());
+  }, []);
+
+
+  useEffect(() => {
+    setUsersState(users);
+  }, [users]);
+
+
 
   return (
     <Box>
