@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   contactsList,
   fetchContacts,
-  // getContact,
-  // newContact,
-  // updateContact,
 } from "../../features/contact/contactSlice";
-import { Box } from "../../styles/styles";
-import { ActiveUser, InactiveUser } from "../users/Users";
+import { ActiveUser, Box, InactiveUser } from "../../styles/styles";
 
 // import { VscError } from "react-icons/vsc";
 // import {AiOutlineCheckCircle} from "react-icons/ai";
-
-// import { deleteContacts } from "../../features/contact/contactSlice";
 
 export const TableDiv = styled.table`
   background-color: white;
@@ -193,10 +186,11 @@ export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsList);
 
-
   const [contactsState, setContactsState] = useState(contacts);
 
-  const archivedContacts = contacts.filter((contact) => contact.archived === true);
+  const archivedContacts = contacts.filter(
+    (contact) => contact.archived === true
+  );
 
   const handleClickAllContacts = () => {
     setContactsState(contacts);
@@ -204,13 +198,12 @@ export const Contacts = () => {
 
   const handleClickArchivedContacts = () => {
     setContactsState(archivedContacts);
+    console.log("hola");
   };
-
 
   useEffect(() => {
     dispatch(fetchContacts(contactsState));
   }, [contactsState]);
-
 
   return (
     <Box>
@@ -262,7 +255,7 @@ export const Contacts = () => {
           </tr>
         </thead>
 
-        {contacts.map((contact) => (
+        {contactsState.map((contact) => (
           <>
             <tbody key={contact._id} className="column__id">
               <tr className="text text__id">
