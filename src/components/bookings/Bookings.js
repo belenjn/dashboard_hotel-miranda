@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   bookingsList,
@@ -10,7 +9,7 @@ import {
   // newBooking,
   // updateBooking,
 } from "../../features/bookings/bookingsSlice";
-import { Box, Button } from "../../styles/styles";
+import { Box } from "../../styles/styles";
 import {
   BoxSortRooms,
   StatusAvailable,
@@ -18,13 +17,6 @@ import {
   TableDivRooms,
 } from "../rooms/Rooms";
 
-export const BoxSortBookings = styled(BoxSortRooms)`
-  width: 850px;
-`;
-
-export const ButtonProgress = styled(StatusAvailable)`
-  background-color: #ff9c3a;
-`;
 
 export const TableDivBookings = styled(TableDivRooms)`
 margin-top: 30px;
@@ -122,6 +114,16 @@ margin-top: 30px;
   }
 `;
 
+
+export const BoxSortBookings = styled(BoxSortRooms)`
+  width: 850px;
+`;
+
+export const ButtonProgress = styled(StatusAvailable)`
+  background-color: #ff9c3a;
+`;
+
+
 export const Bookings = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(bookingsList);
@@ -148,29 +150,9 @@ export const Bookings = () => {
             <th className="title__checkIn">Check in</th>
             <th className="title__checkOut">Check Out</th>
             <th className="title__special">Special Request</th>
-            {/* <th className="title__roomType">Room Type</th> */}
             <th className="title__status">Status</th>
-            {/* El status puede ser en check out, check in o in progress */}
           </tr>
-          {/* <button
-            onClick={() =>
-              dispatch(
-                newBooking({
-                  id: 200,
-                  name_guest: "María Pérez",
-                  order_date: "2022-07-19 03:13:41",
-                  sales: "2022-07-19 23:00:00",
-                  occupancy: "2022-07-29 07:13:21",
-                  special_request: "Probando una nueva reserva",
-                  room_number: 300,
-                  rate: 1205,
-                  status: "progress",
-                })
-              )
-            }
-          >
-            New Room
-          </button> */}
+    
         </thead>
 
         {bookings.map((booking) => (
@@ -214,12 +196,6 @@ export const Bookings = () => {
                 </td>
               </tr>
 
-              {/* <tr className="text">
-                <td className="booking__info">
-                  <span>{booking.bed_type}</span>
-                </td>
-              </tr> */}
-
               <tr className="text">
                 <td>
                   {booking.status === "checkout" && (
@@ -234,26 +210,6 @@ export const Bookings = () => {
                 </td>
               </tr>
 
-              {/* Botones para ver las funcionalidades en la web
-              <tr>
-                <button onClick={() => dispatch(deleteBooking(booking))}>
-                  Delete room
-                </button>
-                <button
-                  onClick={() =>
-                    dispatch(getBooking(booking), console.log(booking))
-                  }
-                >
-                  Get Room
-                </button>
-                <button
-                  onClick={() =>
-                    dispatch(updateBooking({ ...booking, status: "false" }))
-                  }
-                >
-                  Update Room
-                </button>
-              </tr> */}
             </tbody>
           </>
         ))}

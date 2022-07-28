@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Box, Button } from "../../styles/styles";
+// import { Link } from "react-router-dom";
+import { Box } from "../../styles/styles";
 
 import image from "./assets/no-img.jpg";
 import { BoxArchivedContacts } from "../contacts/Contacts";
@@ -155,8 +155,7 @@ export const Rooms = () => {
 
   return (
     <Box>
-      {/* Falta la misma vista rápida que debe haber en el dashboard
-       */}
+      
       {/* <BoxSortRooms>
         <button>All rooms</button>
         <button>State</button>

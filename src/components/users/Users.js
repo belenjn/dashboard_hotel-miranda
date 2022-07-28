@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {
-  activeEmployees,
-  fetchUsers,
-  inactiveEmployees,
-  usersList,
-} from "../../features/users/usersSlice";
+// import { Link } from "react-router-dom";
+import { fetchUsers, usersList } from "../../features/users/usersSlice";
 import { Box } from "../../styles/styles";
-import {
-  BoxSortBookings,
-  ButtonProgress,
-  TableDivBookings,
-} from "../bookings/Bookings";
+import { BoxSortBookings, ButtonProgress, TableDivBookings } from "../bookings/Bookings";
+
 
 export const TableDivUsers = styled(TableDivBookings)`
   margin-top: 30px;
@@ -114,24 +106,24 @@ export const Users = () => {
 
   const [usersState, setUsersState] = useState(users);
 
-  const activeUsers = users.filter((user) => user.status === true);
-  const inactiveUsers = users.filter((user) => user.status === false);
+  const activeEmployees = users.filter((user) => user.status === true);
+  const inactiveEmployees = users.filter((user) => user.status === false);
 
   const handleClickAllUsers = () => {
     setUsersState(users);
   };
 
   const handleClickActiveUsers = () => {
-    setUsersState(activeUsers);
+    setUsersState(activeEmployees);
   };
 
   const handleClickInactiveUsers = () => {
-    setUsersState(inactiveUsers);
+    setUsersState(inactiveEmployees);
   };
 
   useEffect(() => {
     dispatch(fetchUsers(usersState));
-  }, [usersState]);
+  }, [dispatch, usersState]);
 
   return (
     <Box>

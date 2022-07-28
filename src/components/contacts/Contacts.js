@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   contactsList,
@@ -9,7 +9,8 @@ import {
   // newContact,
   // updateContact,
 } from "../../features/contact/contactSlice";
-import { Box, Button } from "../../styles/styles";
+import { Box } from "../../styles/styles";
+import { ActiveUser, InactiveUser } from "../users/Users";
 
 // import { VscError } from "react-icons/vsc";
 // import {AiOutlineCheckCircle} from "react-icons/ai";
@@ -34,7 +35,6 @@ export const TableDiv = styled.table`
     grid-template-column: repeat(3, 1fr);
     font-size: 20px;
     text-align: center;
-    
   }
 
   tr {
@@ -70,6 +70,11 @@ export const TableDiv = styled.table`
   .title__comment {
     display: grid;
     grid-column: 3;
+  }
+
+  .title__archived {
+    display: grid;
+    grid-column: 4;
   }
 
   .info {
@@ -187,14 +192,33 @@ export const IconsDiv = styled.div`
 export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsList);
-  
+
+
+  const [contactsState, setContactsState] = useState(contacts);
+
+  const archivedContacts = contacts.filter((contact) => contact.archived === true);
+
+  const handleClickAllContacts = () => {
+    setContactsState(contacts);
+  };
+
+  const handleClickArchivedContacts = () => {
+    setContactsState(archivedContacts);
+  };
+
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, []);
+    dispatch(fetchContacts(contactsState));
+  }, [contactsState]);
+
 
   return (
     <Box>
+      <BoxArchivedContacts>
+        <button onClick={handleClickAllContacts}>All contacts</button>
+        <button onClick={handleClickArchivedContacts}>Archived</button>
+      </BoxArchivedContacts>
+
       {/* <BoxForMessages>
         <BoxContactsMessages>
           <div>
@@ -226,10 +250,7 @@ export const Contacts = () => {
       </BoxForMessages>
 
 
-      <BoxArchivedContacts>
-        <button>All contacts</button>
-        <button>Archived</button>
-      </BoxArchivedContacts> */}
+     */}
 
       <TableDiv>
         <thead>
@@ -237,26 +258,8 @@ export const Contacts = () => {
             <th className="title__id">ID / Date</th>
             <th className="title__customer">Customer</th>
             <th className="title__comment">Comment</th>
+            <th className="title__archived">Archived</th>
           </tr>
-          {/* <button
-            onClick={() =>
-              dispatch(
-                newContact({
-                  id: 20,
-                  name_guest: "Bea García",
-                  email_guest: "Bea@yahoo.com",
-                  phone_guest: "929-154-7228",
-                  date_subject: "2022-07-19 03:13:41",
-                  subject:
-                    "cupidatat dolore culpa minim cupidatat do velit esse",
-                  comment:
-                    "ut reprehenderit velit amet occaecat consectetur irure nisi in cillum excepteur ipsum reprehenderit proident sint deserunt ea veniam consectetur sint dolor eiusmod ut culpa veniam amet minim laborum dolore consectetur minim laboris qui",
-                })
-              )
-            }
-          >
-            New Contact
-          </button> */}
         </thead>
 
         {contacts.map((contact) => (
@@ -296,14 +299,27 @@ export const Contacts = () => {
                   Update Contact
                 </button> */}
               </tr>
+              <tr className="text">
+                <td
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  {contact.archived === true ? (
+                    <ActiveUser>Archived</ActiveUser>
+                  ) : (
+                    <InactiveUser>Not Archived</InactiveUser>
+                  )}
+                </td>
+              </tr>
             </tbody>
           </>
         ))}
       </TableDiv>
-      {/* Falta poner el botón archive */}
-      <Button>
+
+      {/* <Button>
         <Link to="/contacts/id">Details</Link>
-      </Button>
+      </Button> */}
     </Box>
   );
 };

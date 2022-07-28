@@ -73,7 +73,7 @@ function App() {
           exact
           element={
             <RequireAuth>
-              < Dashboard/>
+              <Dashboard />
             </RequireAuth>
           }
         />
