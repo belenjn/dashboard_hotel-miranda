@@ -15,6 +15,8 @@ import bed from "./assets/hotel.png";
 
 import Swal from "sweetalert2";
 import { authContext } from "../../App";
+import { fetchData, loginAuth } from "../../fetchData";
+import fetch from "cross-fetch";
 
 export const LogoHotel = styled.div`
   background-image: url(${logo});
@@ -37,7 +39,6 @@ export const Error = styled.div`
 `;
 
 export const Login = () => {
-
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
 
@@ -49,27 +50,14 @@ export const Login = () => {
 
   const { dispatchAuthenticated } = useContext(authContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (user === "belen" && password === "1234") {
-      dispatchAuthenticated({ type: "login", user: userData });
-    } else if (password !== "1234") {
-      Swal.fire({
-        title: "Invalid Password",
-        icon: "error",
-        confirmButtonText: "Try again",
-        confirmButtonColor: "#135846",
-      });
-    } else if (user !== "belen") {
-      Swal.fire({
-        title: "Invalid User",
-        icon: "error",
-        confirmButtonText: "Try again",
-        confirmButtonColor: "#135846",
-      });
-    }
-  };
+    const token = await loginAuth(user, password);
 
+    if (token) dispatchAuthenticated({ type: "login", user: userData });
+
+ 
+  };
 
   return (
     <BoxWithOtherBckg>

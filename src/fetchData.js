@@ -1,4 +1,5 @@
 import fetch from "cross-fetch";
+import Swal from "sweetalert2";
 import { host, token } from "./env";
 
 export const fetchData = async (url, type) => {
@@ -18,3 +19,31 @@ export const fetchData = async (url, type) => {
     console.log(error);
   }
 };
+
+export const loginAuth = async (user, password) => {
+  try {
+    const response = await fetch(
+      host + `login?username=${user}&password=${password}`,
+      {
+        method: "POST",
+      }
+    );
+
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.token;
+    } else {
+      const jsonResponse = await response.json();
+      const error = jsonResponse.message;
+      Swal.fire({
+        title: error,
+        icon: "error",
+        confirmButtonText: "Try again",
+        confirmButtonColor: "#135846",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
