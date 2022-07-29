@@ -13,10 +13,8 @@ import { TitleLogin } from "./styles/styles";
 import logo from "./assets/llave-del-hotel.png";
 import bed from "./assets/hotel.png";
 
-import Swal from "sweetalert2";
 import { authContext } from "../../App";
-import { fetchData, loginAuth } from "../../fetchData";
-import fetch from "cross-fetch";
+import { loginAuth } from "../../fetchData";
 
 export const LogoHotel = styled.div`
   background-image: url(${logo});
