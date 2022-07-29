@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../../fetchData";
+import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
   allBookings: [],
@@ -8,7 +8,7 @@ const initialState = {
 export const fetchBookings = createAsyncThunk(
   "bookings/getBookings",
   async () => {
-    const response = await fetchData("bookings", "GET");
+    const response = await apiRequest("bookings", "GET");
     return response;
   }
 );
@@ -16,7 +16,7 @@ export const fetchBookings = createAsyncThunk(
 export const getBooking = createAsyncThunk(
   "bookings/getBooking",
   async (id) => {
-    const response = await fetchData(`bookings/${id}`, "GET");
+    const response = await apiRequest(`bookings/${id}`, "GET");
     return response;
   }
 );
@@ -24,7 +24,7 @@ export const getBooking = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   "bookings/deleteBooking",
   async (id) => {
-    const response = await fetchData(`bookings/${id}`, "DELETE");
+    const response = await apiRequest(`bookings/${id}`, "DELETE");
     return response;
   }
 );

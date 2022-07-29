@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../../fetchData";
+import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
   allContacts: [],
@@ -8,7 +8,7 @@ const initialState = {
 export const fetchContacts = createAsyncThunk(
   "contacts/getContacts",
   async () => {
-    const response = await fetchData("contacts", "GET");
+    const response = await apiRequest("contacts", "GET");
     return response;
   }
 );
@@ -16,7 +16,7 @@ export const fetchContacts = createAsyncThunk(
 export const getContact = createAsyncThunk(
   "contacts/getContact",
   async (id) => {
-    const response = await fetchData(`contacts/${id}`, "GET");
+    const response = await apiRequest(`contacts/${id}`, "GET");
     return response;
   }
 );
@@ -24,7 +24,7 @@ export const getContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   "contacts/deleteContact",
   async (id) => {
-    const response = await fetchData(`contacts/${id}`, "DELETE");
+    const response = await apiRequest(`contacts/${id}`, "DELETE");
     return response;
   }
 );

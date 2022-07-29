@@ -1,22 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../../fetchData";
+import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
   allUsers: [],
 };
 
 export const fetchUsers = createAsyncThunk("users/getUsers", async () => {
-  const response = await fetchData("users", "GET");
+  const response = await apiRequest("users", "GET");
   return response;
 });
 
 export const getUser = createAsyncThunk("users/getUser", async (id) => {
-  const response = await fetchData(`users/${id}`, "GET");
+  const response = await apiRequest(`users/${id}`, "GET");
   return response;
 });
 
 export const deleteUser = createAsyncThunk("users/deleteUser", async (id) => {
-  const response = await fetchData(`users/${id}`, "DELETE");
+  const response = await apiRequest(`users/${id}`, "DELETE");
   return response;
 });
 

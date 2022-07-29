@@ -2,7 +2,7 @@ import fetch from "cross-fetch";
 import Swal from "sweetalert2";
 import { host, token } from "./env";
 
-export const fetchData = async (url, type) => {
+export const apiRequest = async (url, type) => {
   try {
     const response = await fetch(host + url, {
       method: type,

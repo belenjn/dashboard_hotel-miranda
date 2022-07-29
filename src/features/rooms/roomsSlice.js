@@ -1,22 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchData } from "../../fetchData";
+import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
   allRooms: [],
 };
 
 export const fetchRooms = createAsyncThunk("rooms/getRooms", async () => {
-  const response = await fetchData("rooms", "GET");
+  const response = await apiRequest("rooms", "GET");
   return response;
 });
 
 export const getRoom = createAsyncThunk("rooms/getRoom", async (id) => {
-  const response = await fetchData(`rooms/${id}`, "GET");
+  const response = await apiRequest(`rooms/${id}`, "GET");
   return response;
 });
 
-export const deleteUser = createAsyncThunk("rooms/deleteRoom", async (id) => {
-  const response = await fetchData(`rooms/${id}`, "DELETE");
+export const deleteRoom = createAsyncThunk("rooms/deleteRoom", async (id) => {
+  const response = await apiRequest(`rooms/${id}`, "DELETE");
   return response;
 });
 

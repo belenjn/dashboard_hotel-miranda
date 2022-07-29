@@ -14,7 +14,7 @@ import logo from "./assets/llave-del-hotel.png";
 import bed from "./assets/hotel.png";
 
 import { authContext } from "../../App";
-import { loginAuth } from "../../fetchData";
+import { loginAuth } from "../../apiFunctions";
 
 export const LogoHotel = styled.div`
   background-image: url(${logo});
