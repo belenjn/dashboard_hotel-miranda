@@ -3,27 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   bookingsList,
   fetchBookings,
-
 } from "../../features/bookings/bookingsSlice";
-import { Box, BoxSortBookings, ButtonProgress, TableDivBookings } from "../../styles/styles";
 import {
-
-  StatusAvailable,
-  StatusBooked,
-  
-} from "../rooms/Rooms";
-
+  Box,
+  BoxSortBookings,
+  ButtonProgress,
+  Input,
+  TableDivBookings,
+} from "../../styles/styles";
+import { StatusAvailable, StatusBooked } from "../rooms/Rooms";
 
 export const Bookings = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(bookingsList);
 
-
   const [bookingsState, setBookingsState] = useState(bookings);
 
   const checkIn = bookings.filter((booking) => booking.status === "checkin");
   const checkOut = bookings.filter((booking) => booking.status === "checkout");
-  const inProgress = bookings.filter((booking) => booking.status === "in_progress");
+  const inProgress = bookings.filter(
+    (booking) => booking.status === "in_progress"
+  );
 
   const handleClickAllBookings = () => {
     setBookingsState(bookings);
@@ -31,39 +31,81 @@ export const Bookings = () => {
 
   const handleClickCheckIn = () => {
     setBookingsState(checkIn);
-
   };
 
   const handleClickCheckOut = () => {
     setBookingsState(checkOut);
-
   };
-
 
   const handleClickInProgress = () => {
     setBookingsState(inProgress);
-
   };
   useEffect(() => {
     dispatch(fetchBookings());
   }, []);
 
-
   useEffect(() => {
     setBookingsState(bookings);
   }, [bookings]);
 
-
-
   return (
     <Box>
-   
       <BoxSortBookings>
-        <button onClick={handleClickAllBookings}>All bookings</button>
-        <button onClick={handleClickCheckIn}>Check In</button>
-        <button onClick={handleClickCheckOut}>Check Out</button>
-        <button onClick={handleClickInProgress}>In progress</button>
-      </BoxSortBookings> 
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50%",
+          }}
+        >
+          <button onClick={handleClickAllBookings}>All bookings</button>
+          <button onClick={handleClickCheckIn}>Check In</button>
+          <button onClick={handleClickCheckOut}>Check Out</button>
+          <button onClick={handleClickInProgress}>In progress</button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "50%",
+            marginRight: 45,
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: "#135846",
+              borderRadius: 12,
+              border: "none",
+              color: "white",
+              fontSize: 14,
+              margin: "auto",
+              marginRight: 20,
+              height: 55,
+              width: 120,
+            }}
+          >
+            New Booking
+          </button>
+          <select
+            style={{
+              borderColor: "#135846",
+              color: "#135846",
+              borderRadius: 12,
+              height: 55,
+              width: 120,
+              textAlign: "center",
+              margin: "auto",
+              fontSize: 14,
+            }}
+          >
+            <option>Newest</option>
+            <option>Guest</option>
+            <option>Check In</option>
+            <option>Check Out</option>
+          </select>
+          <Input type="text" placeholder="Search Guest" />
+        </div>
+      </BoxSortBookings>
 
       <TableDivBookings>
         <thead>
@@ -75,7 +117,6 @@ export const Bookings = () => {
             <th className="title__special">Special Request</th>
             <th className="title__status">Status</th>
           </tr>
-    
         </thead>
 
         {bookingsState.map((booking) => (
@@ -132,12 +173,11 @@ export const Bookings = () => {
                   )}
                 </td>
               </tr>
-
             </tbody>
           </>
         ))}
       </TableDivBookings>
-{/* 
+      {/* 
       <Button>
         <Link to="/bookings/id">Details</Link>
       </Button> */}

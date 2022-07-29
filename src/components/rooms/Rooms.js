@@ -81,14 +81,15 @@ export const Rooms = () => {
               color: "#135846",
               borderRadius: 12,
               height: 55,
-              width: 120,
+              width: 130,
               textAlign: "center",
               margin: "auto",
               fontSize: 14,
             }}
           >
-            <option>Newest</option>
-            <option>Guest</option>
+            <option>Room Number</option>
+            <option>Price -</option>
+            <option>Price +</option>
           </select>
         </div>
       </BoxSortRooms>
