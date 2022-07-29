@@ -226,6 +226,7 @@ export const Dashboard = () => {
 
   const svgRef = useRef();
 
+
   useEffect(() => {
     const margin = { top: 10, right: 30, bottom: 20, left: 50 };
     const width = 500 - margin.left - margin.right;
@@ -327,6 +328,8 @@ export const Dashboard = () => {
     }
   }, []);
 
+
+ 
   return (
     <>
       <Box>

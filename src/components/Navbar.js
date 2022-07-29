@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Nav, TitleNav } from "../styles/styles";
@@ -210,6 +210,7 @@ export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [navbarSmaller, setNavbarSmaller] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const asideDiv = useRef();
 
   function camelize(str) {
     return (" " + str)
@@ -217,7 +218,12 @@ export const Navbar = () => {
       .replace(/[^a-zA-Z0-9]+(.)/g, function (match, chr) {
         return chr.toUpperCase();
       });
-  }
+  }  
+  const handleClickOut = (e) => {
+    if (e.target !== asideDiv) {
+      setOpen(false);
+    }
+  };
 
   const location = useLocation();
   let currentLocation = camelize(location.pathname);
@@ -238,82 +244,49 @@ export const Navbar = () => {
   if (authenticated.authenticated) {
     return (
       <>
-        {!navbarSmaller ? (
-          <Nav>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <TbArrowsLeftRight
-                onClick={handleClick}
-                open={open}
-                style={{
-                  fontSize: "25px",
-                  margin: "auto",
-                  marginLeft: "60px",
-                  cursor: "pointer",
-                }}
-              />
-              <TitleNav>
-                {currentLocation === "/"
-                  ? (currentLocation = "Dashboard")
-                  : currentLocation}
-              </TitleNav>
-            </div>
-
-            <div className="nav__icons" style={{
+        <Nav>
+          <div
+            style={{
               display: "flex",
-              justifyContent: "right"
-            }}>
-              {/* <HiOutlineMail />
+              justifyContent: "space-between",
+            }}
+          >
+            <TbArrowsLeftRight
+              onClick={handleClick}
+              open={open}
+              style={{
+                fontSize: "25px",
+                margin: "auto",
+                marginLeft: "60px",
+                cursor: "pointer",
+              }}
+            />
+            <TitleNav>
+              {currentLocation === "/"
+                ? (currentLocation = "Dashboard")
+                : currentLocation}
+            </TitleNav>
+          </div>
+
+          <div
+            className="nav__icons"
+            style={{
+              display: "flex",
+              justifyContent: "right",
+            }}
+          >
+            {/* <HiOutlineMail />
               <IoMdNotificationsOutline /> */}
-              <FiLogOut
-                onClick={(e) => {
-                  dispatchAuthenticated({ type: "logout" });
-                }}
-              />
-            </div>
-          </Nav>
-        ) : (
-          <Nav>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginLeft: "300px",
+            <FiLogOut
+              onClick={(e) => {
+                dispatchAuthenticated({ type: "logout" });
               }}
-            >
-              <TbArrowsLeftRight
-                onClick={handleClick}
-                open={open}
-                style={{
-                  fontSize: "25px",
-                  margin: "auto",
-                  marginLeft: "60px",
-                  cursor: "pointer",
-                }}
-              />
-              <TitleNav>
-                {currentLocation === "/"
-                  ? (currentLocation = "Dashboard")
-                  : currentLocation}
-              </TitleNav>
-            </div>
-
-        
-            <div className="nav__icons" style={{
-              display: "flex",
-              justifyContent: "right"
-            }}>
-              <FiLogOut />
-            </div>
-          </Nav>
-        )}
+            />
+          </div>
+        </Nav>
 
         {open && (
-          <AsideMenu>
+          <AsideMenu ref={asideDiv} onClick={handleClickOut}>
             <BoxLogoAside>
               <LogoAsideMenu />
               <BoxText>
