@@ -1,123 +1,11 @@
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
-import { Box } from "../../styles/styles";
+import { Box, BoxSortRooms, TableDivRooms } from "../../styles/styles";
 
 import image from "./assets/no-img.jpg";
-import { BoxArchivedContacts } from "../contacts/Contacts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRooms, roomsList } from "../../features/rooms/roomsSlice";
 import styled from "styled-components";
-
-export const BoxSortRooms = styled(BoxArchivedContacts)`
-  width: 600px;
-  margin-left: 40px;
-`;
-
-export const TableDivRooms = styled.div`
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  font-size: 14px;
-  margin: auto;
-  margin-top: 30px;
-  width: 100%;
-
-  thead {
-    width: 1300px;
-  }
-
-  thead tr {
-    display: grid;
-    grid-template-column: repeat(6, 1fr);
-    font-size: 20px;
-    text-align: center;
-    gap: 60px;
-  }
-
-  tr {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-
-  .text {
-    justify-content: center;
-
-    td {
-      margin: auto;
-    }
-  }
-
-  .title__name {
-    display: grid;
-    grid-column: 1;
-  }
-
-  .title__bedType {
-    display: grid;
-    grid-column: 2;
-  }
-
-  .title__facilities {
-    display: grid;
-    grid-column: 3;
-  }
-
-  .title__rate {
-    display: grid;
-    grid-column: 4;
-  }
-
-  .title__offer {
-    display: grid;
-    grid-column: 5;
-  }
-
-  .title__status {
-    display: grid;
-    grid-column: 6;
-  }
-
-  th {
-    padding: 5px;
-    margin-bottom: 20px;
-    width: 85%;
-  }
-
-  tbody {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-
-  .room__info {
-    text-align: center;
-
-    #id {
-      color: #799283;
-    }
-
-    span {
-      margin: auto;
-      font-size: 14px;
-    }
-  }
-
-  .facilities__info {
-    text-align: right;
-  }
-
-  .categories {
-    display: flex;
-    justify-content: space-between;
-    width: 135%;
-    margin: auto;
-    margin-left: 20px;
-  }
-  #price {
-    text-align: right;
-  }
-`;
 
 export const Image = styled.div`
   background-image: url(${image});
@@ -146,35 +34,64 @@ export const Rooms = () => {
 
   const [roomsState, setRoomsState] = useState(rooms);
 
-  const price = rooms.filter((room) => room.price
-  );
+  const price = rooms.filter((room) => room.price);
 
   const handleClickAllRooms = () => {
-    setRoomsState(rooms)
-  }
+    setRoomsState(rooms);
+  };
 
   const handleClickRoomPrices = () => {
     price.sort((a, b) => {
       return a.price > b.price;
-    })
-    setRoomsState(price)
-  }
+    });
+    setRoomsState(price);
+  };
 
   useEffect(() => {
     dispatch(fetchRooms());
   }, []);
 
-
   useEffect(() => {
-    setRoomsState(rooms)
+    setRoomsState(rooms);
   }, [rooms]);
 
   return (
     <Box>
-       <BoxSortRooms>
-        <button onClick={handleClickAllRooms}>All rooms</button>
-        <button onClick={handleClickRoomPrices}>Price</button>
-      </BoxSortRooms> 
+      <BoxSortRooms>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50%",
+          }}
+        >
+          <button onClick={handleClickAllRooms}>All rooms</button>
+          <button onClick={handleClickRoomPrices}>Price</button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "right",
+            width: "20%",
+          }}
+        >
+          <select
+            style={{
+              border: "2px solid #135846",
+              color: "#135846",
+              borderRadius: 12,
+              height: 55,
+              width: 120,
+              textAlign: "center",
+              margin: "auto",
+              fontSize: 14,
+            }}
+          >
+            <option>Newest</option>
+            <option>Guest</option>
+          </select>
+        </div>
+      </BoxSortRooms>
 
       <TableDivRooms>
         <thead>

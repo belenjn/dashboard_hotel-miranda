@@ -6,7 +6,9 @@ import {
   ActiveUser,
   Box,
   BoxSortBookings,
+  ButtonEmployee,
   InactiveUser,
+  Input,
   TableDivUsers,
 } from "../../styles/styles";
 
@@ -43,9 +45,58 @@ export const Users = () => {
   return (
     <Box>
       <BoxSortBookings>
-        <button onClick={handleClickAllUsers}>All Employee</button>
-        <button onClick={handleClickActiveUsers}>Active Employee</button>
-        <button onClick={handleClickInactiveUsers}>Inactive Employee</button>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "50%",
+          }}
+        >
+          <button onClick={handleClickAllUsers}>All Employee</button>
+          <button onClick={handleClickActiveUsers}>Active Employee</button>
+          <button onClick={handleClickInactiveUsers}>Inactive Employee</button>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "50%",
+            marginRight: 45,
+          }}
+        >
+          <button
+            style={{
+              backgroundColor: "#135846",
+              borderRadius: 12,
+              border: "none",
+              color: "white",
+              fontSize: 14,
+              margin: "auto",
+              marginRight: 20,
+              height: 55,
+              width: 120,
+            }}
+          >
+            New Employee
+          </button>
+          <select
+            style={{
+              borderColor: "#135846",
+              color: "#135846",
+              borderRadius: 12,
+              height: 55,
+              width: 120,
+              textAlign: "center",
+              margin: "auto",
+              fontSize: 14,
+            }}
+          >
+            <option>Newest</option>
+            <option>Name</option>
+          </select>
+          <Input type="text" placeholder="Search employee"></Input>
+        </div>
       </BoxSortBookings>
 
       <TableDivUsers>

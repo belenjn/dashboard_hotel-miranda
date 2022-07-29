@@ -14,7 +14,6 @@ import {
 } from "../rooms/Rooms";
 
 
-
 export const Bookings = () => {
   const dispatch = useDispatch();
   const bookings = useSelector(bookingsList);
@@ -53,6 +52,7 @@ export const Bookings = () => {
   useEffect(() => {
     setBookingsState(bookings);
   }, [bookings]);
+
 
 
   return (
