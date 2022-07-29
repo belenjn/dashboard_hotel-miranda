@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import { fetchUsers, usersList } from "../../features/users/usersSlice";
-import { ActiveUser, Box, BoxSortBookings, InactiveUser, TableDivUsers } from "../../styles/styles";
-
+import {
+  ActiveUser,
+  Box,
+  BoxSortBookings,
+  InactiveUser,
+  TableDivUsers,
+} from "../../styles/styles";
 
 export const Users = () => {
   const dispatch = useDispatch();
@@ -31,12 +36,9 @@ export const Users = () => {
     dispatch(fetchUsers());
   }, []);
 
-
   useEffect(() => {
     setUsersState(users);
   }, [users]);
-
-
 
   return (
     <Box>
@@ -58,7 +60,7 @@ export const Users = () => {
         </thead>
 
         {usersState.map((user) => (
-          <>
+          <div key={user._id}>
             <tbody className="column__id">
               <tr className="text">
                 <td className="booking__info">
@@ -144,7 +146,7 @@ export const Users = () => {
                 </td>
               </tr>
             </tbody>
-          </>
+          </div>
         ))}
       </TableDivUsers>
 

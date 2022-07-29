@@ -10,7 +10,7 @@ import { ActiveUser, Box, InactiveUser } from "../../styles/styles";
 // import { VscError } from "react-icons/vsc";
 // import {AiOutlineCheckCircle} from "react-icons/ai";
 
-export const TableDiv = styled.table`
+export const TableDiv = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 20px;
@@ -18,6 +18,14 @@ export const TableDiv = styled.table`
   margin: auto;
   margin-top: 30px;
   width: 95%;
+
+  .categories {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: auto;
+    margin-left: -10px;
+  }
 
   thead {
     width: 1300px;
@@ -40,7 +48,7 @@ export const TableDiv = styled.table`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    text-align: left;
+    text-align: center;
     width: 100%;
     padding: 15px;
   }
@@ -248,7 +256,7 @@ export const Contacts = () => {
      */}
 
       <TableDiv>
-        <thead>
+        <thead className="categories">
           <tr>
             <th className="title__id">ID / Date</th>
             <th className="title__customer">Customer</th>
@@ -258,7 +266,7 @@ export const Contacts = () => {
         </thead>
 
         {contactsState.map((contact) => (
-          <>
+          < div key={contact._id}>
             <tbody key={contact._id} className="column__id">
               <tr className="text text__id">
                 <td className="info"># {contact._id}</td>
@@ -308,7 +316,7 @@ export const Contacts = () => {
                 </td>
               </tr>
             </tbody>
-          </>
+          </div>
         ))}
       </TableDiv>
 

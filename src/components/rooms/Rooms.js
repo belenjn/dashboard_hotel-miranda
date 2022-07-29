@@ -13,7 +13,7 @@ export const BoxSortRooms = styled(BoxArchivedContacts)`
   margin-left: 40px;
 `;
 
-export const TableDivRooms = styled.table`
+export const TableDivRooms = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 20px;
@@ -108,8 +108,11 @@ export const TableDivRooms = styled.table`
   }
 
   .categories {
-    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    width: 135%;
     margin: auto;
+    margin-left: 20px;
   }
   #price {
     text-align: right;

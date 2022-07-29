@@ -124,8 +124,11 @@ margin-top: 30px;
   }
 
   .categories {
-    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    width: 115%;
     margin: auto;
+    margin-left: 20px;
   }
   .text {
     display: flex;
@@ -245,9 +248,11 @@ export const TableDivUsers = styled(TableDivBookings)`
   }
 
   .categories {
-    width: 97%;
+    display: flex;
+    justify-content: space-between;
+    width: 165%;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 
   td {
