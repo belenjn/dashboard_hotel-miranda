@@ -46,4 +46,3 @@ export const loginAuth = async (user, password) => {
     console.error(error);
   }
 };
-

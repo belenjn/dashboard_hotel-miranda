@@ -54,9 +54,10 @@ export const Login = () => {
     e.preventDefault();
     const token = await loginAuth(user, password);
 
-    if (token) dispatchAuthenticated({ type: "login", user: userData });
-
- 
+    if (token) {
+      dispatchAuthenticated({ type: "login", user: userData });
+      localStorage.setItem("token", token);
+    }
   };
 
   return (

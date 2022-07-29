@@ -198,7 +198,6 @@ export const Contacts = () => {
 
   const handleClickArchivedContacts = () => {
     setContactsState(archivedContacts);
-    console.log("hola");
   };
   useEffect(() => {
     dispatch(fetchContacts());

@@ -152,7 +152,7 @@ export const Rooms = () => {
 
   const handleClickRoomPrices = () => {
     price.sort((a, b) => {
-      return a.price < b.price;
+      return a.price > b.price;
     })
     setRoomsState(price)
   }
