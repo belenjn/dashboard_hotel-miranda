@@ -34,9 +34,9 @@ export const loginAuth = async (user, password) => {
       return jsonResponse.token;
     } else {
       const jsonResponse = await response.json();
-      const error = jsonResponse.message;
+      
       Swal.fire({
-        title: error,
+        title: "Invalid user or password",
         icon: "error",
         confirmButtonText: "Try again",
         confirmButtonColor: "#135846",

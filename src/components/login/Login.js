@@ -37,8 +37,8 @@ export const Error = styled.div`
 `;
 
 export const Login = () => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState("belen@hotel.com");
+  const [password, setPassword] = useState("123456");
 
   const userData = {
     username: user,
@@ -71,20 +71,18 @@ export const Login = () => {
         <label>User</label>
         <input
           name="uname"
-          placeholder="Insert your username"
           type="text"
           data-cy="user-input"
+          value={user}
           required
-          onChange={(e) => setUser(e.target.value)}
         />
         <label>Password</label>
         <input
           name="pass"
           type="password"
-          placeholder="Insert your password"
+          value={password}
           data-cy="password-input"
           required
-          onChange={(e) => setPassword(e.target.value)}
         />
 
         <ButtonSendForm data-cy="submit" type="submit">
