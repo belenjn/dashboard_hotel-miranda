@@ -4,10 +4,10 @@ Application for hotel employees to manage reservations, rooms, customer contacts
 
 
 # Install dependencies
-$ npm install
+npm install
 
 # Run the local server
-$ npm start
+npm start
 
 # Built with
 
@@ -15,4 +15,3 @@ $ npm start
 <li>React Router</li>
 <li>Redux</li>
 <li>Style Components</li>
-<li></li>
