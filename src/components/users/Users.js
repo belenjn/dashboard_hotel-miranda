@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import { fetchUsers, usersList } from "../../features/users/usersSlice";
 import {
   ActiveUser,
@@ -236,9 +235,7 @@ export const Users = () => {
         ))}
       </TableDivUsers>
 
-      {/* <Button>
-        <Link to="/users/id">Details</Link>
-      </Button> */}
+
     </Box>
   );
 };

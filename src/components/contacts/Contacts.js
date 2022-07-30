@@ -4,61 +4,75 @@ import {
   contactsList,
   fetchContacts,
 } from "../../features/contact/contactSlice";
-import { ActiveUser, Box, BoxArchivedContacts, InactiveUser, TableDiv } from "../../styles/styles";
+import {
+  ActiveUser,
+  Box,
+  BoxArchivedContacts,
+  InactiveUser,
+  TableDiv,
+} from "../../styles/styles";
 
 // import { VscError } from "react-icons/vsc";
 // import {AiOutlineCheckCircle} from "react-icons/ai";
-
 
 export const Contacts = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsList);
 
-  const [contactsState, setContactsState] = useState(contacts);
+  const [contactsState, setContactsState] = useState([]);
+  const [order, setOrder] = useState("newest");
+  const [filter, setFilter] = useState("");
 
-  const archivedContacts = contacts.filter(
-    (contact) => contact.archived === true
-  );
-
-  const handleClickAllContacts = () => {
-    setContactsState(contacts);
-  };
-
-  const handleClickArchivedContacts = () => {
-    setContactsState(archivedContacts);
-  };
   useEffect(() => {
     dispatch(fetchContacts());
   }, []);
 
   useEffect(() => {
-    setContactsState(contacts);
-  }, [contacts]);
+    const orderKeys = {
+      newest: "contact_date",
+      guest: "contact_name",
+    };
+
+    const orderedFilterContact = contacts.filter((contact) =>
+      contact.archived.toString().includes(filter)
+    );
+    orderedFilterContact.sort((a, b) => {
+      if (a[orderKeys[order]] < b[orderKeys[order]]) {
+        return -1;
+      } else if (a[orderKeys[order]] > b[orderKeys[order]]) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    setContactsState(orderedFilterContact);
+  }, [contacts, order, filter]);
 
   return (
     <Box>
       <BoxArchivedContacts>
-      <div
+        <div
           style={{
             display: "flex",
             flexDirection: "row",
             width: "50%",
-
           }}
         >
-        <button onClick={handleClickAllContacts}>All contacts</button>
-        <button onClick={handleClickArchivedContacts}>Archived</button>
+          <button onClick={() => setContactsState(contacts)}>
+            All contacts
+          </button>
+          <button onClick={() => setFilter("true")}>Archived</button>
         </div>
         <div
           style={{
             display: "flex",
             justifyContent: "right",
-            width: "23%"
-
+            width: "23%",
           }}
         >
-        
           <select
+          value={order}
+          onChange={(e) => setOrder(e.target.value)}
             style={{
               border: "2px solid #135846",
               color: "#135846",
@@ -120,13 +134,10 @@ export const Contacts = () => {
         </thead>
 
         {contactsState.map((contact) => (
-          < div key={contact._id}>
+          <div key={contact._id}>
             <tbody key={contact._id} className="column__id">
               <tr className="text text__id">
                 <td className="info"># {contact._id}</td>
-                {/* <td className="info">
-                  {new Date(contact.date_subject).toLocaleString("en-GB")}
-                </td> */}
               </tr>
               <tr className="text text__customer">
                 <td className="info">{contact.contact_name}</td>
@@ -135,26 +146,6 @@ export const Contacts = () => {
               </tr>
               <tr className="text">
                 <td className="info">{contact.comment}</td>
-                {/* <button onClick={() => dispatch(deleteContacts(contact))}>
-                  Delete Contact
-                </button>
-                <button
-                  onClick={() =>
-                    dispatch(getContact(contact), console.log(contact))
-                  }
-                >
-                  Get Contact
-                </button>
-                <button
-                  onClick={() =>
-                    dispatch(
-                      updateContact({ ...contact, name_guest: "Lola Pérez" }),
-                      console.log(contact)
-                    )
-                  }
-                >
-                  Update Contact
-                </button> */}
               </tr>
               <tr className="text">
                 <td
@@ -173,10 +164,6 @@ export const Contacts = () => {
           </div>
         ))}
       </TableDiv>
-
-      {/* <Button>
-        <Link to="/contacts/id">Details</Link>
-      </Button> */}
     </Box>
   );
 };
