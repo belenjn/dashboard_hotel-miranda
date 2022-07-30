@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
-  allUsers: [],
+  allUsers: []
 };
 
 export const fetchUsers = createAsyncThunk("users/getUsers", async () => {
@@ -11,7 +11,7 @@ export const fetchUsers = createAsyncThunk("users/getUsers", async () => {
 });
 
 export const getUser = createAsyncThunk("users/getUser", async (id) => {
-  const response = await apiRequest(`users/${id}`, "GET");
+  const response = await apiRequest(`users/${id}`);
   return response;
 });
 
@@ -25,27 +25,18 @@ export const deleteUser = createAsyncThunk("users/deleteUser", async (id) => {
 export const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {
-    activeEmployees: (state) => {
-      state.filteredsUsers = state.allUsers.filter(
-        (user) => user.status === true
-      );
-    },
-    inactiveEmployees: (state) => {
-      state.filteredsUsers = state.allUsers.filter(
-        (user) => user.status === false
-      );
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchUsers.fulfilled, (state, action) => {
-      return void (state.allUsers = action.payload);
-    });
+  extraReducers(builder) {
+    builder
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        return void (state.allUsers = action.payload);
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        return void (state.singleUser = action.payload);
+      });
   },
 });
 
-export const usersList = (state) => state.users.allUsers;
 
-export const { activeEmployees, inactiveEmployees } = usersSlice.actions;
+export const usersList = (state) => state.users.allUsers;
 
 export default usersSlice.reducer;

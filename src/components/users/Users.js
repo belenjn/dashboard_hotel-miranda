@@ -6,41 +6,53 @@ import {
   ActiveUser,
   Box,
   BoxSortBookings,
-  ButtonEmployee,
   InactiveUser,
   Input,
   TableDivUsers,
 } from "../../styles/styles";
+
+// TODO: Form for new employee
 
 export const Users = () => {
   const dispatch = useDispatch();
 
   const users = useSelector(usersList);
 
-  const [usersState, setUsersState] = useState(users);
-
-  const activeEmployees = users.filter((user) => user.status === true);
-  const inactiveEmployees = users.filter((user) => user.status === false);
-
-  const handleClickAllUsers = () => {
-    setUsersState(users);
-  };
-
-  const handleClickActiveUsers = () => {
-    setUsersState(activeEmployees);
-  };
-
-  const handleClickInactiveUsers = () => {
-    setUsersState(inactiveEmployees);
-  };
+  const [usersState, setUsersState] = useState([]);
+  const [order, setOrder] = useState("newest");
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, []);
 
   useEffect(() => {
-    setUsersState(users);
-  }, [users]);
+    const orderKeys = {
+      newest: "start_date",
+      name: "user_name",
+    };
+
+    const orderedFilterUsers = users.filter((user) =>
+      user.status.toString().includes(filter)
+    );
+
+    const orderedFilterSearchUsers = orderedFilterUsers.filter((user) =>
+      user.user_name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    orderedFilterSearchUsers.sort((a, b) => {
+      if (a[orderKeys[order]] < b[orderKeys[order]]) {
+        return -1;
+      } else if (a[orderKeys[order]] > b[orderKeys[order]]) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    setUsersState(orderedFilterSearchUsers);
+  }, [users, order, query, filter]);
 
   return (
     <Box>
@@ -52,9 +64,9 @@ export const Users = () => {
             width: "50%",
           }}
         >
-          <button onClick={handleClickAllUsers}>All Employee</button>
-          <button onClick={handleClickActiveUsers}>Active Employee</button>
-          <button onClick={handleClickInactiveUsers}>Inactive Employee</button>
+          <button onClick={() => setUsersState(users)}>All Employee</button>
+          <button onClick={() => setFilter("true")}>Active Employee</button>
+          <button onClick={() => setFilter("false")}>Inactive Employee</button>
         </div>
 
         <div
@@ -81,6 +93,7 @@ export const Users = () => {
             New Employee
           </button>
           <select
+            onChange={(e) => setOrder(e.target.value)}
             style={{
               borderColor: "#135846",
               color: "#135846",
@@ -95,7 +108,14 @@ export const Users = () => {
             <option>Newest</option>
             <option>Name</option>
           </select>
-          <Input type="text" placeholder="Search employee"></Input>
+          <Input
+            type="text"
+            placeholder="Search employee"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+          ></Input>
         </div>
       </BoxSortBookings>
 
@@ -109,7 +129,22 @@ export const Users = () => {
             <th className="title__status">Status</th>
           </tr>
         </thead>
-
+        {query ? (
+          <h2
+            style={{
+              textAlign: "center",
+              color: "red",
+              opacity: "0.30",
+              width: "20%",
+              margin: "auto",
+              marginTop: "100px",
+            }}
+          >
+            User not found
+          </h2>
+        ) : (
+          ""
+        )}
         {usersState.map((user) => (
           <div key={user._id}>
             <tbody className="column__id">
