@@ -28,6 +28,8 @@ export const StatusBooked = styled(StatusAvailable)`
   background-color: #e23428;
 `;
 
+// TODO: select
+
 export const Rooms = () => {
   const dispatch = useDispatch();
   const rooms = useSelector(roomsList);
