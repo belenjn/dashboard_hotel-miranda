@@ -32,28 +32,29 @@ export const Rooms = () => {
   const dispatch = useDispatch();
   const rooms = useSelector(roomsList);
 
-  const [roomsState, setRoomsState] = useState(rooms);
-
-  const price = rooms.filter((room) => room.price);
-
-  const handleClickAllRooms = () => {
-    setRoomsState(rooms);
-  };
-
-  const handleClickRoomPrices = () => {
-    price.sort((a, b) => {
-      return a.price > b.price;
-    });
-    setRoomsState(price);
-  };
+  const [roomsState, setRoomsState] = useState([]);
+  const [order, setOrder] = useState("room_number");
 
   useEffect(() => {
     dispatch(fetchRooms());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
+
+    // const orderedRooms = rooms.filter(room => room.room_number);
+
+    // orderedRooms.sort((a,b) => {
+    //   if(a.room_number < b.room_number) {
+    //     return -1
+    //   } else if(a.room_number > b.room_number) {
+    //     return 1
+    //   } else {
+    //     return 0
+    //   }
+    // })
+
     setRoomsState(rooms);
-  }, [rooms]);
+  }, [rooms, order]);
 
   return (
     <Box>
@@ -65,8 +66,9 @@ export const Rooms = () => {
             width: "50%",
           }}
         >
-          <button onClick={handleClickAllRooms}>All rooms</button>
-          <button onClick={handleClickRoomPrices}>Price</button>
+          <button onClick={() => setRoomsState(rooms)}>All rooms</button>
+          <button onClick={() => setRoomsState(rooms.filter(room => room.offer === true))}>Available</button>
+          <button onClick={() => setRoomsState(rooms.filter(room => room.offer === false))}>Booked</button>
         </div>
         <div
           style={{
@@ -75,7 +77,9 @@ export const Rooms = () => {
             width: "20%",
           }}
         >
-          <select
+          {/* <select
+            value={order}
+            onChange={(e) => setOrder(e.target.value)}
             style={{
               border: "2px solid #135846",
               color: "#135846",
@@ -90,7 +94,7 @@ export const Rooms = () => {
             <option>Room Number</option>
             <option>Price -</option>
             <option>Price +</option>
-          </select>
+          </select> */}
         </div>
       </BoxSortRooms>
 

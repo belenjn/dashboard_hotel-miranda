@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
-  allRooms: [],
+  allRooms: []
 };
 
 export const fetchRooms = createAsyncThunk("rooms/getRooms", async () => {
@@ -25,7 +25,6 @@ export const deleteRoom = createAsyncThunk("rooms/deleteRoom", async (id) => {
 export const roomsSlice = createSlice({
   name: "rooms",
   initialState,
-  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchRooms.fulfilled, (state, action) => {
       return void (state.allRooms = action.payload);
@@ -33,17 +32,7 @@ export const roomsSlice = createSlice({
   },
 });
 
-// export const roomsList = (state) =>
-//   [...state.rooms].sort((a, b) => {
-//     return (
-//       (a.room_number) - (b.room_number)
-//     );
-
-//   });
 
 export const roomsList = (state) => state.rooms.allRooms;
-
-// export const { deleteRoom, updateRoom, newRoom } =
-// roomsSlice.actions;
 
 export default roomsSlice.reducer;
