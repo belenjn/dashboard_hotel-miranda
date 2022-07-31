@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiRequest } from "../../apiFunctions";
+import { apiRequest, apiRequestBody } from "../../apiFunctions";
 
 const initialState = {
-  allUsers: []
+  allUsers: [],
+  singleUser: []
 };
 
 export const fetchUsers = createAsyncThunk("users/getUsers", async () => {
@@ -20,7 +21,18 @@ export const deleteUser = createAsyncThunk("users/deleteUser", async (id) => {
   return response;
 });
 
-/* TODO: Faltan métodos POST y PUT */
+export const updateUser = createAsyncThunk(
+  "users/updateUser",
+  async (id, data) => {
+    const response = await apiRequestBody(`users/${id}`, "PUT", data);
+    return response;
+  }
+);
+
+export const createUser = createAsyncThunk("users/createUser", async (data) => {
+  const response = await apiRequestBody("users", "POST", data);
+  return response;
+});
 
 export const usersSlice = createSlice({
   name: "users",
@@ -35,7 +47,6 @@ export const usersSlice = createSlice({
       });
   },
 });
-
 
 export const usersList = (state) => state.users.allUsers;
 

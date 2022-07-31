@@ -20,6 +20,33 @@ export const apiRequest = async (url, type) => {
   }
 };
 
+export const apiRequestBody = async (url, type, data) => {
+  try {
+    const response = await fetch(host + url, {
+      method: type,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json charset=utf-8",
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      return jsonResponse.token;
+    } else {
+      const jsonResponse = await response.json();
+
+      Swal.fire({
+        title: "An error ocurred",
+        icon: "error",
+        confirmButtonText: "Try again",
+        confirmButtonColor: "#135846",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 export const loginAuth = async (user, password) => {
   try {
     const response = await fetch(
@@ -34,7 +61,7 @@ export const loginAuth = async (user, password) => {
       return jsonResponse.token;
     } else {
       const jsonResponse = await response.json();
-      
+
       Swal.fire({
         title: "Invalid user or password",
         icon: "error",

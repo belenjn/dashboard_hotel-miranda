@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiRequest } from "../../apiFunctions";
+import { apiRequest, apiRequestBody } from "../../apiFunctions";
 
 const initialState = {
-  allRooms: []
+  allRooms: [],
+  singleRoom: []
 };
 
 export const fetchRooms = createAsyncThunk("rooms/getRooms", async () => {
@@ -20,7 +21,23 @@ export const deleteRoom = createAsyncThunk("rooms/deleteRoom", async (id) => {
   return response;
 });
 
-/* TODO: Faltan métodos POST y PUT */
+
+export const updateRoom = createAsyncThunk(
+  "rooms/updateRoom",
+  async (id, data) => {
+    const response = await apiRequestBody(`rooms/${id}`, "PUT", data);
+    return response;
+  }
+);
+
+export const createRoom = createAsyncThunk(
+  "rooms/createRooms",
+  async (data) => {
+    const response = await apiRequestBody("rooms", "POST", data);
+    return response;
+  }
+);
+
 
 export const roomsSlice = createSlice({
   name: "rooms",
@@ -28,6 +45,9 @@ export const roomsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchRooms.fulfilled, (state, action) => {
       return void (state.allRooms = action.payload);
+    })
+    .addCase(getRoom.fulfilled, (state, action) => {
+      return void (state.singleRoom = action.payload);
     });
   },
 });

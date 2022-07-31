@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiRequest } from "../../apiFunctions";
+import { apiRequest, apiRequestBody } from "../../apiFunctions";
 
 const initialState = {
-  allContacts: []
+  allContacts: [],
+  singleContact: []
 };
 
 export const fetchContacts = createAsyncThunk(
@@ -29,7 +30,21 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-/* TODO: Faltan métodos POST y PUT */
+export const updateContact = createAsyncThunk(
+  "contact/updateContact",
+  async (id, data) => {
+    const response = await apiRequestBody(`contact/${id}`, "PUT", data);
+    return response;
+  }
+);
+
+export const createContact = createAsyncThunk(
+  "contact/createContact",
+  async (data) => {
+    const response = await apiRequestBody("contact", "POST", data);
+    return response;
+  }
+);
 
 export const contactsSlice = createSlice({
   name: "contacts",
@@ -37,7 +52,7 @@ export const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
       return void (state.allContacts = action.payload);
-    });
+    })
   },
 });
 
@@ -54,7 +69,6 @@ export const contactsSlice = createSlice({
 //   });
 
 export const contactsList = (state) => state.contacts.allContacts;
-
-
+export const singleContact = (state) => state.contacts.singleContact;
 
 export default contactsSlice.reducer;
