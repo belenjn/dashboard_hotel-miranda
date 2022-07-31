@@ -93,10 +93,10 @@ export const Rooms = () => {
               fontSize: 14,
             }}
           >
-            <option>Room Number</option>
-            <option>Price -</option>
-            <option>Price +</option>
-          </select> */}
+            <option value="room_number">Room Number</option>
+            <option value="price <">Price -</option>
+            <option value="price >">Price +</option>
+          </select>  */}
         </div>
       </BoxSortRooms>
 

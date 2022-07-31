@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiRequest } from "../../apiFunctions";
 
 const initialState = {
-  allBookings: [],
+  allBookings: []
 };
 
 export const fetchBookings = createAsyncThunk(
@@ -34,7 +34,6 @@ export const deleteContact = createAsyncThunk(
 export const bookingsSlice = createSlice({
   name: "bookings",
   initialState,
-  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchBookings.fulfilled, (state, action) => {
       return void (state.allBookings = action.payload);
@@ -44,7 +43,5 @@ export const bookingsSlice = createSlice({
 
 export const bookingsList = (state) => state.bookings.allBookings;
 
-// export const { deleteBooking, getBooking, updateBooking, newBooking } =
-//   bookingsSlice.actions;
 
 export default bookingsSlice.reducer;
