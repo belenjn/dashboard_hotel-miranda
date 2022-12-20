@@ -6,7 +6,6 @@ import {
   Box,
   BoxSortBookings,
   InactiveUser,
-  Input,
   TableDivUsers,
 } from "../../styles/styles";
 
