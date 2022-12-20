@@ -1,74 +1,68 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiRequest, apiRequestBody } from "../../apiFunctions";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ContactList } from "../../data/contacts";
 
 const initialState = {
-  allContacts: [],
-  singleContact: []
+  contactList: [],
+  oneContact: [],
 };
 
-export const fetchContacts = createAsyncThunk(
-  "contacts/getContacts",
-  async () => {
-    const response = await apiRequest("contacts", "GET");
-    return response;
-  }
-);
+export const getContact = createAsyncThunk("contact/getContact", async () => {
+  return new Promise((resolve) => setTimeout(resolve(ContactList), 0));
+});
 
-export const getContact = createAsyncThunk(
-  "contacts/getContact",
+export const getOneContact = createAsyncThunk(
+  "contact/getOneContact",
   async (id) => {
-    const response = await apiRequest(`contacts/${id}`, "GET");
-    return response;
+    return new Promise((resolve) =>
+      setTimeout(resolve(ContactList.filter((contact) => contact.id === id)), 0)
+    );
   }
 );
 
-export const deleteContact = createAsyncThunk(
-  "contacts/deleteContact",
-  async (id) => {
-    const response = await apiRequest(`contacts/${id}`, "DELETE");
-    return response;
-  }
-);
-
-export const updateContact = createAsyncThunk(
-  "contact/updateContact",
-  async (id, data) => {
-    const response = await apiRequestBody(`contact/${id}`, "PUT", data);
-    return response;
-  }
-);
-
-export const createContact = createAsyncThunk(
-  "contact/createContact",
-  async (data) => {
-    const response = await apiRequestBody("contact", "POST", data);
-    return response;
-  }
-);
-
-export const contactsSlice = createSlice({
-  name: "contacts",
+export const contactSlice = createSlice({
+  name: "contact",
   initialState,
-  extraReducers: (builder) => {
-    builder.addCase(fetchContacts.fulfilled, (state, action) => {
-      return void (state.allContacts = action.payload);
-    })
+  reducers: {
+    createContact: (state, action) => {
+      const f = new Date();
+      const newContact = {
+        id: action.payload.id,
+        date: f.getFullYear() + "-" + (f.getMonth() + 1) + "-" + f.getDate(),
+        customer: {
+          fullName: action.payload.customer.fullName,
+          email: action.payload.customer.email,
+          phoneNumber: action.payload.customer.phoneNumber,
+        },
+        subject: action.payload.subject,
+        comment: action.payload.comment,
+        viewed: action.payload.status,
+        archived: action.payload.archived,
+      };
+      state = state.unshift(newContact);
+    },
+    updateContact: (state, action) => {
+      const index = state.contactList.findIndex(
+        (contact) => contact.id === action.payload.id
+      );
+      return void (state.contactList[index] = action.payload);
+    },
+    deleteContact: (state, action) => {
+      return state.filter((contact) => contact.id !== action.payload.id);
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getContact.fulfilled, (state, action) => {
+        return void (state.contactList = action.payload);
+      })
+      .addCase(getOneContact.fulfilled, (state, action) => {
+        return void (state.oneContact = action.payload);
+      });
   },
 });
 
-// export const contactsList = (state) =>
-//   [...state.contacts].sort((a, b) => {
-//     return (
-//       new Date(b.date_subject).getTime() - new Date(a.date_subject).getTime()
-//     );
-//     /*  El método getTime() devuelve el valor numérico correspondiente
-//   a la hora para la fecha especificada según la hora universal.
-//   En este caso se utiliza con sort para poder ordenar las fechas de más
-//   recientes a menor
-//   */
-//   });
-
-export const contactsList = (state) => state.contacts.allContacts;
-export const singleContact = (state) => state.contacts.singleContact;
-
-export default contactsSlice.reducer;
+export const allContact = (state) => state.contacts.contactList;
+export const oneContact = (state) => state.contacts.oneContact;
+export const { createContact, updateContact, deleteContact } =
+  contactSlice.actions;
+export default contactSlice.reducer;

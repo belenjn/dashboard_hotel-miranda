@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  contactsList,
-  fetchContacts,
+  getContact,
+  allContact,
+  updateContact,
 } from "../../features/contact/contactSlice";
 import {
   ActiveUser,
@@ -17,36 +18,34 @@ import {
 
 export const Contacts = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(contactsList);
-
-  const [contactsState, setContactsState] = useState([]);
-  const [order, setOrder] = useState("newest");
+  const contactList = useSelector(allContact);
+  const [contactState, setContactState] = useState([]);
   const [filter, setFilter] = useState("");
+  const [order, setOrder] = useState("newest");
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, []);
+    dispatch(getContact());
+  }, [dispatch]);
 
   useEffect(() => {
-    const orderKeys = {
-      newest: "contact_date",
-      guest: "contact_name",
+    const keysOrder = {
+      newest: "date",
+      guest: "customer.fullName",
     };
-
-    const orderedFilterContact = contacts.filter((contact) =>
-      contact.archived.toString().includes(filter)
+    const filteredOrderContact = contactList.filter((user) =>
+      user.archived.includes(filter)
     );
-    orderedFilterContact.sort((a, b) => {
-      if (a[orderKeys[order]] < b[orderKeys[order]]) {
-        return -1;
-      } else if (a[orderKeys[order]] > b[orderKeys[order]]) {
+    filteredOrderContact.sort((a, b) => {
+      if (a[keysOrder[order]] > b[keysOrder[order]]) {
         return 1;
+      } else if (a[keysOrder[order]] < b[keysOrder[order]]) {
+        return -1;
       } else {
         return 0;
       }
     });
-    setContactsState(orderedFilterContact);
-  }, [contacts, order, filter]);
+    setContactState(filteredOrderContact);
+  }, [contactList, filter, order]);
 
   return (
     <Box>
@@ -58,7 +57,7 @@ export const Contacts = () => {
             width: "50%",
           }}
         >
-          <button onClick={() => setContactsState(contacts)}>
+          <button onClick={() => setFilter("")}>
             All contacts
           </button>
           <button onClick={() => setFilter("true")}>Archived</button>
@@ -71,8 +70,8 @@ export const Contacts = () => {
           }}
         >
           <select
-          value={order}
-          onChange={(e) => setOrder(e.target.value)}
+            value={order}
+            onChange={(e) => setOrder(e.target.value)}
             style={{
               border: "2px solid #135846",
               color: "#135846",
@@ -133,16 +132,15 @@ export const Contacts = () => {
           </tr>
         </thead>
 
-        {contactsState.map((contact) => (
-          <div key={contact._id}>
-            <tbody key={contact._id} className="column__id">
+        {contactState.map((contact) => (
+            <tbody key={contact.id} className="column__id">
               <tr className="text text__id">
-                <td className="info"># {contact._id}</td>
+                <td className="info"># {contact.id}</td>
               </tr>
               <tr className="text text__customer">
-                <td className="info">{contact.contact_name}</td>
-                <td className="info">{contact.contact_email}</td>
-                <td className="info">{contact.contact_phone}</td>
+                <td className="info">{contact.customer.fullName}</td>
+                <td className="info">{contact.customer.email}</td>
+                <td className="info">{contact.customer.phoneNumber}</td>
               </tr>
               <tr className="text">
                 <td className="info">{contact.comment}</td>
@@ -153,7 +151,7 @@ export const Contacts = () => {
                     textAlign: "center",
                   }}
                 >
-                  {contact.archived === true ? (
+                  {contact.archived === "true" ? (
                     <ActiveUser>Archived</ActiveUser>
                   ) : (
                     <InactiveUser>Not Archived</InactiveUser>
@@ -161,7 +159,6 @@ export const Contacts = () => {
                 </td>
               </tr>
             </tbody>
-          </div>
         ))}
       </TableDiv>
     </Box>
