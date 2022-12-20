@@ -19,6 +19,8 @@ import { createContext, useEffect, useReducer } from "react";
 import { RequireAuth } from "./utils/RequireAuth";
 import { Login } from "./components/login/Login";
 
+//TODO: arreglar el login y el resto de sliders como los bookings
+
 const initialUser = localStorage.getItem("authenticated")
   ? JSON.parse(localStorage.getItem("authenticated"))
   : { authenticated: false, username: null, email: null };

@@ -37,24 +37,26 @@ export const Error = styled.div`
 `;
 
 export const Login = () => {
-  const [user, setUser] = useState("belen@hotel.com");
+  const [user, setUser] = useState("belen@miranda.com");
   const [password, setPassword] = useState("123456");
 
+  const myUser = {
+    name: "Belen JN",
+    email: "belen@miranda.com",
+    password: "123456",
+  };
+
   const userData = {
-    username: user,
-    password: password,
-    userEmail: "belen@hotelmiranda.com",
+    userName: myUser.name,
+    userEmail: myUser.email,
   };
 
   const { dispatchAuthenticated } = useContext(authContext);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const token = await loginAuth(user, password);
-
-    if (token) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (user === myUser.email && password === myUser.password) {
       dispatchAuthenticated({ type: "login", user: userData });
-      localStorage.setItem("token", token);
     }
   };
 

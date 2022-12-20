@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  bookingsList,
-  fetchBookings,
+  allBookings,
+  getBookings,
 } from "../../features/bookings/bookingsSlice";
 import {
   Box,
@@ -15,7 +15,7 @@ import { StatusAvailable, StatusBooked } from "../rooms/Rooms";
 
 export const Bookings = () => {
   const dispatch = useDispatch();
-  const bookings = useSelector(bookingsList);
+  const bookings = useSelector(allBookings);
   const [query, setQuery] = useState("");
   const [order, setOrder] = useState("newest");
   const [filter, setFilter] = useState("");
@@ -23,7 +23,7 @@ export const Bookings = () => {
   const [bookingsState, setBookingsState] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchBookings());
+    dispatch(getBookings());
   }, [dispatch]);
 
   useEffect(() => {
