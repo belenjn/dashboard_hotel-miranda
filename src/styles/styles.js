@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { StatusAvailable } from "../components/rooms/Rooms";
 
-
-
 export const Nav = styled.nav`
   .nav__icons {
     display: none;
@@ -48,7 +46,6 @@ export const TitleNav = styled.h1`
   margin-left: 40px;
 `;
 
-
 export const Title = styled.h1`
   font-family: "Roboto", sans-serif;
   font-size: 1.5em;
@@ -56,7 +53,6 @@ export const Title = styled.h1`
   color: black;
   margin-top: 20px;
 `;
-
 
 export const Box = styled.div`
   background-color: #ebebeb;
@@ -139,7 +135,6 @@ export const BoxSortRooms = styled(BoxArchivedContacts)`
   width: 100%;
   margin-left: 40px;
 `;
-
 
 export const ActiveUser = styled(ButtonProgress)`
   background-color: transparent;
@@ -327,7 +322,6 @@ export const IconsDiv = styled.div`
   }
 `;
 
-
 export const TableDivRooms = styled.div`
   background-color: white;
   border-radius: 10px;
@@ -446,10 +440,11 @@ export const TableDivBookings = styled(TableDivRooms)`
 
   .categories {
     display: flex;
-    justify-content: space-between;
-    width: 115%;
+    justify-content: space-around;
+    width: 123%;
     margin: auto;
     margin-left: 20px;
+    margin-bottom: 20px;
   }
   .text {
     display: flex;
@@ -524,7 +519,6 @@ export const TableDivBookings = styled(TableDivRooms)`
     width: 100%;
   }
 `;
-
 
 export const TableDivUsers = styled(TableDivBookings)`
   margin-top: 30px;

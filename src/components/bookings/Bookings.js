@@ -20,55 +20,51 @@ export const Bookings = () => {
   const [order, setOrder] = useState("newest");
   const [filter, setFilter] = useState("");
 
-  const [bookingsState, setBookingsState] = useState([]);
+  const [bookingsState, setBookingsState] = useState(bookings);
+  const checkIn = bookings.filter((booking) => booking.status === "Check In");
+  const checkOut = bookings.filter((booking) => booking.status === "Check Out");
+  const inProgress = bookings.filter(
+    (booking) => booking.status === "In Progress"
+  );
+
+  const handleClickAllBookings = () => {
+    setBookingsState(bookings);
+  };
+
+  const handleClickCheckIn = () => {
+    setBookingsState(checkIn);
+  };
+
+  const handleClickCheckOut = () => {
+    setBookingsState(checkOut);
+  };
+
+  const handleClickInProgress = () => {
+    setBookingsState(inProgress);
+  };
 
   useEffect(() => {
     dispatch(getBookings());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
-    const orderKeys = {
-      newest: "order_date",
-      guest: "guest_name",
-      checkin: "checkin",
-      checkout: "checkout",
-    };
-    const orderedFilterBookings = bookings.filter((booking) =>
-      booking.status.includes(filter)
-    );
-    const orderedFilterSearchBookings = orderedFilterBookings.filter(
-      (booking) =>
-        booking.guest_name.toLowerCase().includes(query.toLowerCase())
-    );
-    orderedFilterSearchBookings.sort((a, b) => {
-      if (a[orderKeys[order]] < b[orderKeys[order]]) {
-        return -1;
-      } else if (a[orderKeys[order]] > b[orderKeys[order]]) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    setBookingsState(orderedFilterSearchBookings);
-  }, [bookings, order, query, filter]);
+    setBookingsState(bookings);
+  }, [bookings]);
 
   return (
     <Box>
       <BoxSortBookings>
+        <button onClick={handleClickAllBookings}>All bookings</button>
+        <button onClick={handleClickCheckIn}>Check In</button>
+        <button onClick={handleClickCheckOut}>Check Out</button>
+        <button onClick={handleClickInProgress}>In progress</button>
         <div
           style={{
             display: "flex",
             flexDirection: "row",
             width: "50%",
           }}
-        >
-          <button onClick={() => setBookingsState(bookings)}>
-            All bookings
-          </button>
-          <button onClick={() => setFilter("checkin")}>Check In</button>
-          <button onClick={() => setFilter("checkout")}>Check Out</button>
-          <button onClick={() => setFilter("in_progress")}>In progress</button>
-        </div>
+        ></div>
         <div
           style={{
             display: "flex",
@@ -77,7 +73,7 @@ export const Bookings = () => {
             marginRight: 45,
           }}
         >
-          <button
+          {/* <button
             style={{
               backgroundColor: "#135846",
               borderRadius: 12,
@@ -91,8 +87,8 @@ export const Bookings = () => {
             }}
           >
             New Booking
-          </button>
-          <select
+          </button> */}
+          {/* <select
             value={order}
             onChange={(e) => setOrder(e.target.value)}
             style={{
@@ -106,17 +102,12 @@ export const Bookings = () => {
               fontSize: 14,
             }}
           >
-            <option value="newest">Newest</option>
-            <option value="guest">Guest</option>
-            <option value="checkin">Check In</option>
-            <option value="checkout">Check Out</option>
-          </select>
-          <Input
-            type="text"
-            placeholder="Search Guest"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+            <option>Newest</option>
+            <option>Guest</option>
+            <option>Check In</option>
+            <option>Check Out</option>
+          </select> */}
+          {/* <Input type="text" placeholder="Search Guest" /> */}
         </div>
       </BoxSortBookings>
 
@@ -150,61 +141,55 @@ export const Bookings = () => {
         )}
 
         {bookingsState.map((booking) => (
-          <>
-            <tbody key={booking._id} className="column__id">
-              <tr className="text">
-                <td className="booking__info">
-                  <span>{booking.guest_name}</span>
-                  <br />
-                  <span>{booking._id}</span>
-                </td>
-              </tr>
+          <tbody key={booking.id} className="column__id">
+            <tr className="text">
+              <td className="booking__info">
+                <span>{booking.fullName}</span>
+                <br />
+                <span>{booking.id}</span>
+              </td>
+            </tr>
 
-              <tr className="text">
-                <td className="booking__info">
-                  <span>
-                    {new Date(booking.order_date).toLocaleString("en-GB")}
-                  </span>
-                </td>
-              </tr>
+            <tr className="text">
+              <td className="booking__info">
+                <span>{new Date(booking.date).toLocaleString("en-GB")}</span>
+              </td>
+            </tr>
 
-              <tr className="text">
-                <td className="booking__info">
-                  <span>
-                    {new Date(booking.checkin).toLocaleString("en-GB")}
-                  </span>
-                </td>
-              </tr>
+            <tr className="text">
+              <td className="booking__info">
+                <span>{new Date(booking.checkin).toLocaleString("en-GB")}</span>
+              </td>
+            </tr>
 
-              <tr className="text">
-                <td className="booking__info">
-                  <span>
-                    {new Date(booking.checkout).toLocaleString("en-GB")}
-                  </span>
-                </td>
-              </tr>
+            <tr className="text">
+              <td className="booking__info">
+                <span>
+                  {new Date(booking.checkout).toLocaleString("en-GB")}
+                </span>
+              </td>
+            </tr>
 
-              <tr className="text">
-                <td className="booking__info">
-                  <span>{booking.special_request}</span>
-                </td>
-              </tr>
+            <tr className="text">
+              <td className="booking__info">
+                <span>{booking.specialRequest}</span>
+              </td>
+            </tr>
 
-              <tr className="text">
-                <td>
-                  {booking.status === "checkout" && (
-                    <StatusBooked>Check Out</StatusBooked>
-                  )}
-                  {booking.status === "checkin" && (
-                    <StatusAvailable>Check In</StatusAvailable>
-                  )}
-                  {booking.status === "in_progress" && (
-                    <ButtonProgress>In Progress</ButtonProgress>
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          </>
+            <tr className="text">
+              <td>
+                {booking.status === "Check Out" && (
+                  <StatusBooked>Check Out</StatusBooked>
+                )}
+                {booking.status === "Check In" && (
+                  <StatusAvailable>Check In</StatusAvailable>
+                )}
+                {booking.status === "In Progress" && (
+                  <ButtonProgress>In Progress</ButtonProgress>
+                )}
+              </td>
+            </tr>
+          </tbody>
         ))}
       </TableDivBookings>
       {/* 
