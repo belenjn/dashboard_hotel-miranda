@@ -8,7 +8,6 @@ import {
   Box,
   BoxSortBookings,
   ButtonProgress,
-  Input,
   TableDivBookings,
 } from "../../styles/styles";
 import { StatusAvailable, StatusBooked } from "../rooms/Rooms";

@@ -4,7 +4,7 @@ import { Box, BoxSortRooms, TableDivRooms } from "../../styles/styles";
 
 import image from "./assets/no-img.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRooms, roomsList } from "../../features/rooms/roomsSlice";
+import { getRooms, allRooms } from "../../features/rooms/roomsSlice";
 import styled from "styled-components";
 
 export const Image = styled.div`
@@ -32,17 +32,16 @@ export const StatusBooked = styled(StatusAvailable)`
 
 export const Rooms = () => {
   const dispatch = useDispatch();
-  const rooms = useSelector(roomsList);
+  const rooms = useSelector(allRooms);
 
   const [roomsState, setRoomsState] = useState([]);
   const [order, setOrder] = useState("room_number");
 
   useEffect(() => {
-    dispatch(fetchRooms());
+    dispatch(getRooms());
   }, [dispatch]);
 
   useEffect(() => {
-
     // const orderedRooms = rooms.filter(room => room.room_number);
 
     // orderedRooms.sort((a,b) => {
@@ -69,8 +68,20 @@ export const Rooms = () => {
           }}
         >
           <button onClick={() => setRoomsState(rooms)}>All rooms</button>
-          <button onClick={() => setRoomsState(rooms.filter(room => room.offer === true))}>Available</button>
-          <button onClick={() => setRoomsState(rooms.filter(room => room.offer === false))}>Booked</button>
+          <button
+            onClick={() =>
+              setRoomsState(rooms.filter((room) => room.offer === true))
+            }
+          >
+            Available
+          </button>
+          <button
+            onClick={() =>
+              setRoomsState(rooms.filter((room) => room.offer === false))
+            }
+          >
+            Booked
+          </button>
         </div>
         <div
           style={{
@@ -113,7 +124,7 @@ export const Rooms = () => {
         </thead>
 
         {roomsState.map((room) => (
-          <div key={room._id}>
+          <div key={room.id}>
             <tbody className="column__id">
               <tr className="text">
                 <div
@@ -131,11 +142,11 @@ export const Rooms = () => {
 
               <tr className="text">
                 <td>
-                  {room.bed_type === "single_bed"
+                  {room.roomType === "Single Bed"
                     ? "Single Bed"
-                    : room.bed_type === "double_superior"
+                    : room.roomType === "Double Superioe"
                     ? "Double Superior"
-                    : room.bed_type === "double_bed"
+                    : room.roomType === "Double Bed"
                     ? "Double Bed"
                     : "Suite"}
                 </td>
