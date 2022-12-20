@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers, usersList } from "../../features/users/usersSlice";
+import { getUsers, allUsers } from "../../features/users/usersSlice";
 import {
   ActiveUser,
   Box,
@@ -15,7 +15,7 @@ import {
 export const Users = () => {
   const dispatch = useDispatch();
 
-  const users = useSelector(usersList);
+  const users = useSelector(allUsers);
 
   const [usersState, setUsersState] = useState([]);
   const [order, setOrder] = useState("newest");
@@ -23,35 +23,37 @@ export const Users = () => {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, []);
+    dispatch(getUsers());
+  }, [dispatch]);
 
   useEffect(() => {
-    const orderKeys = {
-      newest: "start_date",
-      name: "user_name",
-    };
-
-    const orderedFilterUsers = users.filter((user) =>
-      user.status.toString().includes(filter)
+    const filteredOrderUsers = users.filter((user) =>
+      user.status.includes(filter)
     );
-
-    const orderedFilterSearchUsers = orderedFilterUsers.filter((user) =>
-      user.user_name.toLowerCase().includes(query.toLowerCase())
+    const filteredOrderSearchUsers = filteredOrderUsers.filter((user) =>
+      user.fullName.toLowerCase().includes(query.toLowerCase())
     );
-
-    orderedFilterSearchUsers.sort((a, b) => {
-      if (a[orderKeys[order]] < b[orderKeys[order]]) {
-        return -1;
-      } else if (a[orderKeys[order]] > b[orderKeys[order]]) {
-        return 1;
+    filteredOrderSearchUsers.sort((a, b) => {
+      if (order === "newest") {
+        if (a.startDate < b.startDate) {
+          return 1;
+        } else if (a.startDate > b.startDate) {
+          return -1;
+        } else {
+          return 0;
+        }
       } else {
-        return 0;
+        if (a.fullName > b.fullName) {
+          return 1;
+        } else if (a.fullName < b.fullName) {
+          return -1;
+        } else {
+          return 0;
+        }
       }
     });
-
-    setUsersState(orderedFilterSearchUsers);
-  }, [users, order, query, filter]);
+    setUsersState(filteredOrderSearchUsers);
+  }, [users, filter, order, query]);
 
   return (
     <Box>
@@ -76,7 +78,7 @@ export const Users = () => {
             marginRight: 45,
           }}
         >
-          <button
+          {/* <button
             style={{
               backgroundColor: "#135846",
               borderRadius: 12,
@@ -90,8 +92,8 @@ export const Users = () => {
             }}
           >
             New Employee
-          </button>
-          <select
+          </button> */}
+          {/* <select
             onChange={(e) => setOrder(e.target.value)}
             style={{
               borderColor: "#135846",
@@ -106,15 +108,15 @@ export const Users = () => {
           >
             <option>Newest</option>
             <option>Name</option>
-          </select>
-          <Input
+          </select> */}
+          {/* <Input
             type="text"
             placeholder="Search employee"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
             }}
-          ></Input>
+          ></Input> */}
         </div>
       </BoxSortBookings>
 
@@ -145,7 +147,7 @@ export const Users = () => {
           ""
         )}
         {usersState.map((user) => (
-          <div key={user._id}>
+          <div key={user.id}>
             <tbody className="column__id">
               <tr className="text">
                 <td className="booking__info">
@@ -160,7 +162,7 @@ export const Users = () => {
                         display: "flex",
                         width: 100,
                         height: 100,
-                        backgroundImage: `url(${user.user_image})`,
+                        backgroundImage: `url(${user.photo})`,
                         backgroundRepeat: "no-repeat",
                         backgroundSize: "cover",
                         backgroundPosition: "center",
@@ -178,11 +180,11 @@ export const Users = () => {
                       }}
                     >
                       <span>
-                        {user.user_name}
+                        {user.fullName}
                         <br />
-                        {user._id}
+                        {user.id}
                         <br />
-                        {user.user_email}
+                        {user.email}
                       </span>
                     </div>
                   </div>
@@ -192,7 +194,7 @@ export const Users = () => {
               <tr className="text">
                 <td className="booking__info">
                   <span>
-                    {new Date(user.start_date).toLocaleString("en-GB")}
+                    {new Date(user.startDate).toLocaleString("en-GB")}
                   </span>
                 </td>
               </tr>
@@ -201,11 +203,11 @@ export const Users = () => {
                 <td className="booking__info">
                   <span>
                     {" "}
-                    {user.occupation === "reception"
+                    {user.occupation === "Reception"
                       ? "Reception"
-                      : user.occupation === "room_service"
+                      : user.occupation === "Room Service"
                       ? "Room Service"
-                      : user.occupation === "manager"
+                      : user.occupation === "Manager"
                       ? "Manager"
                       : ""}
                   </span>
@@ -214,17 +216,17 @@ export const Users = () => {
 
               <tr className="text">
                 <td className="booking__info">
-                  <span>{user.user_phone}</span>
+                  <span>{user.contact}</span>
                 </td>
               </tr>
 
               <tr className="text">
                 <td className="booking__info">
                   <span>
-                    {user.status === true && <ActiveUser>ACTIVE</ActiveUser>}
+                    {user.status === "true" && <ActiveUser>ACTIVE</ActiveUser>}
                   </span>
                   <span>
-                    {user.status === false && (
+                    {user.status === "false" && (
                       <InactiveUser>INACTIVE</InactiveUser>
                     )}
                   </span>
@@ -234,8 +236,6 @@ export const Users = () => {
           </div>
         ))}
       </TableDivUsers>
-
-
     </Box>
   );
 };
